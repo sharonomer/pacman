@@ -25,25 +25,8 @@ public class PacWindow extends JFrame {
         JLabel scoreboard = new JLabel("    Score : 0");
         scoreboard.setForeground(new Color(255, 243, 36));
 
-        MapData map1 = getMapFromResource("resources/maps/map1_c.txt");
+        MapData map1 = getMapFromResource("/resources/maps/map1_c.txt");
         adjustMap(map1);
-
-        /*map1.getTeleports().add(new TeleportTunnel(-1,14,27,14,moveType.LEFT));
-        map1.getTeleports().add(new TeleportTunnel(27,14,-1,14,moveType.RIGHT));
-        map1.getGhostsData().add(new GhostData(12,17,ghostType.RED));
-        map1.getGhostsData().add(new GhostData(17,14,ghostType.RED));
-        map1.getGhostsData().add(new GhostData(17,10,ghostType.PINK));
-        map1.getGhostsData().add(new GhostData(5,27,ghostType.CYAN));
-        map1.getGhostsData().add(new GhostData(3,5,ghostType.PINK));
-        map1.getGhostsData().add(new GhostData(20,5,ghostType.CYAN));
-        map1.getPufoodPositions().add(new PowerUpFood(12,14,0));
-        map1.getPufoodPositions().add(new PowerUpFood(25,27,3));
-        map1.getPufoodPositions().add(new PowerUpFood(24,27,2));
-        map1.getPufoodPositions().add(new PowerUpFood(23,27,1));
-        map1.getPufoodPositions().add(new PowerUpFood(22,27,4));
-        map1.getPufoodPositions().add(new PowerUpFood(21,27,0));
-        map1.setGhostBasePosition(new Point(12,14));*/
-
 
         PacBoard pb = new PacBoard(scoreboard,map1,this);
 
