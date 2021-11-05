@@ -6,9 +6,9 @@ import java.awt.*;
 
 public class TeleportTunnel {
 
-    private Point from;
-    private Point to;
-    private moveType reqMove;
+    public Point from;
+    public Point to;
+    public moveType reqMove;
 
     public Point getTo() {
         return to;

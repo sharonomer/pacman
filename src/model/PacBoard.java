@@ -149,7 +149,7 @@ public class PacBoard extends JPanel{
         siren.start();
     }
 
-    private void collisionTest(){
+    public void collisionTest(){
         Rectangle pr = new Rectangle(pacman.pixelPosition.x+13,pacman.pixelPosition.y+13,2,2);
         Ghost ghostToRemove = null;
         for(Ghost g : ghosts){
@@ -188,7 +188,7 @@ public class PacBoard extends JPanel{
         }
     }
 
-    private void update(){
+    public void update(){
 
         Food foodToEat = null;
         //Check food eat

@@ -30,7 +30,7 @@ public class Pacman implements KeyListener{
     public Point pixelPosition;
     public Point logicalPosition;
 
-    private PacBoard parentBoard;
+    public PacBoard parentBoard;
 
 
     public Pacman (int x, int y,PacBoard pb) {
