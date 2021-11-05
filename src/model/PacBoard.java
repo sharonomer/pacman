@@ -13,45 +13,45 @@ import java.util.ArrayList;
 public class PacBoard extends JPanel{
 
 
-    Timer redrawTimer;
-    ActionListener redrawAL;
+    public Timer redrawTimer;
+    public ActionListener redrawAL;
 
     public int[][] map;
-    Image[] mapSegments;
+    public Image[] mapSegments;
 
-    Image foodImage;
-    Image[] pfoodImage;
+    public Image foodImage;
+    public Image[] pfoodImage;
 
-    Image goImage;
-    Image vicImage;
+    public Image goImage;
+    public Image vicImage;
 
     public Pacman pacman;
-    ArrayList<Food> foods;
-    ArrayList<PowerUpFood> pufoods;
-    ArrayList<Ghost> ghosts;
-    ArrayList<TeleportTunnel> teleports;
+    public ArrayList<Food> foods;
+    public ArrayList<PowerUpFood> pufoods;
+    public ArrayList<Ghost> ghosts;
+    public ArrayList<TeleportTunnel> teleports;
 
-    boolean isCustom = false;
-    boolean isGameOver = false;
-    boolean isWin = false;
-    boolean drawScore = false;
-    boolean clearScore = false;
-    int scoreToAdd = 0;
+    public boolean isCustom = false;
+    public boolean isGameOver = false;
+    public boolean isWin = false;
+    public boolean drawScore = false;
+    public boolean clearScore = false;
+    public int scoreToAdd = 0;
 
-    int score;
-    JLabel scoreboard;
+    public int score;
+    public JLabel scoreboard;
 
-    LoopPlayer siren;
-    boolean mustReactivateSiren = false;
-    LoopPlayer pac6;
+    public LoopPlayer siren;
+    public boolean mustReactivateSiren = false;
+    public LoopPlayer pac6;
 
     public Point ghostBase;
 
     public int m_x;
     public int m_y;
 
-    MapData md_backup;
-    PacWindow windowParent;
+    public MapData md_backup;
+    public PacWindow windowParent;
 
     public PacBoard(JLabel scoreboard,MapData md,PacWindow pw){
         this.scoreboard = scoreboard;
@@ -88,8 +88,6 @@ public class PacBoard extends JPanel{
         }else{
             foods = md.getFoodPositions();
         }
-
-
 
         pufoods = md.getPufoodPositions();
 

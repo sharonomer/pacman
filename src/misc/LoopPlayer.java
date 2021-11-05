@@ -6,9 +6,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-/**
- * Created by Armin on 4/23/2016.
- */
 public class LoopPlayer {
 
     Clip clip;

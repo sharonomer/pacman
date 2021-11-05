@@ -35,8 +35,8 @@ public class TeleportTunnel {
     }
 
     public TeleportTunnel(int x1, int y1, int x2, int y2, moveType reqMove){
-        from = new Point(x1,y1);
-        to = new Point(x2,y2);
+        this.from = new Point(x1,y1);
+        this.to = new Point(x2,y2);
         this.reqMove = reqMove;
     }
 }

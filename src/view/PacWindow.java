@@ -13,13 +13,13 @@ import java.util.Scanner;
 
 public class PacWindow extends JFrame {
 
-    public PacWindow(){
+    public PacWindow() {
         setTitle("AKP Pacman v1.0");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         getContentPane().setBackground(Color.black);
 
-        setSize(794,884);
+        setSize(794, 884);
         setLocationRelativeTo(null);
 
         JLabel scoreboard = new JLabel("    Score : 0");
@@ -28,23 +28,23 @@ public class PacWindow extends JFrame {
         MapData map1 = getMapFromResource("/resources/maps/map1_c.txt");
         adjustMap(map1);
 
-        PacBoard pb = new PacBoard(scoreboard,map1,this);
+        PacBoard pb = new PacBoard(scoreboard, map1, this);
 
-        pb.setBorder(new CompoundBorder(new EmptyBorder(10,10,10,10),new LineBorder(Color.BLUE)));
+        pb.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new LineBorder(Color.BLUE)));
         addKeyListener(pb.pacman);
 
-        this.getContentPane().add(scoreboard,BorderLayout.SOUTH);
+        this.getContentPane().add(scoreboard, BorderLayout.SOUTH);
         this.getContentPane().add(pb);
         setVisible(true);
     }
 
-    public PacWindow(MapData md){
+    public PacWindow(MapData md) {
         setTitle("AKP Pacman v1.0");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         getContentPane().setBackground(Color.black);
 
-        setSize(794,884);
+        setSize(794, 884);
         setLocationRelativeTo(null);
 
         JLabel scoreboard = new JLabel("    Score : 0");
@@ -52,60 +52,60 @@ public class PacWindow extends JFrame {
 
         //int[][] mapLoaded = loadMap(27,29,"/maps/map1.txt");
         adjustMap(md);
-        PacBoard pb = new PacBoard(scoreboard,md,this);
-        pb.setBorder(new CompoundBorder(new EmptyBorder(10,10,10,10),new LineBorder(Color.BLUE)));
+        PacBoard pb = new PacBoard(scoreboard, md, this);
+        pb.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new LineBorder(Color.BLUE)));
         addKeyListener(pb.pacman);
 
-        this.getContentPane().add(scoreboard,BorderLayout.SOUTH);
+        this.getContentPane().add(scoreboard, BorderLayout.SOUTH);
         this.getContentPane().add(pb);
         setVisible(true);
     }
 
 
-    public int[][] loadMap(int mx,int my,String relPath){
+    public int[][] loadMap(int mx, int my, String relPath) {
         try {
             Scanner scn = new Scanner(this.getClass().getResourceAsStream(relPath));
             int[][] map;
             map = new int[mx][my];
-            for(int y=0;y<my;y++){
-                for(int x=0;x<mx;x++){
-                    map[x][y]=scn.nextInt();
+            for (int y = 0; y < my; y++) {
+                for (int x = 0; x < mx; x++) {
+                    map[x][y] = scn.nextInt();
                 }
             }
             return map;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("Error Reading Map File !");
         }
         return null;
     }
 
-    public MapData getMapFromResource(String relPath){
+    public MapData getMapFromResource(String relPath) {
         String mapStr = "";
         try {
             Scanner scn = new Scanner(this.getClass().getResourceAsStream(relPath));
             StringBuilder sb = new StringBuilder();
             String line;
-            while(scn.hasNextLine()){
+            while (scn.hasNextLine()) {
                 line = scn.nextLine();
                 sb.append(line).append('\n');
             }
             mapStr = sb.toString();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("Error Reading Map File !");
         }
-        if("".equals(mapStr)){
+        if ("".equals(mapStr)) {
             System.err.println("Map is Empty !");
         }
         return MapEditor.compileMap(mapStr);
     }
 
     //Dynamically Generate Map Segments
-    public void adjustMap(MapData mapd){
+    public void adjustMap(MapData mapd) {
         int[][] map = mapd.getMap();
-        int mx=mapd.getX();
-        int my=mapd.getY();
-        for(int y=0;y<my;y++){
-            for(int x=0;x<mx;x++){
+        int mx = mapd.getX();
+        int my = mapd.getY();
+        for (int y = 0; y < my; y++) {
+            for (int x = 0; x < mx; x++) {
                 boolean l = false;
                 boolean r = false;
                 boolean t = false;
@@ -114,40 +114,40 @@ public class PacWindow extends JFrame {
                 boolean tr = false;
                 boolean bl = false;
                 boolean br = false;
-                
 
-                if(map[x][y]>0 && map[x][y]<26) {
+
+                if (map[x][y] > 0 && map[x][y] < 26) {
                     int mustSet = 0;
                     //LEFT
-                    if (x > 0 && map[x - 1][y] > 0 && map[x-1][y]<26) {
+                    if (x > 0 && map[x - 1][y] > 0 && map[x - 1][y] < 26) {
                         l = true;
                     }
                     //RIGHT
-                    if (x < mx - 1 && map[x + 1][y] > 0 && map[x+1][y]<26) {
+                    if (x < mx - 1 && map[x + 1][y] > 0 && map[x + 1][y] < 26) {
                         r = true;
                     }
                     //TOP
-                    if (y > 0 && map[x][y - 1] > 0 && map[x][y-1]<26) {
+                    if (y > 0 && map[x][y - 1] > 0 && map[x][y - 1] < 26) {
                         t = true;
                     }
                     //Bottom
-                    if (y < my - 1 && map[x][y + 1] > 0 && map[x][y+1]<26) {
+                    if (y < my - 1 && map[x][y + 1] > 0 && map[x][y + 1] < 26) {
                         b = true;
                     }
                     //TOP LEFT
-                    if (x > 0 && y > 0 && map[x - 1][y - 1] > 0 && map[x-1][y-1]<26) {
+                    if (x > 0 && y > 0 && map[x - 1][y - 1] > 0 && map[x - 1][y - 1] < 26) {
                         tl = true;
                     }
                     //TOP RIGHT
-                    if (x < mx - 1 && y > 0 && map[x + 1][y - 1] > 0 && map[x+1][y-1]<26) {
+                    if (x < mx - 1 && y > 0 && map[x + 1][y - 1] > 0 && map[x + 1][y - 1] < 26) {
                         tr = true;
                     }
                     //Bottom LEFT
-                    if (x > 0 && y < my - 1 && map[x - 1][y + 1] > 0 && map[x-1][y+1]<26) {
+                    if (x > 0 && y < my - 1 && map[x - 1][y + 1] > 0 && map[x - 1][y + 1] < 26) {
                         bl = true;
                     }
                     //Bottom RIGHT
-                    if (x < mx - 1 && y < my - 1 && map[x + 1][y + 1] > 0 && map[x+1][y+1]<26) {
+                    if (x < mx - 1 && y < my - 1 && map[x + 1][y + 1] > 0 && map[x + 1][y + 1] < 26) {
                         br = true;
                     }
 

@@ -2,9 +2,6 @@ package model;
 
 import java.awt.*;
 
-/**
- * Created by Armin on 4/15/2016.
- */
 public class Messages {
 
     public static final int UPDATE = AWTEvent.RESERVED_ID_MAX + 1;

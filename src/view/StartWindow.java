@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import misc.MapEditor;
 import model.FancyButton;
