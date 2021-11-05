@@ -1,6 +1,7 @@
-package model;
+package controller;
 
 import misc.*;
+import model.*;
 import view.PacWindow;
 
 import javax.imageio.ImageIO;
@@ -10,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class PacBoard extends JPanel{
+public class Game extends JPanel{
 
 
     public Timer redrawTimer;
@@ -53,7 +54,7 @@ public class PacBoard extends JPanel{
     public MapData md_backup;
     public PacWindow windowParent;
 
-    public PacBoard(JLabel scoreboard,MapData md,PacWindow pw){
+    public Game(JLabel scoreboard, MapData md, PacWindow pw){
         this.scoreboard = scoreboard;
         this.setDoubleBuffered(true);
         md_backup = md;

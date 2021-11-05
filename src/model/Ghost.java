@@ -1,5 +1,6 @@
 package model;
 
+import controller.Game;
 import misc.BFSFinder;
 import misc.moveType;
 
@@ -15,26 +16,26 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Ghost {
     //Anim Vars
-    Timer animTimer;
-    ActionListener animAL;
+    public Timer animTimer;
+    public ActionListener animAL;
 
     //Pending Vars
-    Timer pendingTimer;
-    ActionListener pendingAL;
+    public Timer pendingTimer;
+    public ActionListener pendingAL;
 
     //Move Vars
-    Timer moveTimer;
-    ActionListener moveAL;
+    public Timer moveTimer;
+    public ActionListener moveAL;
     public moveType activeMove;
     protected boolean isStuck = true;
-    boolean isPending = false;
+    public boolean isPending = false;
 
-    Timer unWeakenTimer1;
-    Timer unWeakenTimer2;
-    ActionListener unweak1;
-    ActionListener unweak2;
-    int unweakBlinks;
-    boolean isWhite = false;
+    public Timer unWeakenTimer1;
+    public Timer unWeakenTimer2;
+    public ActionListener unweak1;
+    public ActionListener unweak2;
+    public int unweakBlinks;
+    public boolean isWhite = false;
 
     protected boolean isWeak = false;
     protected boolean isDead = false;
@@ -48,31 +49,31 @@ public abstract class Ghost {
     }
 
     //Image[] pac;
-    Image ghostImg;
-    int activeImage = 0;
-    int addFactor = 1;
+    public Image ghostImg;
+    public int activeImage = 0;
+    public int addFactor = 1;
 
     public Point pixelPosition;
     public Point logicalPosition;
 
-    Image[] ghostR;
-    Image[] ghostL;
-    Image[] ghostU;
-    Image[] ghostD;
+    public Image[] ghostR;
+    public Image[] ghostL;
+    public Image[] ghostU;
+    public Image[] ghostD;
 
-    Image[] ghostW;
-    Image[] ghostWW;
-    Image ghostEye;
+    public Image[] ghostW;
+    public Image[] ghostWW;
+    public Image ghostEye;
 
-    int ghostNormalDelay;
-    int ghostWeakDelay = 30;
-    int ghostDeadDelay = 5;
+    public int ghostNormalDelay;
+    public int ghostWeakDelay = 30;
+    public int ghostDeadDelay = 5;
 
-    BFSFinder baseReturner;
+    public BFSFinder baseReturner;
 
-    protected PacBoard parentBoard;
+    protected Game parentBoard;
 
-    public Ghost(int x, int y, PacBoard pb, int ghostDelay) {
+    public Ghost(int x, int y, Game pb, int ghostDelay) {
 
         logicalPosition = new Point(x,y);
         pixelPosition = new Point(28*x,28*y);

@@ -1,5 +1,6 @@
 package model;
 
+import controller.Game;
 import misc.moveType;
 
 import javax.imageio.ImageIO;
@@ -14,26 +15,26 @@ import java.io.IOException;
 public class Pacman implements KeyListener{
 
     //Move Vars
-    Timer moveTimer;
-    ActionListener moveAL;
+    public Timer moveTimer;
+    public ActionListener moveAL;
     public moveType activeMove;
-    moveType todoMove;
+    public moveType todoMove;
     boolean isStuck = true;
 
     //Animation Vars
-    Timer animTimer;
-    ActionListener animAL;
-    Image[] pac;
-    int activeImage = 0;
-    int addFactor = 1;
+    public Timer animTimer;
+    public ActionListener animAL;
+    public Image[] pac;
+    public int activeImage = 0;
+    public int addFactor = 1;
 
     public Point pixelPosition;
     public Point logicalPosition;
 
-    public PacBoard parentBoard;
+    public Game parentBoard;
 
 
-    public Pacman (int x, int y,PacBoard pb) {
+    public Pacman (int x, int y, Game pb) {
 
         logicalPosition = new Point(x,y);
         pixelPosition = new Point(28*x,28*y);

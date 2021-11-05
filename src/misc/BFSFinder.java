@@ -1,6 +1,6 @@
 package misc;
 
-import model.PacBoard;
+import controller.Game;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ public class BFSFinder {
     int mx;
     int my;
 
-    public BFSFinder(PacBoard pb){
+    public BFSFinder(Game pb){
         this.mx = pb.m_x;
         this.my = pb.m_y;
         //init BFS map

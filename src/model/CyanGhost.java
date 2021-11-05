@@ -1,5 +1,6 @@
 package model;
 
+import controller.Game;
 import misc.ImageHelper;
 import misc.moveType;
 
@@ -12,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CyanGhost extends Ghost {
 
-    public CyanGhost(int x, int y,PacBoard pb){
+    public CyanGhost(int x, int y, Game pb){
         super(x,y,pb,9);
     }
 

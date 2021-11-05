@@ -2,7 +2,7 @@ package view;
 
 import misc.MapData;
 import misc.MapEditor;
-import model.PacBoard;
+import controller.Game;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -28,7 +28,7 @@ public class PacWindow extends JFrame {
         MapData map1 = getMapFromResource("/resources/maps/map1_c.txt");
         adjustMap(map1);
 
-        PacBoard pb = new PacBoard(scoreboard, map1, this);
+        Game pb = new Game(scoreboard, map1, this);
 
         pb.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new LineBorder(Color.BLUE)));
         addKeyListener(pb.pacman);
@@ -52,7 +52,7 @@ public class PacWindow extends JFrame {
 
         //int[][] mapLoaded = loadMap(27,29,"/maps/map1.txt");
         adjustMap(md);
-        PacBoard pb = new PacBoard(scoreboard, md, this);
+        Game pb = new Game(scoreboard, md, this);
         pb.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new LineBorder(Color.BLUE)));
         addKeyListener(pb.pacman);
 

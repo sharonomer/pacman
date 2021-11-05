@@ -1,5 +1,6 @@
 package model;
 
+import controller.Game;
 import misc.BFSFinder;
 import misc.ImageHelper;
 import misc.moveType;
@@ -12,7 +13,7 @@ public class RedGhost extends Ghost {
 
     BFSFinder bfs;
 
-    public RedGhost(int x, int y,PacBoard pb){
+    public RedGhost(int x, int y, Game pb){
         super(x,y,pb,12);
     }
 
