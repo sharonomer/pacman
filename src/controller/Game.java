@@ -40,6 +40,7 @@ public class Game extends JPanel {
     public boolean clearScore = false;
     public int scoreToAdd = 0;
 
+    public int level = 1;
     public int score;
     public JLabel scoreboard;
 
@@ -195,6 +196,22 @@ public class Game extends JPanel {
     }
 
     public void update() {
+        switch ((int) score / 50) {
+            case 0:
+                level = 1;
+                break;
+            case 1:
+                level = 2;
+                break;
+            case 2:
+                level = 3;
+                break;
+            case 3:
+                level = 4;
+                break;
+            default:
+                break;
+        }
 
         Food foodToEat = null;
         //Check food eat
@@ -210,7 +227,7 @@ public class Game extends JPanel {
             eatenFoods.add(foodToEat);
             foods.remove(foodToEat);
             score++;
-            scoreboard.setText("    Score : " + score);
+            scoreboard.setText("    Score : " + score + "    Level : " + level);
 
             /* We won't run out of foods, since they are supposed to respawn.
             if (foods.size() == 0) {
@@ -228,8 +245,8 @@ public class Game extends JPanel {
         ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
         for (Food f : eatenFoods) {
             long nowMillis = System.currentTimeMillis();
-            if((int)((nowMillis - f.getEatenTime()) / 1000) >= 30) {
-                foods.add(new Food((int)f.getPosition().getX(), (int)f.getPosition().getY()));
+            if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
+                foods.add(new Food((int) f.getPosition().getX(), (int) f.getPosition().getY()));
             } else {
                 remainingFoodsToRespawn.add(f);
             }
@@ -382,7 +399,7 @@ public class Game extends JPanel {
             g.drawString(s.toString(), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             //drawScore = false;
             score += s;
-            scoreboard.setText("    Score : " + score);
+            scoreboard.setText("    Score : " + score + "    Level : " + level);
             clearScore = true;
 
         }
