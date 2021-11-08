@@ -53,13 +53,13 @@ public class Game extends JPanel {
     public int m_x;
     public int m_y;
 
-    public MapData md_backup;
+//    public MapData md_backup;
     public PacWindow windowParent;
 
     public Game(JLabel scoreboard, MapData md, PacWindow pw) {
         this.scoreboard = scoreboard;
         this.setDoubleBuffered(true);
-        md_backup = md;
+//        md_backup = md;
         windowParent = pw;
 
         m_x = md.getX();
@@ -95,6 +95,9 @@ public class Game extends JPanel {
 
         pufoods = md.getPufoodPositions();
 
+        /*
+        * Creation of ghosts.
+        * */
         ghosts = new ArrayList<>();
         for (GhostData gd : md.getGhostsData()) {
             switch (gd.getType()) {
@@ -156,6 +159,9 @@ public class Game extends JPanel {
         siren.start();
     }
 
+    /*
+    * Checks if the pacman's rectangle collides with any of the ghosts' rectangles.
+    * */
     public void collisionTest() {
         Rectangle pr = new Rectangle(pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 13, 2, 2);
         Ghost ghostToRemove = null;
@@ -195,7 +201,7 @@ public class Game extends JPanel {
         }
     }
 
-    public void update() {
+    public void levelCheck() {
         switch ((int) score / 50) {
             case 0:
                 level = 1;
@@ -212,7 +218,12 @@ public class Game extends JPanel {
             default:
                 break;
         }
+    }
 
+    /*
+    * Updates the game screen.
+    * */
+    public void update() {
         Food foodToEat = null;
         //Check food eat
         for (Food f : foods) {
@@ -227,20 +238,9 @@ public class Game extends JPanel {
             eatenFoods.add(foodToEat);
             foods.remove(foodToEat);
             score++;
+            levelCheck();
             scoreboard.setText("    Score : " + score + "    Level : " + level);
 
-            /* We won't run out of foods, since they are supposed to respawn.
-            if (foods.size() == 0) {
-                siren.stop();
-                pac6.stop();
-                SoundPlayer.play("pacman_intermission.wav");
-                isWin = true;
-                pacman.moveTimer.stop();
-                for (Ghost g : ghosts) {
-                    g.moveTimer.stop();
-                }
-            }
-            */
         }
         ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
         for (Food f : eatenFoods) {
@@ -280,8 +280,6 @@ public class Game extends JPanel {
                     scoreToAdd = 1;
                     drawScore = true;
             }
-            //score ++;
-            //scoreboard.setText("    Score : "+score);
         }
 
         //Check Ghost Undie
@@ -326,14 +324,6 @@ public class Game extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //DEBUG ONLY !
-        /*for(int ii=0;ii<=m_x;ii++){
-            g.drawLine(ii*28+10,10,ii*28+10,m_y*28+10);
-        }
-        for(int ii=0;ii<=m_y;ii++){
-            g.drawLine(10,ii*28+10,m_x*28+10,ii*28+10);
-        }*/
-
         //Draw Walls
         g.setColor(Color.blue);
         for (int i = 0; i < m_x; i++) {
@@ -355,7 +345,6 @@ public class Game extends JPanel {
         //Draw PowerUpFoods
         g.setColor(new Color(204, 174, 168));
         for (PowerUpFood f : pufoods) {
-            //g.fillOval(f.position.x*28+20,f.position.y*28+20,8,8);
             g.drawImage(pfoodImage[f.type], 10 + f.position.x * 28, 10 + f.position.y * 28, null);
         }
 
@@ -392,13 +381,12 @@ public class Game extends JPanel {
         }
 
         if (drawScore) {
-            //System.out.println("must draw score !");
             g.setFont(new Font("Arial", Font.BOLD, 15));
             g.setColor(Color.yellow);
             Integer s = scoreToAdd * 100;
             g.drawString(s.toString(), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
-            //drawScore = false;
             score += s;
+            levelCheck();
             scoreboard.setText("    Score : " + score + "    Level : " + level);
             clearScore = true;
 
@@ -416,9 +404,11 @@ public class Game extends JPanel {
     }
 
 
+    /*
+    * Processes collisions, game-overs and win condition.
+    * */
     @Override
     public void processEvent(AWTEvent ae) {
-
         if (ae.getID() == Messages.UPDATE) {
             update();
             if (score >= 200) {
@@ -446,60 +436,15 @@ public class Game extends JPanel {
         }
     }
 
+    /*
+    * Restarts the game.
+    * */
     public void restart() {
 
         siren.stop();
 
         new PacWindow();
         windowParent.dispose();
-
-        /*
-        removeKeyListener(pacman);
-
-        isGameOver = false;
-
-        pacman = new Pacman(md_backup.getPacmanPosition().x,md_backup.getPacmanPosition().y,this);
-        addKeyListener(pacman);
-
-        foods = new ArrayList<>();
-        pufoods = new ArrayList<>();
-        ghosts = new ArrayList<>();
-        teleports = new ArrayList<>();
-
-        //TODO : read food from mapData (Map 1)
-
-        if(!isCustom) {
-            for (int i = 0; i < m_x; i++) {
-                for (int j = 0; j < m_y; j++) {
-                    if (map[i][j] == 0)
-                        foods.add(new Food(i, j));
-                }
-            }
-        }else{
-            foods = md_backup.getFoodPositions();
-        }
-
-
-
-        pufoods = md_backup.getPufoodPositions();
-
-        ghosts = new ArrayList<>();
-        for(GhostData gd : md_backup.getGhostsData()){
-            switch(gd.getType()) {
-                case RED:
-                    ghosts.add(new RedGhost(gd.getX(), gd.getY(), this));
-                    break;
-                case PINK:
-                    ghosts.add(new PinkGhost(gd.getX(), gd.getY(), this));
-                    break;
-                case CYAN:
-                    ghosts.add(new CyanGhost(gd.getX(), gd.getY(), this));
-                    break;
-            }
-        }
-
-        teleports = md_backup.getTeleports();
-        */
     }
 
 
