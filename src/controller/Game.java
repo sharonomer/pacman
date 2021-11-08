@@ -28,6 +28,7 @@ public class Game extends JPanel {
 
     public Pacman pacman;
     public ArrayList<Food> foods;
+    public ArrayList<Food> eatenFoods;
     public ArrayList<PowerUpFood> pufoods;
     public ArrayList<Ghost> ghosts;
     public ArrayList<TeleportTunnel> teleports;
@@ -73,6 +74,7 @@ public class Game extends JPanel {
         addKeyListener(pacman);
 
         foods = new ArrayList<>();
+        eatenFoods = new ArrayList<>();
         pufoods = new ArrayList<>();
         ghosts = new ArrayList<>();
         teleports = new ArrayList<>();
@@ -197,15 +199,20 @@ public class Game extends JPanel {
         Food foodToEat = null;
         //Check food eat
         for (Food f : foods) {
-            if (pacman.logicalPosition.x == f.position.x && pacman.logicalPosition.y == f.position.y)
+            if (pacman.logicalPosition.x == f.position.x && pacman.logicalPosition.y == f.position.y && !f.isEaten()) {
+                f.setEaten(true);
+                f.setEatenTime(System.currentTimeMillis());
                 foodToEat = f;
+            }
         }
         if (foodToEat != null) {
             SoundPlayer.play("pacman_eat.wav");
+            eatenFoods.add(foodToEat);
             foods.remove(foodToEat);
             score++;
             scoreboard.setText("    Score : " + score);
 
+            /* We won't run out of foods, since they are supposed to respawn.
             if (foods.size() == 0) {
                 siren.stop();
                 pac6.stop();
@@ -216,7 +223,18 @@ public class Game extends JPanel {
                     g.moveTimer.stop();
                 }
             }
+            */
         }
+        ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
+        for (Food f : eatenFoods) {
+            long nowMillis = System.currentTimeMillis();
+            if((int)((nowMillis - f.getEatenTime()) / 1000) >= 30) {
+                foods.add(new Food((int)f.getPosition().getX(), (int)f.getPosition().getY()));
+            } else {
+                remainingFoodsToRespawn.add(f);
+            }
+        }
+        eatenFoods = remainingFoodsToRespawn;
 
 
         PowerUpFood puFoodToEat = null;
