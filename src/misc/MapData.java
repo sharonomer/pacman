@@ -101,6 +101,10 @@ public class MapData {
         return teleports;
     }
 
+    public void setTeleports(ArrayList<TeleportTunnel> teleports) {
+        this.teleports = teleports;
+    }
+
     public ArrayList<GhostData> getGhostsData() {
         return ghostsData;
     }

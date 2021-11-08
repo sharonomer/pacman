@@ -3,6 +3,7 @@ package misc;
 import model.FancyButton;
 import model.Food;
 import model.PowerUpFood;
+import model.TeleportTunnel;
 import view.PacWindow;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MapEditor extends JFrame {
@@ -146,6 +148,12 @@ public class MapEditor extends JFrame {
             if(c == 'B'){
                 map[i][j] = 0;
                 customMap.setGhostBasePosition(new Point(i,j));
+            }
+            if(c == 'T'){
+                map[i][j] = 0;
+                ArrayList<TeleportTunnel> teleports = customMap.getTeleports();
+                teleports.add(new TeleportTunnel(i, j, j, i, moveType.LEFT));
+                customMap.setTeleports(teleports);
             }
             i++;
             if(c == '\n'){
