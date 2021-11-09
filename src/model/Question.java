@@ -1,6 +1,11 @@
 package model;
 
 import java.awt.*;
+/*
+ * defines the question that the user needs to answer after eat the dot.
+ * there are 3 level of questions: easy, medium and hard.
+ * each question has 4 optional answers: 3 wrong and 1 correct.
+ */
 
 public class Question {
     public enum difficulty {

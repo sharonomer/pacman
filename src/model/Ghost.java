@@ -13,7 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+/**
+ * abstract class that defines the ghosts in the game.
+ * there are three ghosts in the game (red, pink and cyan).
+ * each ghost extends these class.
+ *
+ */
 public abstract class Ghost {
     //Anim Vars
     public Timer animTimer;
@@ -274,7 +279,9 @@ public abstract class Ghost {
 
         return possibleMoves;
     }
-
+    /**
+     * get the image of the ghost according to it's state 
+     */
     public Image getGhostImage(){
         if(!isDead) {
             if (!isWeak) {
