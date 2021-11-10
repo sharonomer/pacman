@@ -1,5 +1,8 @@
 package model;
-
+/**
+ *represent optional answer for each question. 
+ *each question has 4 answers: 3 wrong and 1 correct
+ */
 public class Answer {
     public String aBody;
     public boolean isCorrect;

@@ -1,7 +1,9 @@
 package model;
 
 import java.awt.*;
-
+/**
+ *define the dots in the board that can be eaten by the pacman
+ */
 public class Food {
 
     public Point position;

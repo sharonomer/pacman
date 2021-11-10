@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+/**
+ * defines the pink ghost in the games. extends from Ghost.
+ */
 public class PinkGhost extends Ghost {
 
     public PinkGhost(int x, int y, Game pb){

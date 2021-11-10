@@ -11,7 +11,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-
+/**
+ * these class defines the pacman. the user can move the pacman up/down/right/left 
+ * in order to eat dots and escape from ghosts.
+ */
 public class Pacman implements KeyListener{
 
     //Move Vars
@@ -172,7 +175,7 @@ public class Pacman implements KeyListener{
         moveTimer.start();
 
     }
-
+    //check if the next step of the pacman is allowed
     public boolean isPossibleMove(moveType move){
         if(logicalPosition.x >= 0 && logicalPosition.x < parentBoard.m_x-1 && logicalPosition.y >= 0 && logicalPosition.y < parentBoard.m_y-1 ) {
             switch(move){
