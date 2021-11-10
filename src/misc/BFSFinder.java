@@ -4,7 +4,7 @@ import controller.Game;
 
 import java.awt.*;
 
-//Finds Path Between two Maze Points Using Breadth-Frist Search (BFS)
+//Finds Path Between two Maze Points Using Breadth-First Search (BFS)
 public class BFSFinder {
 
     int[][] map;

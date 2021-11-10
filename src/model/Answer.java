@@ -11,6 +11,12 @@ public class Answer {
         this.isCorrect = isCorrect;
     }
 
+    public Answer(String aBody, boolean isCorrect) {
+        this.id = id;
+        this.aBody = aBody;
+        this.isCorrect = isCorrect;
+    }
+
     public int getId() {
         return id;
     }
@@ -33,5 +39,13 @@ public class Answer {
 
     public void setCorrect(boolean correct) {
         isCorrect = correct;
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "aBody=" + aBody + ", " +
+                "isCorrect=" + isCorrect +
+                '}';
     }
 }
