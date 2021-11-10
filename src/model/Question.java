@@ -6,26 +6,16 @@ public class Question {
     public enum difficulty {
         EASY, MEDIUM, HARD
     }
-    public int id;
     public Point position;
     public difficulty diff;
     public String qBody;
     public Answer[] answers;
 
-    public Question(int id, Point position, difficulty diff, String qBody, Answer[] answers) {
-        this.id = id;
+    public Question(Point position, difficulty diff, String qBody, Answer[] answers) {
         this.position = position;
         this.diff = diff;
         this.qBody = qBody;
         this.answers = answers;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Point getPosition() {

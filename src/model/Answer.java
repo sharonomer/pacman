@@ -1,22 +1,12 @@
 package model;
 
 public class Answer {
-    public int id;
     public String aBody;
     public boolean isCorrect;
 
     public Answer(int id, String aBody, boolean isCorrect) {
-        this.id = id;
         this.aBody = aBody;
         this.isCorrect = isCorrect;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getaBody() {
