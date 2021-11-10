@@ -8,7 +8,10 @@ import misc.moveType;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-
+/**
+ * defines the red ghost in the games. extends from Ghost.
+ * the red ghost follow the pacman using bfs.
+ */
 public class RedGhost extends Ghost {
 
     BFSFinder bfs;

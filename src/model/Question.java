@@ -1,25 +1,17 @@
 package model;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Question {
     public enum difficulty {
-        EASY(1), MEDIUM(2), HARD(3);
-        private int indicator;
-        difficulty(int indicator) {
-            this.indicator = indicator;
-        }
+        EASY, MEDIUM, HARD
     }
-    public static int id = 0;
     public Point position;
     public difficulty diff;
-    public int level;
     public String qBody;
     public ArrayList<Answer> answers;
 
-    public Question(int id, Point position, difficulty diff, String qBody, ArrayList<Answer> answers) {
-        this.id = id;
+    public Question(Point position, difficulty diff, String qBody, Answer[] answers) {
         this.position = position;
         this.diff = diff;
         this.qBody = qBody;
@@ -31,14 +23,6 @@ public class Question {
         this.level = level;
         this.qBody = qBody;
         this.answers = answers;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Point getPosition() {

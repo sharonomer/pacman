@@ -1,28 +1,15 @@
 package model;
-
+/**
+ *represent optional answer for each question. 
+ *each question has 4 answers: 3 wrong and 1 correct
+ */
 public class Answer {
-    public int id;
     public String aBody;
     public boolean isCorrect;
 
     public Answer(int id, String aBody, boolean isCorrect) {
-        this.id = id;
         this.aBody = aBody;
         this.isCorrect = isCorrect;
-    }
-
-    public Answer(String aBody, boolean isCorrect) {
-        this.id = id;
-        this.aBody = aBody;
-        this.isCorrect = isCorrect;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getaBody() {
@@ -39,13 +26,5 @@ public class Answer {
 
     public void setCorrect(boolean correct) {
         isCorrect = correct;
-    }
-
-    @Override
-    public String toString() {
-        return "Answer{" +
-                "aBody=" + aBody + ", " +
-                "isCorrect=" + isCorrect +
-                '}';
     }
 }

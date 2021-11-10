@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+/**
+ * defines the cyan ghost in the games. extends from Ghost.
+ */
 public class CyanGhost extends Ghost {
 
     public CyanGhost(int x, int y, Game pb){
