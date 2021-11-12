@@ -1,6 +1,8 @@
 package view;
 
+import misc.Instructions;
 import misc.MapEditor;
+import model.FancyButton;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,7 +14,7 @@ import java.io.IOException;
 public class StartWindow extends JFrame {
 
     public StartWindow(){
-        setSize(600,300);
+        setSize(600,400);
         getContentPane().setBackground(Color.black);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -24,7 +26,7 @@ public class StartWindow extends JFrame {
             e.printStackTrace();
         }
 
-        //Register Custom fonts
+        //  Register Custom fonts
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/resources/fonts/crackman.ttf")));
@@ -37,37 +39,50 @@ public class StartWindow extends JFrame {
 
         JPanel buttonsC = new JPanel();
         buttonsC.setBackground(Color.black);
-        //buttonsC.setLayout(new FlowLayout(FlowLayout.LEADING,20,10));
-        buttonsC.setLayout(new BoxLayout(buttonsC,BoxLayout.Y_AXIS));
-        FancyButton startButton = new FancyButton("Start Game");
-        FancyButton customButton = new FancyButton("Customize Game");
 
-        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        customButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        buttonsC.setLayout(new BoxLayout(buttonsC,BoxLayout.Y_AXIS));
+
+        FancyButton startButton = new FancyButton("Start Game");
+        //    FancyButton customButton = new FancyButton("Customize Game");
+        FancyButton editButton = new FancyButton("Edit Questions");
+        FancyButton highButton = new FancyButton("Highscores");
+        FancyButton instButton = new FancyButton("Instructions");
+
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PacWindow pw = new PacWindow();
-                //new PacWindow();
                 dispose();
             }
         });
 
-        customButton.addActionListener(new ActionListener() {
+//        customButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                MapEditor me = new MapEditor();
+//                dispose();
+//            }
+//        });
+
+        instButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MapEditor me = new MapEditor();
+                Instructions me = new Instructions();
                 dispose();
             }
         });
 
+
         buttonsC.add(startButton);
-        buttonsC.add(customButton);
+        //   buttonsC.add(customButton);
+        buttonsC.add(editButton);
+        buttonsC.add(highButton);
+        buttonsC.add(instButton);
 
         getContentPane().add(buttonsC);
 
         setVisible(true);
     }
 }
-

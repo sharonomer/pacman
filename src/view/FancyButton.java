@@ -1,4 +1,4 @@
-package view;
+package model;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +14,9 @@ public class FancyButton extends JLabel implements MouseListener {
 
     public FancyButton(String str){
         super(str);
-        Font customFont;
-        try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/resources/fonts/crackman.ttf")).deriveFont(30f);
-            this.setFont(customFont);
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }
-        this.setForeground(Color.yellow);
+        this.setFont(new Font("DIALOG", Font.BOLD, 25));
+        this.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.setForeground(Color.red);
         this.setOpaque(false);
         this.addMouseListener(this);
     }
@@ -47,7 +42,7 @@ public class FancyButton extends JLabel implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        this.setForeground(new Color(243, 105, 66));
+        this.setForeground(new Color(253, 3, 3));
     }
 
     @Override
