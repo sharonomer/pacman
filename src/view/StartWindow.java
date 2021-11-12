@@ -1,8 +1,6 @@
 package view;
 
 import misc.MapEditor;
-import model.FancyButton;
-import view.PacWindow;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

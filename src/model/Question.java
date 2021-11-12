@@ -8,15 +8,14 @@ import java.util.ArrayList;
  * each question has 4 optional answers: 3 wrong and 1 correct.
  */
 
-public class Question {
+public class Question extends Food{
 
-    public Point position;
     public int diff;
     public String qBody;
     public ArrayList<Answer> answers;
 
-    public Question(Point position, int diff, String qBody, ArrayList<Answer> answers) {
-        this.position = position;
+    public Question(int x, int y, int diff, String qBody, ArrayList<Answer> answers) {
+        super(x, y);
         this.diff = diff;
         this.qBody = qBody;
         this.answers = answers;

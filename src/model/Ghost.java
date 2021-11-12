@@ -2,7 +2,6 @@ package model;
 
 import controller.Game;
 import misc.BFSFinder;
-import misc.moveType;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -327,7 +326,7 @@ public abstract class Ghost {
         moveTimer.setDelay(ghostDeadDelay);
     }
 
-    public void undie(){
+    public void revive(){
         //Shift Left Or Right
         int r = ThreadLocalRandom.current().nextInt(3);
         if (r == 0) {

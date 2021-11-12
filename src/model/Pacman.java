@@ -1,7 +1,6 @@
 package model;
 
 import controller.Game;
-import misc.moveType;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

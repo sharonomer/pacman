@@ -1,11 +1,13 @@
-package misc;
+package model;
 
-public class GhostData {
+import model.ghostType;
+
+public class InitGhostData {
     private int x;
     private int y;
     private ghostType type;
 
-    public GhostData(int x, int y, ghostType type){
+    public InitGhostData(int x, int y, ghostType type){
         this.x = x;
         this.y = y;
         this.type = type;

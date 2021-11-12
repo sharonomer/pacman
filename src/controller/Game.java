@@ -29,7 +29,7 @@ public class Game extends JPanel {
     public Pacman pacman;
     public ArrayList<Food> foods;
     public ArrayList<Food> eatenFoods;
-    public ArrayList<PowerUpFood> pufoods;
+    public ArrayList<Bomb> bombs;
     public ArrayList<Ghost> ghosts;
     public ArrayList<TeleportTunnel> teleports;
 
@@ -76,7 +76,7 @@ public class Game extends JPanel {
 
         foods = new ArrayList<>();
         eatenFoods = new ArrayList<>();
-        pufoods = new ArrayList<>();
+        bombs = new ArrayList<>();
         ghosts = new ArrayList<>();
         teleports = new ArrayList<>();
 
@@ -93,13 +93,13 @@ public class Game extends JPanel {
             foods = md.getFoodPositions();
         }
 
-        pufoods = md.getPufoodPositions();
+        bombs = md.getPufoodPositions();
 
         /*
         * Creation of ghosts.
         * */
         ghosts = new ArrayList<>();
-        for (GhostData gd : md.getGhostsData()) {
+        for (InitGhostData gd : md.getGhostsData()) {
             switch (gd.getType()) {
                 case RED:
                     ghosts.add(new RedGhost(gd.getX(), gd.getY(), this));
@@ -250,6 +250,9 @@ public class Game extends JPanel {
             long nowMillis = System.currentTimeMillis();
             if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
                 foods.add(new Food((int) f.getPosition().getX(), (int) f.getPosition().getY()));
+            } else if (f instanceof Question) {
+                // TODO: Question exception
+//                foods.add(new Question(-1, -1, ));
             } else {
                 remainingFoodsToRespawn.add(f);
             }
@@ -257,9 +260,9 @@ public class Game extends JPanel {
         eatenFoods = remainingFoodsToRespawn;
 
 
-        PowerUpFood puFoodToEat = null;
+        Bomb puFoodToEat = null;
         //Check pu food eat
-        for (PowerUpFood puf : pufoods) {
+        for (Bomb puf : bombs) {
             if (pacman.logicalPosition.x == puf.position.x && pacman.logicalPosition.y == puf.position.y)
                 puFoodToEat = puf;
         }
@@ -268,7 +271,7 @@ public class Game extends JPanel {
             switch (puFoodToEat.type) {
                 case 0:
                     //PACMAN 6
-                    pufoods.remove(puFoodToEat);
+                    bombs.remove(puFoodToEat);
                     siren.stop();
                     mustReactivateSiren = true;
                     pac6.start();
@@ -279,7 +282,7 @@ public class Game extends JPanel {
                     break;
                 default:
                     SoundPlayer.play("pacman_eatfruit.wav");
-                    pufoods.remove(puFoodToEat);
+                    bombs.remove(puFoodToEat);
                     scoreToAdd = 1;
                     drawScore = true;
             }
@@ -288,7 +291,7 @@ public class Game extends JPanel {
         //Check Ghost Undie
         for (Ghost g : ghosts) {
             if (g.isDead() && g.logicalPosition.x == ghostBase.x && g.logicalPosition.y == ghostBase.y) {
-                g.undie();
+                g.revive();
             }
         }
 
@@ -347,7 +350,7 @@ public class Game extends JPanel {
 
         //Draw PowerUpFoods
         g.setColor(new Color(204, 174, 168));
-        for (PowerUpFood f : pufoods) {
+        for (Bomb f : bombs) {
             g.drawImage(pfoodImage[f.type], 10 + f.position.x * 28, 10 + f.position.y * 28, null);
         }
 

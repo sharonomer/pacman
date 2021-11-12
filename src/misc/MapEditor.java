@@ -1,9 +1,8 @@
 package misc;
 
-import model.FancyButton;
-import model.Food;
-import model.PowerUpFood;
-import model.TeleportTunnel;
+import controller.MapData;
+import model.*;
+import view.FancyButton;
 import view.PacWindow;
 
 import javax.swing.*;
@@ -110,15 +109,15 @@ public class MapEditor extends JFrame {
         for(char c : input.toCharArray()){
             if(c == '1'){
                 map[i][j] = 0;
-                customMap.getGhostsData().add(new GhostData(i,j,ghostType.RED));
+                customMap.getGhostsData().add(new InitGhostData(i,j, ghostType.RED));
             }
             if(c == '2'){
                 map[i][j] = 0;
-                customMap.getGhostsData().add(new GhostData(i,j,ghostType.PINK));
+                customMap.getGhostsData().add(new InitGhostData(i,j,ghostType.PINK));
             }
             if(c == '3'){
                 map[i][j] = 0;
-                customMap.getGhostsData().add(new GhostData(i,j,ghostType.CYAN));
+                customMap.getGhostsData().add(new InitGhostData(i,j,ghostType.CYAN));
             }
             if(c == 'P'){
                 map[i][j] = 0;
@@ -139,11 +138,11 @@ public class MapEditor extends JFrame {
             }
             if(c == 'O'){
                 map[i][j] = 0;
-                customMap.getPufoodPositions().add(new PowerUpFood(i,j,0));
+                customMap.getPufoodPositions().add(new Bomb(i,j,0));
             }
             if(c == 'F'){
                 map[i][j] = 0;
-                customMap.getPufoodPositions().add(new PowerUpFood(i,j, ThreadLocalRandom.current().nextInt(4)+1));
+                customMap.getPufoodPositions().add(new Bomb(i,j, ThreadLocalRandom.current().nextInt(4)+1));
             }
             if(c == 'B'){
                 map[i][j] = 0;

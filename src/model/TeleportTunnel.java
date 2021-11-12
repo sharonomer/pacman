@@ -1,7 +1,5 @@
 package model;
 
-import misc.moveType;
-
 import java.awt.*;
 
 public class TeleportTunnel {

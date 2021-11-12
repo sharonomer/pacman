@@ -1,6 +1,7 @@
 package misc;
 
 import controller.Game;
+import model.moveType;
 
 import java.awt.*;
 
@@ -48,7 +49,7 @@ public class BFSFinder {
     }
 
     //Construct Parentship LinkedList
-    public moveType getMove(int x, int y,int tx,int ty) {
+    public moveType getMove(int x, int y, int tx, int ty) {
 
         //already reached
         if(x==tx && y==ty){

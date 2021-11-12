@@ -1,7 +1,8 @@
-package misc;
+package controller;
 
 import model.Food;
-import model.PowerUpFood;
+import model.Bomb;
+import model.InitGhostData;
 import model.TeleportTunnel;
 
 import java.awt.*;
@@ -16,9 +17,9 @@ public class MapData {
     public Point ghostBasePosition;
     public boolean isCustom;
     public ArrayList<Food> foodPositions;
-    public ArrayList<PowerUpFood> pufoodPositions;
+    public ArrayList<Bomb> pufoodPositions;
     public ArrayList<TeleportTunnel> teleports;
-    public ArrayList<GhostData> ghostsData;
+    public ArrayList<InitGhostData> ghostsData;
 
     public MapData(){
         foodPositions = new ArrayList<>();
@@ -93,7 +94,7 @@ public class MapData {
         return foodPositions;
     }
 
-    public ArrayList<PowerUpFood> getPufoodPositions() {
+    public ArrayList<Bomb> getPufoodPositions() {
         return pufoodPositions;
     }
 
@@ -105,7 +106,7 @@ public class MapData {
         this.teleports = teleports;
     }
 
-    public ArrayList<GhostData> getGhostsData() {
+    public ArrayList<InitGhostData> getGhostsData() {
         return ghostsData;
     }
 

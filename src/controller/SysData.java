@@ -63,7 +63,7 @@ public class SysData {
             e.printStackTrace();
         }
 
-        writeQuestion(new Question(null,100, "abc", new ArrayList<Answer>(Arrays.asList(new Answer("cacac", false), new Answer("#$%#$%$%$", false)))));
+        writeQuestion(new Question(-1, -1,100, "abc", new ArrayList<Answer>(Arrays.asList(new Answer("cacac", false), new Answer("#$%#$%$%$", false)))));
     }
 
     private static void parseQuestion(JSONObject qAndAs)
@@ -91,7 +91,7 @@ public class SysData {
         //Get question team
         String team = (String) qAndAs.get("team");
 
-        Question q = new Question(null, Integer.parseInt(level), questionId, a);
+        Question q = new Question(-1, -1, Integer.parseInt(level), questionId, a);
 
         System.out.println(q);
     }

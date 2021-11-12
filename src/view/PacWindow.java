@@ -1,6 +1,6 @@
 package view;
 
-import misc.MapData;
+import controller.MapData;
 import misc.MapEditor;
 import controller.Game;
 

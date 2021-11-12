@@ -2,7 +2,6 @@ package model;
 
 import controller.Game;
 import misc.ImageHelper;
-import misc.moveType;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
