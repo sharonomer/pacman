@@ -2,7 +2,7 @@ package view;
 
 import misc.Instructions;
 import misc.MapEditor;
-import model.FancyButton;
+import view.FancyButton;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
