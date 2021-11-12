@@ -29,6 +29,7 @@ public class Game extends JPanel {
     public Pacman pacman;
     public ArrayList<Food> foods;
     public ArrayList<Food> eatenFoods;
+    public ArrayList<Question> questions;
     public ArrayList<Bomb> bombs;
     public ArrayList<Ghost> ghosts;
     public ArrayList<TeleportTunnel> teleports;
@@ -76,6 +77,7 @@ public class Game extends JPanel {
 
         foods = new ArrayList<>();
         eatenFoods = new ArrayList<>();
+        questions = new ArrayList<>();
         bombs = new ArrayList<>();
         ghosts = new ArrayList<>();
         teleports = new ArrayList<>();
@@ -92,6 +94,8 @@ public class Game extends JPanel {
         } else {
             foods = md.getFoodPositions();
         }
+
+        // TODO: Add questions array initialization from SysData
 
         bombs = md.getPufoodPositions();
 
