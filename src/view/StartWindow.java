@@ -44,7 +44,7 @@ public class StartWindow extends JFrame {
         buttonsC.setLayout(new BoxLayout(buttonsC,BoxLayout.Y_AXIS));
 
         FancyButton startButton = new FancyButton("Start Game");
-        //    FancyButton customButton = new FancyButton("Customize Game");
+        FancyButton customButton = new FancyButton("Customize Game");
         FancyButton editButton = new FancyButton("Edit Questions");
         FancyButton highButton = new FancyButton("Highscores");
         FancyButton instButton = new FancyButton("Instructions");
@@ -58,13 +58,13 @@ public class StartWindow extends JFrame {
             }
         });
 
-//        customButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                MapEditor me = new MapEditor();
-//                dispose();
-//            }
-//        });
+        customButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MapEditor me = new MapEditor();
+                dispose();
+            }
+        });
 
         instButton.addActionListener(new ActionListener() {
             @Override
@@ -76,7 +76,7 @@ public class StartWindow extends JFrame {
 
 
         buttonsC.add(startButton);
-        //   buttonsC.add(customButton);
+        buttonsC.add(customButton);
         buttonsC.add(editButton);
         buttonsC.add(highButton);
         buttonsC.add(instButton);
