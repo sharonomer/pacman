@@ -1,9 +1,7 @@
 package model;
 
 import controller.Game;
-import misc.BFSFinder;
-import misc.ImageHelper;
-import misc.moveType;
+import misc.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

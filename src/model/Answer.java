@@ -7,7 +7,7 @@ public class Answer {
     public String aBody;
     public boolean isCorrect;
 
-    public Answer(int id, String aBody, boolean isCorrect) {
+    public Answer(String aBody, boolean isCorrect) {
         this.aBody = aBody;
         this.isCorrect = isCorrect;
     }
@@ -26,5 +26,13 @@ public class Answer {
 
     public void setCorrect(boolean correct) {
         isCorrect = correct;
+    }
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "aBody='" + aBody + '\'' +
+                ", isCorrect=" + isCorrect +
+                '}';
     }
 }

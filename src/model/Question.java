@@ -1,26 +1,23 @@
 package model;
 
 import java.awt.*;
+import java.util.ArrayList;
+/*
+ * defines the question that the user needs to answer after eat the dot.
+ * there are 3 level of questions: easy, medium and hard.
+ * each question has 4 optional answers: 3 wrong and 1 correct.
+ */
 
 public class Question {
-    public enum difficulty {
-        EASY, MEDIUM, HARD
-    }
+
     public Point position;
-    public difficulty diff;
+    public int diff;
     public String qBody;
     public ArrayList<Answer> answers;
 
-    public Question(Point position, difficulty diff, String qBody, Answer[] answers) {
+    public Question(Point position, int diff, String qBody, ArrayList<Answer> answers) {
         this.position = position;
         this.diff = diff;
-        this.qBody = qBody;
-        this.answers = answers;
-    }
-
-    public Question(int level, String qBody, ArrayList<Answer> answers) {
-        this.id++;
-        this.level = level;
         this.qBody = qBody;
         this.answers = answers;
     }
@@ -33,11 +30,11 @@ public class Question {
         this.position = position;
     }
 
-    public difficulty getDiff() {
+    public int getDiff() {
         return diff;
     }
 
-    public void setDiff(difficulty diff) {
+    public void setDiff(int diff) {
         this.diff = diff;
     }
 
@@ -60,7 +57,8 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "level=" + level +
+                "position=" + position +
+                ", diff=" + diff +
                 ", qBody='" + qBody + '\'' +
                 ", answers=" + answers +
                 '}';

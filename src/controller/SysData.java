@@ -1,10 +1,8 @@
 package controller;
 
+import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 import model.Answer;
 import model.Question;
@@ -13,6 +11,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ *
+ */
 public class SysData {
     // parsing file "JSONExample.json"
 
@@ -25,7 +26,6 @@ public class SysData {
             sysData = new SysData();
         return sysData;
     }
-
 
     public void readJSON() {
 
@@ -42,10 +42,28 @@ public class SysData {
 
             questionsAndAnswers.forEach( QAndAs -> parseQuestion( (JSONObject) QAndAs) );
 
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        parser.reset();
+
+        try {
+            Reader reader = new FileReader("src\\resources\\Highscores.json");
+
+            JSONObject jsonObject = (JSONObject) parser.parse(reader);
+            System.out.println(jsonObject);
+
+            JSONArray highscores = (JSONArray) jsonObject.get("highscores");
+            System.out.println(highscores);
+
+            //highscores.forEach( highscore -> parseHighscore( (JSONObject) highscore) );
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+
+        writeQuestion(new Question(null,100, "abc", new ArrayList<Answer>(Arrays.asList(new Answer("cacac", false), new Answer("#$%#$%$%$", false)))));
     }
 
     private static void parseQuestion(JSONObject qAndAs)
@@ -59,7 +77,7 @@ public class SysData {
         int i = 0;
         ArrayList<Answer> a = new ArrayList<Answer>();
         for (i = 0; i<answers.size(); i++){
-            a.add(new Answer((String)answers.get(i), i == new Integer(correct_ans) - 1));
+            a.add(new Answer((String)answers.get(i), i == Integer.parseInt(correct_ans) - 1));
         }
         System.out.println(a);
 
@@ -73,9 +91,31 @@ public class SysData {
         //Get question team
         String team = (String) qAndAs.get("team");
 
-        Question q = new Question(new Integer(level), questionId, a);
+        Question q = new Question(null, Integer.parseInt(level), questionId, a);
 
         System.out.println(q);
+    }
+
+    private static void writeQuestion(Question question){
+        JSONObject questionDetails = new JSONObject();
+        questionDetails.put("question", question.getqBody());
+        questionDetails.put("answers", question.getAnswers());
+
+        JSONObject questionObject = new JSONObject();
+        questionObject.put("questions", questionDetails);
+
+
+        try {
+            FileWriter file = new FileWriter("test.json");
+            file.append(questionObject.toJSONString());
+            file.flush();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static void updateQuestion(JSONObject qAndAs){
+
     }
 }
 
