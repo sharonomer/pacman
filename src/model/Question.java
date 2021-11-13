@@ -13,12 +13,14 @@ public class Question extends Food{
     public int diff;
     public String qBody;
     public ArrayList<Answer> answers;
+    public static int id = 0;
 
     public Question(int x, int y, int diff, String qBody, ArrayList<Answer> answers) {
         super(x, y);
         this.diff = diff;
         this.qBody = qBody;
         this.answers = answers;
+        id++;
     }
 
     public Point getPosition() {
