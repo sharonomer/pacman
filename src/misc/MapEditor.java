@@ -110,14 +110,17 @@ public class MapEditor extends JFrame {
             if(c == '1'){
                 map[i][j] = 0;
                 customMap.getGhostsData().add(new InitGhostData(i,j, ghostType.RED));
+                customMap.getFoodPositions().add(new Food(i,j));
             }
             if(c == '2'){
                 map[i][j] = 0;
                 customMap.getGhostsData().add(new InitGhostData(i,j,ghostType.PINK));
+                customMap.getFoodPositions().add(new Food(i,j));
             }
             if(c == '3'){
                 map[i][j] = 0;
                 customMap.getGhostsData().add(new InitGhostData(i,j,ghostType.CYAN));
+                customMap.getFoodPositions().add(new Food(i,j));
             }
             if(c == 'P'){
                 map[i][j] = 0;
@@ -148,10 +151,16 @@ public class MapEditor extends JFrame {
                 map[i][j] = 0;
                 customMap.setGhostBasePosition(new Point(i,j));
             }
-            if(c == 'T'){
+            if(c == 'A'){
                 map[i][j] = 0;
                 ArrayList<TeleportTunnel> teleports = customMap.getTeleports();
-                teleports.add(new TeleportTunnel(i, j, j, i, moveType.LEFT));
+                teleports.add(new TeleportTunnel(i, j, 26, 14, moveType.LEFT));
+                customMap.setTeleports(teleports);
+            }
+            if(c == 'B'){
+                map[i][j] = 0;
+                ArrayList<TeleportTunnel> teleports = customMap.getTeleports();
+                teleports.add(new TeleportTunnel(i, j, 0, 14, moveType.RIGHT));
                 customMap.setTeleports(teleports);
             }
             i++;
