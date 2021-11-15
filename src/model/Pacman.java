@@ -209,6 +209,9 @@ public class Pacman implements KeyListener{
     @Override
     public void keyPressed(KeyEvent ke){
         switch(ke.getKeyCode()){
+            case 32:
+                System.out.println("EXPLODE!");
+                break;
             case 37:
                 todoMove = moveType.LEFT;
                 break;
