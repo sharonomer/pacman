@@ -299,11 +299,12 @@ public class Game extends JPanel {
             }
         }
 
+        System.out.println(teleports.get(0).toString());
         //Check Teleport
         for (TeleportTunnel tp : teleports) {
             if (pacman.logicalPosition.x == tp.getFrom().x && pacman.logicalPosition.y == tp.getFrom().y && pacman.activeMove == tp.getReqMove()) {
-                System.out.println("TELEPORT!");
-                pacman.logicalPosition = tp.getTo();
+                pacman.logicalPosition.x = (int)tp.getTo().getX();
+                pacman.logicalPosition.y = (int)tp.getTo().getY();
                 pacman.pixelPosition.x = pacman.logicalPosition.x * 28;
                 pacman.pixelPosition.y = pacman.logicalPosition.y * 28;
             }
@@ -393,7 +394,7 @@ public class Game extends JPanel {
         if (drawScore) {
             g.setFont(new Font("Arial", Font.BOLD, 15));
             g.setColor(Color.yellow);
-            Integer s = scoreToAdd * 100;
+            Integer s = scoreToAdd * 100; // points for eating a ghost
             g.drawString(s.toString(), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
             levelCheck();
