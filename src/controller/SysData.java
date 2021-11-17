@@ -1,9 +1,7 @@
 package controller;
 
-import java.awt.*;
 import java.io.*;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import model.Answer;
@@ -23,7 +21,7 @@ public class SysData {
     // parsing file "JSONExample.json"
 
     private static SysData sysData = null;
-    private static ArrayList<Question> qestions = new ArrayList<>();
+    private static ArrayList<Question> questions = new ArrayList<>();
     private static ArrayList<Highscore> highscores = new ArrayList<>();
     
     public SysData getInstance()
@@ -107,7 +105,7 @@ public class SysData {
         String team = (String) qAndAs.get("team");
 
         Question q = new Question(-1, -1, Integer.parseInt(level), questionId, a);
-        qestions.add(q);
+        questions.add(q);
     }
 
     // Insert Highscores elements to JSON
@@ -137,7 +135,7 @@ public class SysData {
 
         JSONObject questionArray = new JSONObject();
         JSONArray questionList = new JSONArray();
-        for (Question q: qestions) {
+        for (Question q: questions) {
 
             JSONObject questionDetails = new JSONObject();
 
@@ -176,7 +174,7 @@ public class SysData {
     }
 
     public static ArrayList<Question> getQuestions() {
-        return qestions;
+        return questions;
     }
 
     public static ArrayList<Highscore> getHighscores() {
