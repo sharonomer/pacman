@@ -23,13 +23,15 @@ public class SysData {
     // parsing file "JSONExample.json"
 
     private static SysData sysData = null;
-    private static ArrayList<Question> qa = new ArrayList<>();
+    private static ArrayList<Question> qestions = new ArrayList<>();
     private static ArrayList<Highscore> highscores = new ArrayList<>();
     
-    public static SysData getInstance()
+    public SysData getInstance()
     {
-        if (sysData == null)
+        if (sysData == null) {
             sysData = new SysData();
+            sysData.readJSON();
+        }
         return sysData;
     }
 
@@ -105,7 +107,7 @@ public class SysData {
         String team = (String) qAndAs.get("team");
 
         Question q = new Question(-1, -1, Integer.parseInt(level), questionId, a);
-        qa.add(q);
+        qestions.add(q);
     }
 
     // Insert Highscores elements to JSON
@@ -135,7 +137,7 @@ public class SysData {
 
         JSONObject questionArray = new JSONObject();
         JSONArray questionList = new JSONArray();
-        for (Question q: qa) {
+        for (Question q: qestions) {
 
             JSONObject questionDetails = new JSONObject();
 
@@ -171,6 +173,14 @@ public class SysData {
             e.printStackTrace();
         }
 
+    }
+
+    public static ArrayList<Question> getQuestions() {
+        return qestions;
+    }
+
+    public static ArrayList<Highscore> getHighscores() {
+        return highscores;
     }
 }
 
