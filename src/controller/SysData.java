@@ -180,6 +180,28 @@ public class SysData {
     public static ArrayList<Highscore> getHighscores() {
         return highscores;
     }
+
+    public static boolean deleteQuestion(String questionString){
+        for (Question q: questions){
+            if(q.getqBody().equals(questionString)){
+                return questions.remove(q);
+            }
+        }
+        return false;
+    }
+
+    public static boolean deleteQuestion(Question q){
+        return questions.remove(q);
+    }
+
+    public static boolean addQuestion(Question q){
+        return questions.add(q);
+    }
+
+    public static boolean addHighscore(Highscore h){
+        return highscores.add(h);
+    }
+
 }
 
 
