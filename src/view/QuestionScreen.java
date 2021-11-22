@@ -13,6 +13,8 @@ import controller.SysData;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,29 +24,18 @@ import java.util.ArrayList;
 public class QuestionScreen extends JFrame {
 SysData s = SysData.getInstance();
  ArrayList<Question> al = s.getQuestions();
+	ArrayList<Question> hq = new ArrayList<Question>();
+	ArrayList<Question> mq = new ArrayList<Question>();
+	ArrayList<Question> eq = new ArrayList<Question>();
+	Object selectedItem = new Object();
+
 	public QuestionScreen() {
-		
 		setSize(600,400);
 		getContentPane().setBackground(Color.black);
 		setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
-//        ImageIcon logo = new ImageIcon();
-//    try {
-//        logo = new ImageIcon(ImageIO.read(this.getClass().getResource("/resources/images/pacman_logo.png")));
-//    } catch (IOException e) {
-//        e.printStackTrace();
-//    }
-//
-//    //  Register Custom fonts
-//    try {
-//        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/resources/fonts/crackman.ttf")));
-//    } catch (IOException|FontFormatException e) {
-//        e.printStackTrace();
-//    }
-//    //getContentPane().setLayout(new CardLayout(0, 0));
-   //getContentPane().add(new JLabel(logo), "name_347941458356300");
+
         
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -81,25 +72,36 @@ SysData s = SysData.getInstance();
 		gbc_btnNewQuestion.gridx = 7;
 		gbc_btnNewQuestion.gridy = 3;
 		getContentPane().add(btnNewQuestion, gbc_btnNewQuestion);
-		
+
+		//JComboBox comboBox = new JComboBox(questionsArray);
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel<Question>(al.toArray(new Question[0])));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 7;
 		gbc_comboBox.gridy = 4;
-		//gbc_comboBox.setModel(new DefaultComboBoxModel<String>(ls.toArray(new String[0])));
 		getContentPane().add(comboBox, gbc_comboBox);
-		
-		JLabel lblAnswer1 = new JLabel("New label");
+		//Question selectedItem = (Question)comboBox.getSelectedItem();
+
+
+
+
+
+
+
+
+
+
+		JLabel lblAnswer1 = new JLabel(al.get(0).answers.get(0).aBody.toString());
 		lblAnswer1.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_lblAnswer1 = new GridBagConstraints();
 		gbc_lblAnswer1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAnswer1.gridx = 7;
 		gbc_lblAnswer1.gridy = 5;
 		getContentPane().add(lblAnswer1, gbc_lblAnswer1);
-		
-		JLabel lblAnswer2 = new JLabel("New label");
+
+		JLabel lblAnswer2 = new JLabel(al.get(0).answers.get(1).aBody.toString());
 		lblAnswer2.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_lblAnswer2 = new GridBagConstraints();
 		gbc_lblAnswer2.insets = new Insets(0, 0, 5, 5);
@@ -107,7 +109,7 @@ SysData s = SysData.getInstance();
 		gbc_lblAnswer2.gridy = 6;
 		getContentPane().add(lblAnswer2, gbc_lblAnswer2);
 		
-		JLabel lblAnswer3 = new JLabel("New label");
+		JLabel lblAnswer3 = new JLabel(al.get(0).answers.get(2).aBody.toString());
 		lblAnswer3.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_lblAnswer3 = new GridBagConstraints();
 		gbc_lblAnswer3.insets = new Insets(0, 0, 5, 5);
@@ -115,14 +117,29 @@ SysData s = SysData.getInstance();
 		gbc_lblAnswer3.gridy = 7;
 		getContentPane().add(lblAnswer3, gbc_lblAnswer3);
 		
-		JLabel lblAnswer4 = new JLabel("New label");
+		JLabel lblAnswer4 = new JLabel(al.get(0).answers.get(3).aBody.toString());
 		lblAnswer4.setForeground(Color.ORANGE);
 		GridBagConstraints gbc_lblAnswer4 = new GridBagConstraints();
 		gbc_lblAnswer4.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAnswer4.gridx = 7;
 		gbc_lblAnswer4.gridy = 8;
 		getContentPane().add(lblAnswer4, gbc_lblAnswer4);
-		
+
+		//show the answers for the selected question that the user chose
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				System.out.println("item changed in combobox");
+				Question selectedItem = (Question)comboBox.getSelectedItem();
+
+					lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)": ""));
+					lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)": ""));
+					lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)": ""));
+					lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)": ""));
+
+			}
+
+		});
+
 		JButton EasyQuestionsBTN = new JButton("Easy");
 		EasyQuestionsBTN.setBackground(Color.WHITE);
 		GridBagConstraints gbc_EasyQuestionsBTN = new GridBagConstraints();
@@ -175,63 +192,73 @@ SysData s = SysData.getInstance();
 		             dispose();
 		         }
 		     });
-	}
-	
 
-//	    public QuestionScreen(){
-//	        setSize(600,400);
-//	        //getContentPane().setBackground(Color.black);
-//	        setLocationRelativeTo(null);
-//	        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//	        
-//	      
-//	      //  getContentPane().add(lblNewLabel_2, BorderLayout.CENTER);
-//	        
-//	       
-//	        //getContentPane().add(lblNewLabel_1, BorderLayout.CENTER);
-//
-////	        ImageIcon logo = new ImageIcon();
-////	        try {
-////	            logo = new ImageIcon(ImageIO.read(this.getClass().getResource("/resources/images/pacman_logo.png")));
-////	        } catch (IOException e) {
-////	            e.printStackTrace();
-////	        }
-////
-////	        //  Register Custom fonts
-////	        try {
-////	            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-////	            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/resources/fonts/crackman.ttf")));
-////	        } catch (IOException|FontFormatException e) {
-////	            e.printStackTrace();
-////	        }
-//	        //getContentPane().setLayout(new CardLayout(0, 0));
-//	        //getContentPane().add(new JLabel(logo), "name_347941458356300");
-//
-//	        JPanel buttonsC = new JPanel();
-//	        buttonsC.setBackground(Color.black);
-//
-//
-//	        //buttonsC.setLayout(new BoxLayout(buttonsC,BoxLayout.Y_AXIS));
-//	        
-//	        JLabel lblNewLabel = new JLabel("Edit Questions");
-//	        lblNewLabel.setForeground(Color.YELLOW);
-//	       // getContentPane().add(lblNewLabel, "name_347941475154800");
-//	        FancyButton instButton = new FancyButton("Instructions");
-//	        //getContentPane().add(instButton, BorderLayout.SOUTH);
-//	        
-////	        	        instButton.addActionListener(new ActionListener() {
-////	        	            @Override
-////	        	            public void actionPerformed(ActionEvent e) {
-////	        	                Instructions me = new Instructions();
-////	        	                dispose();
-////	        	            }
-////	        	        });
-//
-//	       // getContentPane().add(buttonsC, BorderLayout.NORTH);
-//
-//	        setVisible(true);
-//	    }
-	
+		HardQuestionBTN.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Question q : al) {
+					if(q.diff==3 && !hq.contains(q) )
+					{
+						hq.add(q);
+
+					}
+
+				}
+				System.out.println(hq);
+				comboBox.setModel(new DefaultComboBoxModel<Question>(hq.toArray(new Question[0])));
+
+			}
+		});
+
+		MediumQuestionBTN.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Question q : al ) {
+					if(q.diff==2 && !mq.contains(q))
+					{
+						mq.add(q);
+
+					}
+
+				}
+				System.out.println(mq);
+				comboBox.setModel(new DefaultComboBoxModel<Question>(mq.toArray(new Question[0])));
+			}
+		});
+
+		EasyQuestionsBTN.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Question q : al) {
+					if(q.diff==1 && !eq.contains(q))
+					{
+						eq.add(q);
+
+					}
+
+				}
+				System.out.println(eq);
+				comboBox.setModel(new DefaultComboBoxModel<Question>(eq.toArray(new Question[0])));
+			}
+		});
+
+		DeleteBTN.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//SysData s = SysData.getInstance();
+				System.out.println(al);
+				//ArrayList<Question> al = s.getQuestions();
+				Question selectedItem = (Question)comboBox.getSelectedItem();
+				s.deleteQuestion( selectedItem);
+				System.out.println(al);
+				comboBox.setModel(new DefaultComboBoxModel<Question>(al.toArray(new Question[0])));
+			}
+		});
+
+	}
+
+
+
 
 	
 	

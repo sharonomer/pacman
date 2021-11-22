@@ -23,6 +23,8 @@ public class Question extends Food{
         id++;
     }
 
+
+
     public Point getPosition() {
         return position;
     }
@@ -55,13 +57,17 @@ public class Question extends Food{
         this.answers = answers;
     }
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "position=" + position +
-                ", diff=" + diff +
-                ", qBody='" + qBody + '\'' +
-                ", answers=" + answers +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Question{" +
+//                "position=" + position +
+//                ", diff=" + diff +
+//                ", qBody='" + qBody + '\'' +
+//                ", answers=" + answers +
+//                '}';
+//    }
+@Override
+public String toString() {
+    return qBody;
+}
 }

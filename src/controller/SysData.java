@@ -28,20 +28,16 @@ public class SysData {
    
     public static SysData getInstance()
     {
-    	  System.out.println("before if"); 
+
         if (sysData == null) {
-        	System.out.println("inside if");
             sysData = new SysData();
             sysData.readJSON();
         }
-        System.out.println("after if"); 
         return sysData;
     }
 
     public void readJSON() {
-    	System.out.println("ajklsdf");
         JSONParser parser = new JSONParser();
-        System.out.println("ajklsdffffffffffff");
         // Handle JSON files and populate Arraylist<Question> and ArrayList<Highscore>
         try {
             Reader reader = new FileReader("src\\resources\\QuestionsFormat.json");
