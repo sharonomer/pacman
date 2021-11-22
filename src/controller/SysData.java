@@ -12,6 +12,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+
+
 /**
  * Singleton class to read and write to our JSON database
  * reads will happen once when the program starts
@@ -19,24 +21,27 @@ import org.json.simple.parser.ParseException;
  */
 public class SysData {
     // parsing file "JSONExample.json"
-
+	
     private static SysData sysData = null;
     private static ArrayList<Question> questions = new ArrayList<>();
     private static ArrayList<Highscore> highscores = new ArrayList<>();
-    
-    public SysData getInstance()
+   
+    public static SysData getInstance()
     {
+    	  System.out.println("before if"); 
         if (sysData == null) {
+        	System.out.println("inside if");
             sysData = new SysData();
             sysData.readJSON();
         }
+        System.out.println("after if"); 
         return sysData;
     }
 
     public void readJSON() {
-
+    	System.out.println("ajklsdf");
         JSONParser parser = new JSONParser();
-
+        System.out.println("ajklsdffffffffffff");
         // Handle JSON files and populate Arraylist<Question> and ArrayList<Highscore>
         try {
             Reader reader = new FileReader("src\\resources\\QuestionsFormat.json");
