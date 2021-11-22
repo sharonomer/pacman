@@ -73,6 +73,14 @@ public class StartWindow extends JFrame {
                 dispose();
             }
         });
+        
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                QuestionScreen qs = new QuestionScreen();
+                dispose();
+            }
+        });
 
 
         buttonsC.add(startButton);
