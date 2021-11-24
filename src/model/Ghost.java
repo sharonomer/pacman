@@ -72,6 +72,7 @@ public abstract class Ghost {
     public int ghostNormalDelay;
     public int ghostWeakDelay = 30;
     public int ghostDeadDelay = 5;
+    public boolean speedUp = false;
 
     public BFSFinder baseReturner;
 
@@ -348,4 +349,15 @@ public abstract class Ghost {
         moveTimer.setDelay(ghostNormalDelay);
     }
 
+    public boolean isSpeedUp() {
+        return speedUp;
+    }
+
+    public void setSpeedUp(boolean speedUp) {
+        this.speedUp = speedUp;
+        if (isSpeedUp()) {
+            ghostNormalDelay = 9;
+            moveTimer.setDelay(ghostNormalDelay);
+        }
+    }
 }

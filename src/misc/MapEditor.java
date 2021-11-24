@@ -151,13 +151,13 @@ public class MapEditor extends JFrame {
                 map[i][j] = 0;
                 customMap.setGhostBasePosition(new Point(i,j));
             }
-            if(c == 'A'){
+            if(c == 'L'){
                 map[i][j] = 0;
                 ArrayList<TeleportTunnel> teleports = customMap.getTeleports();
                 teleports.add(new TeleportTunnel(i, j, 26, 14, moveType.LEFT));
                 customMap.setTeleports(teleports);
             }
-            if(c == 'B'){
+            if(c == 'R'){
                 map[i][j] = 0;
                 ArrayList<TeleportTunnel> teleports = customMap.getTeleports();
                 teleports.add(new TeleportTunnel(i, j, 0, 14, moveType.RIGHT));

@@ -22,6 +22,7 @@ public class Pacman implements KeyListener{
     public moveType activeMove;
     public moveType todoMove;
     boolean isStuck = true;
+    boolean speedUp = false;
 
     //Animation Vars
     public Timer animTimer;
@@ -170,7 +171,7 @@ public class Pacman implements KeyListener{
 
             }
         };
-        moveTimer = new Timer(9,moveAL);
+        moveTimer = new Timer(16,moveAL);
         moveTimer.start();
 
     }
@@ -231,5 +232,13 @@ public class Pacman implements KeyListener{
         //System.out.println(ke.getKeyCode());
     }
 
+    public boolean isSpeedUp() {
+        return speedUp;
+    }
 
+    public void setSpeedUp(boolean speedUp) {
+        this.speedUp = speedUp;
+        if (isSpeedUp())
+            moveTimer.setDelay(8);
+    }
 }

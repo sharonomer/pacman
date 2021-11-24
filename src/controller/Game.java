@@ -44,8 +44,8 @@ public class Game extends JPanel {
     public int level = 1;
     public int score;
     public int life = 3;
-    public boolean hasIFrames = false;
     public long iframesTime = 0;
+    public boolean ghostsSpeedUp = false;
     public JLabel scoreboard;
 
     public LoopPlayer siren;
@@ -157,7 +157,7 @@ public class Game extends JPanel {
                 repaint();
             }
         };
-        redrawTimer = new Timer(16, redrawAL);
+        redrawTimer = new Timer(0, redrawAL);
         redrawTimer.start();
 
         //SoundPlayer.play("pacman_start.wav");
@@ -231,9 +231,15 @@ public class Game extends JPanel {
                 break;
             case 2:
                 level = 3;
+                pacman.setSpeedUp(true);
                 break;
             case 3:
                 level = 4;
+                if (!ghostsSpeedUp) {
+                    for (Ghost g : ghosts)
+                        g.setSpeedUp(true);
+                    ghostsSpeedUp = true;
+                }
                 break;
             default:
                 break;
@@ -308,13 +314,14 @@ public class Game extends JPanel {
         //Check Ghost Undie
         for (Ghost g : ghosts) {
             if (g.isDead() && g.logicalPosition.x == ghostBase.x && g.logicalPosition.y == ghostBase.y) {
+//                g.setLogicalPosition(new Point(ghostBase.x, ghostBase.y));
                 g.revive();
             }
         }
 
         //Check Teleport
         for (TeleportTunnel tp : teleports) {
-            if (pacman.logicalPosition.x == tp.getFrom().x && pacman.logicalPosition.y == tp.getFrom().y && pacman.activeMove == tp.getReqMove()) {
+            if (pacman.logicalPosition.x == tp.getFrom().x && pacman.logicalPosition.y == tp.getFrom().y && pacman.activeMove == tp.getReqMove() && level == 2) {
                 pacman.logicalPosition.x = (int)tp.getTo().getX();
                 pacman.logicalPosition.y = (int)tp.getTo().getY();
                 pacman.pixelPosition.x = pacman.logicalPosition.x * 28;
