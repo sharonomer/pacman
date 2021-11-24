@@ -43,6 +43,9 @@ public class Game extends JPanel {
 
     public int level = 1;
     public int score;
+    public int life = 3;
+    public boolean hasIFrames = false;
+    public long iframesTime = 0;
     public JLabel scoreboard;
 
     public LoopPlayer siren;
@@ -175,16 +178,25 @@ public class Game extends JPanel {
             if (pr.intersects(gr)) {
                 if (!g.isDead()) {
                     if (!g.isWeak()) {
-                        //Game Over
-                        siren.stop();
-                        SoundPlayer.play("pacman_lose.wav");
-                        pacman.moveTimer.stop();
-                        pacman.animTimer.stop();
-                        g.moveTimer.stop();
-                        isGameOver = true;
-                        scoreboard.setText("    Press R to try again !");
-                        //scoreboard.setForeground(Color.red);
-                        break;
+                        if (life == 0) {
+                            //Game Over
+                            siren.stop();
+                            SoundPlayer.play("pacman_lose.wav");
+                            pacman.moveTimer.stop();
+                            pacman.animTimer.stop();
+                            g.moveTimer.stop();
+                            isGameOver = true;
+                            scoreboard.setText("    Press R to try again !");
+                            //scoreboard.setForeground(Color.red);
+                            break;
+                        }
+                        else {
+                            long nowMillis2 = System.currentTimeMillis();
+                            if ((nowMillis2 - iframesTime) / 1000 >= 3) {
+                                life--;
+                                iframesTime = System.currentTimeMillis();
+                            }
+                        }
                     } else {
                         //Eat Ghost
                         SoundPlayer.play("pacman_eatghost.wav");
@@ -197,6 +209,7 @@ public class Game extends JPanel {
                             ghostToRemove = g;
                     }
                 }
+                scoreboard.setText("    Score : " + score + "    Level : " + level + "    Life : " + life);
             }
         }
 
@@ -246,7 +259,7 @@ public class Game extends JPanel {
             foods.remove(foodToEat);
             score++;
             levelCheck();
-            scoreboard.setText("    Score : " + score + "    Level : " + level);
+            scoreboard.setText("    Score : " + score + "    Level : " + level + "    Life : " + life);
 
         }
         ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
@@ -397,7 +410,7 @@ public class Game extends JPanel {
             g.drawString(s.toString(), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
             levelCheck();
-            scoreboard.setText("    Score : " + score + "    Level : " + level);
+            scoreboard.setText("    Score : " + score + "    Level : " + level + "    Life : " + life);
             clearScore = true;
 
         }
