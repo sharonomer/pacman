@@ -197,10 +197,16 @@ public class Game extends JPanel {
                         }
                         else {
 //                            TODO: stop ghost movement after collision for a few seconds.
+//                            g.moveTimer.stop();
+//                            g.moveTimer.start();
                             long nowMillis2 = System.currentTimeMillis();
                             if ((nowMillis2 - iframesTime) / 1000 >= 3) {
                                 life--;
                                 iframesTime = System.currentTimeMillis();
+
+                                g.moveTimer.stop();
+                                g.setStopped(true);
+                                g.setStopTime(System.currentTimeMillis());
                             }
                             if (life == 0) {
                                 gameOver();
@@ -326,6 +332,14 @@ public class Game extends JPanel {
             if (g.isDead() && g.logicalPosition.x == ghostBase.x && g.logicalPosition.y == ghostBase.y) {
 //                g.setLogicalPosition(new Point(ghostBase.x, ghostBase.y));
                 g.revive();
+            }
+        }
+
+        long nowMillis = System.currentTimeMillis();
+        for (Ghost g: ghosts) {
+            if ((int) ((nowMillis - g.getStopTime()) / 1000) >= 3 && g.isStopped()) {
+                g.moveTimer.start();
+                g.setStopped(false);
             }
         }
 

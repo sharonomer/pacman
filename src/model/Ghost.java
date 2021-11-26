@@ -74,6 +74,9 @@ public abstract class Ghost {
     public int ghostDeadDelay = 5;
     public boolean speedUp = false;
 
+    public boolean isStopped;
+    public long stopTime;
+
     public BFSFinder baseReturner;
 
     protected Game parentBoard;
@@ -359,5 +362,21 @@ public abstract class Ghost {
             ghostNormalDelay = 9;
             moveTimer.setDelay(ghostNormalDelay);
         }
+    }
+
+    public long getStopTime() {
+        return stopTime;
+    }
+
+    public void setStopTime(long stopTime) {
+        this.stopTime = stopTime;
+    }
+
+    public boolean isStopped() {
+        return isStopped;
+    }
+
+    public void setStopped(boolean stopped) {
+        isStopped = stopped;
     }
 }
