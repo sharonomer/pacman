@@ -301,7 +301,7 @@ public class Game extends JPanel {
         ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
         for (Food f : eatenFoods) {
             long nowMillis = System.currentTimeMillis();
-            if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 2) {
+            if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
                 if (f instanceof Bomb && ((Bomb) f).getType() == 0) {
                     foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), 0));
                     System.out.println("GOT HERE");
