@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class PacWindow extends JFrame {
 
-    public PacWindow() {
+    public PacWindow(String username) {
         setTitle("AKP Pacman v1.0");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -22,13 +22,14 @@ public class PacWindow extends JFrame {
         setSize(794, 884);
         setLocationRelativeTo(null);
 
-        JLabel scoreboard = new JLabel("    Score : 0    Level : 1    Life : 3");
+        JLabel scoreboard = new JLabel("    Player: " + username + "    Score : 0    Level : 1    Life : 3");
         scoreboard.setForeground(new Color(255, 243, 36));
 
         MapData map1 = getMapFromResource("/resources/maps/map1_c.txt");
         adjustMap(map1);
 
         Game pb = new Game(scoreboard, map1, this);
+        pb.setName(username);
 
         pb.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new LineBorder(Color.BLUE)));
         addKeyListener(pb.pacman);

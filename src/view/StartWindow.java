@@ -50,15 +50,14 @@ public class StartWindow extends JFrame {
         FancyButton highButton = new FancyButton("Highscores");
         FancyButton instButton = new FancyButton("Instructions");
 
-
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PacWindow pw = new PacWindow();
+                editName en = new editName();
+                // TODO: delete this comment PacWindow pw = new PacWindow();
                 dispose();
             }
         });
-
         customButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

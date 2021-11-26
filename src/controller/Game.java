@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Game extends JPanel {
 
-
+    public String name;
     public Timer redrawTimer;
     public ActionListener redrawAL;
 
@@ -209,7 +209,7 @@ public class Game extends JPanel {
                             ghostToRemove = g;
                     }
                 }
-                scoreboard.setText("    Score : " + score + "    Level : " + level + "    Life : " + life);
+                scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
             }
         }
 
@@ -265,7 +265,7 @@ public class Game extends JPanel {
             foods.remove(foodToEat);
             score++;
             levelCheck();
-            scoreboard.setText("    Score : " + score + "    Level : " + level + "    Life : " + life);
+            scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
 
         }
         ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
@@ -417,7 +417,7 @@ public class Game extends JPanel {
             g.drawString(s.toString(), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
             levelCheck();
-            scoreboard.setText("    Score : " + score + "    Level : " + level + "    Life : " + life);
+            scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
             clearScore = true;
 
         }
@@ -472,10 +472,12 @@ public class Game extends JPanel {
     public void restart() {
 
         siren.stop();
-
-        new PacWindow();
+        new PacWindow(this.name);
         windowParent.dispose();
     }
 
-
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 }
