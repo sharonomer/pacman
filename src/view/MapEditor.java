@@ -1,6 +1,7 @@
-package misc;
+package view;
 
 import controller.MapData;
+import misc.StringHelper;
 import model.*;
 import view.FancyButton;
 import view.PacWindow;
@@ -79,6 +80,16 @@ public class MapEditor extends JFrame {
         ta.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(20,10,20,10),new LineBorder(Color.yellow)),new EmptyBorder(10,10,10,10)));
         getContentPane().add(ta);
 
+
+        FancyButton backButton = new FancyButton("Back", 30f);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new StartWindow();
+                dispose();
+            }
+        });
+        sideBar.add(backButton,BorderLayout.CENTER);
 
         FancyButton startButton = new FancyButton("Start Game", 30f);
         startButton.addActionListener(new ActionListener() {

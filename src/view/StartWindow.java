@@ -1,16 +1,11 @@
 package view;
 
-import misc.Instructions;
-import misc.MapEditor;
-import view.FancyButton;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import misc.Instructions;
 
 public class StartWindow extends JFrame {
 

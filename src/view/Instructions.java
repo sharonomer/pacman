@@ -1,4 +1,4 @@
-package misc;
+package view;
 
 import view.FancyButton;
 import view.StartWindow;
@@ -41,7 +41,7 @@ public class Instructions extends JFrame {
         ta.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(20,10,20,10),new LineBorder(Color.yellow)),new EmptyBorder(10,10,10,10)));
         getContentPane().add(ta);
 
-        FancyButton backButton = new FancyButton("Back", 12f);
+        FancyButton backButton = new FancyButton("Back", 20f);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,7 +1,6 @@
 package view;
 
 import controller.MapData;
-import misc.MapEditor;
 import controller.Game;
 
 import javax.swing.*;
