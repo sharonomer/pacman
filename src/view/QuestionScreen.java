@@ -232,6 +232,8 @@ SysData s = SysData.getInstance();
 //	        setVisible(true);
 //	    }
 	
+		// user sees the questions ->
+	// q.setqBody("jfdvnkdjfk")
 
 	
 	

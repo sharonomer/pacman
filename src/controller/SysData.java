@@ -25,26 +25,23 @@ public class SysData {
     private static SysData sysData = null;
     private static ArrayList<Question> questions = new ArrayList<>();
     private static ArrayList<Highscore> highscores = new ArrayList<>();
-   
+    private static final String qPath = "src\\resources\\QuestionsFormat.json";
+    private static final String hsPath = "src\\resources\\Highscores.json";
+
     public static SysData getInstance()
     {
-    	  System.out.println("before if"); 
         if (sysData == null) {
-        	System.out.println("inside if");
             sysData = new SysData();
             sysData.readJSON();
         }
-        System.out.println("after if"); 
         return sysData;
     }
 
     public void readJSON() {
-    	System.out.println("ajklsdf");
         JSONParser parser = new JSONParser();
-        System.out.println("ajklsdffffffffffff");
         // Handle JSON files and populate Arraylist<Question> and ArrayList<Highscore>
         try {
-            Reader reader = new FileReader("src\\resources\\QuestionsFormat.json");
+            Reader reader = new FileReader(qPath);
             //Reader reader = new FileReader("test.json");
 
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
@@ -60,7 +57,7 @@ public class SysData {
         parser.reset();
 
         try {
-            Reader reader = new FileReader("src\\resources\\Highscores.json");
+            Reader reader = new FileReader(hsPath);
 
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
 
