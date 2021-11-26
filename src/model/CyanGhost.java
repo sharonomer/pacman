@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class CyanGhost extends Ghost {
 
     public CyanGhost(int x, int y, Game pb){
-        super(x,y,pb,9);
+        super(x,y,pb,16);
     }
 
     @Override
