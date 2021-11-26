@@ -345,6 +345,7 @@ public class NewQuestionScreen extends JFrame{
                      System.out.println(answers);
                      Question q= new Question(5,5, Integer.valueOf(levelChoice), questionBody, answers);
                      s.addQuestion(q);
+                     s.updateQuestionsJSON();
                      JOptionPane.showMessageDialog(null, "Question added successfully", "", JOptionPane.INFORMATION_MESSAGE);
 		            }
                  }

@@ -111,7 +111,7 @@ public class SysData {
     }
 
     // Insert Highscores elements to JSON
-    private static void updateHighscoresJSON(){
+    public static void updateHighscoresJSON(){
         JSONObject hsArray = new JSONObject();
         JSONArray hsList = new JSONArray();
 
@@ -133,7 +133,7 @@ public class SysData {
         }
     }
 
-    private static void updateQuestionsJSON(){
+    public static void updateQuestionsJSON(){
 
         JSONObject questionArray = new JSONObject();
         JSONArray questionList = new JSONArray();

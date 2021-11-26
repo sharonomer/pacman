@@ -319,6 +319,7 @@ SysData s = SysData.getInstance();
 						}
 						else {
 							s.deleteQuestion(selectedItem);
+							s.updateQuestionsJSON();
 							System.out.println(al);
 							comboBox.setModel(new DefaultComboBoxModel<Question>(al.toArray(new Question[0])));
 							JOptionPane.showMessageDialog(null, "Question deleted successfully", "", JOptionPane.INFORMATION_MESSAGE);

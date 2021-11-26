@@ -392,6 +392,7 @@ public class EditQuestionScreen extends JFrame{
                     Question q= new Question(5,5, Integer.valueOf(levelChoice), questionBody, answers);
                     s.deleteQuestion(question);
                     s.addQuestion(q);
+                    s.updateQuestionsJSON();
                     JOptionPane.showMessageDialog(null, "Question updated successfully", "", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
