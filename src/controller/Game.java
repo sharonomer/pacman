@@ -30,7 +30,6 @@ public class Game extends JPanel {
     public ArrayList<Food> foods;
     public ArrayList<Food> eatenFoods;
     public ArrayList<Question> questions;
-    public ArrayList<Bomb> bombs;
     public ArrayList<Ghost> ghosts;
     public ArrayList<TeleportTunnel> teleports;
 
@@ -81,7 +80,6 @@ public class Game extends JPanel {
         foods = new ArrayList<>();
         eatenFoods = new ArrayList<>();
         questions = new ArrayList<>();
-        bombs = new ArrayList<>();
         ghosts = new ArrayList<>();
         teleports = new ArrayList<>();
 
@@ -99,8 +97,6 @@ public class Game extends JPanel {
         }
 
         // TODO: Add questions array initialization from SysData
-
-        bombs = md.getPufoodPositions();
 
         /*
         * Creation of ghosts.
@@ -196,9 +192,6 @@ public class Game extends JPanel {
                             break;
                         }
                         else {
-//                            TODO: stop ghost movement after collision for a few seconds.
-//                            g.moveTimer.stop();
-//                            g.moveTimer.start();
                             long nowMillis2 = System.currentTimeMillis();
                             if ((nowMillis2 - iframesTime) / 1000 >= 3) {
                                 life--;
@@ -276,41 +269,10 @@ public class Game extends JPanel {
             }
         }
         if (foodToEat != null) {
-            SoundPlayer.play("pacman_eat.wav");
-            eatenFoods.add(foodToEat);
-            foods.remove(foodToEat);
-            score++;
-            levelCheck();
-            scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
-
-        }
-        ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
-        for (Food f : eatenFoods) {
-            long nowMillis = System.currentTimeMillis();
-            if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
-                foods.add(new Food((int) f.getPosition().getX(), (int) f.getPosition().getY()));
-            } else if (f instanceof Question) {
-                // TODO: Question exception
-//                foods.add(new Question(-1, -1, ));
-            } else {
-                remainingFoodsToRespawn.add(f);
-            }
-        }
-        eatenFoods = remainingFoodsToRespawn;
-
-
-        Bomb puFoodToEat = null;
-        //Check pu food eat
-        for (Bomb puf : bombs) {
-            if (pacman.logicalPosition.x == puf.position.x && pacman.logicalPosition.y == puf.position.y)
-                puFoodToEat = puf;
-        }
-        if (puFoodToEat != null) {
-            //SoundPlayer.play("pacman_eat.wav");
-            switch (puFoodToEat.type) {
-                case 0:
-                    //PACMAN 6
-                    bombs.remove(puFoodToEat);
+            if (foodToEat instanceof Bomb) {
+                if (((Bomb) foodToEat).type == 0) {//PACMAN 6
+                    eatenFoods.add(foodToEat);
+                    foods.remove(foodToEat);
                     siren.stop();
                     mustReactivateSiren = true;
                     pac6.start();
@@ -318,14 +280,44 @@ public class Game extends JPanel {
                         g.weaken();
                     }
                     scoreToAdd = 0;
-                    break;
-                default:
+                } else {
                     SoundPlayer.play("pacman_eatfruit.wav");
-                    bombs.remove(puFoodToEat);
+                    foods.remove(foodToEat);
                     scoreToAdd = 1;
                     drawScore = true;
+                }
+            }
+            else { //Food
+                SoundPlayer.play("pacman_eat.wav");
+                eatenFoods.add(foodToEat);
+                foods.remove(foodToEat);
+                score++;
+                levelCheck();
+                scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
+            }
+
+
+        }
+        ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
+        for (Food f : eatenFoods) {
+            long nowMillis = System.currentTimeMillis();
+            if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 2) {
+                if (f instanceof Bomb && ((Bomb) f).getType() == 0) {
+                    foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), 0));
+                    System.out.println("GOT HERE");
+                }
+                else if (f instanceof Question) {
+                    // TODO: Question exception
+//                foods.add(new Question(-1, -1, ));
+                }
+                else //Food
+                    foods.add(new Food((int) f.getPosition().getX(), (int) f.getPosition().getY()));
+            } else {
+                remainingFoodsToRespawn.add(f);
             }
         }
+        eatenFoods = remainingFoodsToRespawn;
+
 
         //Check Ghost Undie
         for (Ghost g : ghosts) {
@@ -389,18 +381,22 @@ public class Game extends JPanel {
             }
         }
 
-        //Draw Food
+        //Draw Food and Bombs
         g.setColor(new Color(204, 122, 122));
         for (Food f : foods) {
-            //g.fillOval(f.position.x*28+22,f.position.y*28+22,4,4);
-            g.drawImage(foodImage, 10 + f.position.x * 28, 10 + f.position.y * 28, null);
+            if (f instanceof Bomb) {
+                g.setColor(new Color(204, 174, 168));
+                g.drawImage(pfoodImage[((Bomb) f).type], 10 + f.position.x * 28, 10 + f.position.y * 28, null);
+            }
+            else
+                g.drawImage(foodImage, 10 + f.position.x * 28, 10 + f.position.y * 28, null);
         }
 
         //Draw PowerUpFoods
-        g.setColor(new Color(204, 174, 168));
-        for (Bomb f : bombs) {
-            g.drawImage(pfoodImage[f.type], 10 + f.position.x * 28, 10 + f.position.y * 28, null);
-        }
+//        g.setColor(new Color(204, 174, 168));
+//        for (Bomb f : bombs) {
+//            g.drawImage(pfoodImage[f.type], 10 + f.position.x * 28, 10 + f.position.y * 28, null);
+//        }
 
         //Draw Pacman
         switch (pacman.activeMove) {

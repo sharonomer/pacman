@@ -152,7 +152,8 @@ public class MapEditor extends JFrame {
             }
             if(c == 'O'){
                 map[i][j] = 0;
-                customMap.getPufoodPositions().add(new Bomb(i,j,0));
+//                customMap.getPufoodPositions().add(new Bomb(i,j,0));
+                customMap.getFoodPositions().add(new Bomb(i,j,0));
             }
             if(c == 'F'){
                 map[i][j] = 0;
