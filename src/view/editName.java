@@ -51,8 +51,8 @@ public class editName extends JFrame {
         getContentPane().add(tname);
 
         buttonsC.setLayout(new BoxLayout(buttonsC,BoxLayout.LINE_AXIS));
-        FancyButton startButton = new FancyButton("Start Game");
-        FancyButton mainMenu = new FancyButton("Main Menu");
+        FancyButton startButton = new FancyButton("Start Game", 20f);
+        FancyButton mainMenu = new FancyButton("Main Menu", 20f);
 
         startButton.addActionListener(new ActionListener() {
             @Override

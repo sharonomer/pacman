@@ -44,11 +44,11 @@ public class StartWindow extends JFrame {
 
         buttonsC.setLayout(new BoxLayout(buttonsC,BoxLayout.Y_AXIS));
 
-        FancyButton startButton = new FancyButton("Start Game");
-        FancyButton customButton = new FancyButton("Customize Game");
-        FancyButton editButton = new FancyButton("Edit Questions");
-        FancyButton highButton = new FancyButton("Highscores");
-        FancyButton instButton = new FancyButton("Instructions");
+        FancyButton startButton = new FancyButton("Start Game", 30f);
+        FancyButton customButton = new FancyButton("Customize Game", 30f);
+        FancyButton editButton = new FancyButton("Edit Questions", 30f);
+        FancyButton highButton = new FancyButton("Highscores", 30f);
+        FancyButton instButton = new FancyButton("Instructions", 30f);
 
         startButton.addActionListener(new ActionListener() {
             @Override

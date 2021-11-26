@@ -49,7 +49,8 @@ public class NewQuestionScreen extends JFrame{
 		gbc_lblTitle.gridy = 1;
 		getContentPane().add(lblTitle, gbc_lblTitle);
 		
-		JButton btnBack = new JButton("Back");
+//		JButton btnBack = new JButton("Back");
+        FancyButton btnBack = new FancyButton("Back", 20f);
 		GridBagConstraints gbc_btnBack = new GridBagConstraints();
 		gbc_btnBack.insets = new Insets(0, 0, 5, 5);
 		gbc_btnBack.gridx = 4;
@@ -75,7 +76,8 @@ public class NewQuestionScreen extends JFrame{
 		getContentPane().add(quesionBodyTF, gbc_textField);
         quesionBodyTF.setColumns(10);
 		
-		JButton btnClean = new JButton("Clean All");
+//		JButton btnClean = new JButton("Clean All");
+        FancyButton btnClean = new FancyButton("Clean All", 20f);
 		GridBagConstraints gbc_btnClean = new GridBagConstraints();
 		gbc_btnClean.insets = new Insets(0, 0, 5, 5);
 		gbc_btnClean.gridx = 9;
@@ -86,7 +88,7 @@ public class NewQuestionScreen extends JFrame{
 		levelChecklbl.setForeground(Color.RED);
 		GridBagConstraints gbc_levelChecklbl = new GridBagConstraints();
 		gbc_levelChecklbl.insets = new Insets(0, 0, 5, 5);
-		gbc_levelChecklbl.gridx = 5;
+        gbc_levelChecklbl.gridx = 9;
 		gbc_levelChecklbl.gridy = 4;
 		getContentPane().add(levelChecklbl, gbc_levelChecklbl);
 		
@@ -205,13 +207,15 @@ public class NewQuestionScreen extends JFrame{
 		answerChecklbl.setForeground(Color.RED);
 		GridBagConstraints gbc_answerChecklbl = new GridBagConstraints();
 		gbc_answerChecklbl.insets = new Insets(0, 0, 5, 5);
-		gbc_answerChecklbl.gridx = 6;
+//        gbc_answerChecklbl.gridx = 6;
+        gbc_answerChecklbl.gridx = 9;
 		gbc_answerChecklbl.gridy = 9;
 		getContentPane().add(answerChecklbl, gbc_answerChecklbl);
 		
 
 		
-		JButton btnSave = new JButton("Save");
+//		JButton btnSave = new JButton("Save");
+        FancyButton btnSave = new FancyButton("Save", 20f);
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
 		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSave.gridx = 7;

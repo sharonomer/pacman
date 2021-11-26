@@ -40,7 +40,8 @@ SysData s = SysData.getInstance();
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
-		JButton backBTN = new JButton("Back");
+//		JButton backBTN = new JButton("Back");
+		FancyButton backBTN = new FancyButton("Back", 20f);
 		GridBagConstraints gbc_backBTN = new GridBagConstraints();
 		gbc_backBTN.insets = new Insets(0, 0, 5, 5);
 		gbc_backBTN.gridx = 4;
@@ -59,7 +60,8 @@ SysData s = SysData.getInstance();
 				gbc_lblEditQuestion.gridy = 2;
 				getContentPane().add(lblEditQuestion, gbc_lblEditQuestion);
 				
-				JButton btnNewQuestion = new JButton("Add a New Question");
+//				JButton btnNewQuestion = new JButton("Add a New Question");
+				FancyButton btnNewQuestion = new FancyButton("Add a New Question", 20f);
 				btnNewQuestion.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						NewQuestionScreen nqs = new NewQuestionScreen();
@@ -302,7 +304,8 @@ SysData s = SysData.getInstance();
 		});
 		
 								
-				JButton DeleteBTN = new JButton("Delete");
+//				JButton DeleteBTN = new JButton("Delete");
+				FancyButton DeleteBTN = new FancyButton("Delete", 20f);
 				GridBagConstraints gbc_DeleteBTN = new GridBagConstraints();
 				gbc_DeleteBTN.insets = new Insets(0, 0, 5, 5);
 				gbc_DeleteBTN.gridx = 16;
@@ -330,7 +333,8 @@ SysData s = SysData.getInstance();
 								
 								
 				// go to EditQuestionScreen in order to edit selected question
-				JButton editBTN = new JButton("Edit");
+//				JButton editBTN = new JButton("Edit");
+				FancyButton editBTN = new FancyButton("Edit", 20f);
 				editBTN.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Question selectedQuestion = (Question)comboBox.getSelectedItem();

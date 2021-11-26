@@ -166,6 +166,18 @@ public class Game extends JPanel {
         siren.start();
     }
 
+    public void gameOver() {
+        //Game Over
+        siren.stop();
+        SoundPlayer.play("pacman_lose.wav");
+        pacman.moveTimer.stop();
+        pacman.animTimer.stop();
+        for (Ghost g: ghosts)
+            g.moveTimer.stop();
+        isGameOver = true;
+        scoreboard.setText("    Press R to try again !");
+    }
+
     /*
     * Checks if the pacman's rectangle collides with any of the ghosts' rectangles.
     * */
@@ -179,22 +191,20 @@ public class Game extends JPanel {
                 if (!g.isDead()) {
                     if (!g.isWeak()) {
                         if (life == 0) {
-                            //Game Over
-                            siren.stop();
-                            SoundPlayer.play("pacman_lose.wav");
-                            pacman.moveTimer.stop();
-                            pacman.animTimer.stop();
-                            g.moveTimer.stop();
-                            isGameOver = true;
-                            scoreboard.setText("    Press R to try again !");
+                            gameOver();
                             //scoreboard.setForeground(Color.red);
                             break;
                         }
                         else {
+//                            TODO: stop ghost movement after collision for a few seconds.
                             long nowMillis2 = System.currentTimeMillis();
                             if ((nowMillis2 - iframesTime) / 1000 >= 3) {
                                 life--;
                                 iframesTime = System.currentTimeMillis();
+                            }
+                            if (life == 0) {
+                                gameOver();
+                                break;
                             }
                         }
                     } else {
@@ -222,7 +232,7 @@ public class Game extends JPanel {
     * Checks the current game's level.
     * */
     public void levelCheck() {
-        switch ((int) score / 50) {
+        switch ((int) (score - 1) / 50) {
             case 0:
                 level = 1;
                 break;

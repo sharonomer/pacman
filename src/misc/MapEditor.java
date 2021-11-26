@@ -80,7 +80,7 @@ public class MapEditor extends JFrame {
         getContentPane().add(ta);
 
 
-        FancyButton startButton = new FancyButton("Start Game");
+        FancyButton startButton = new FancyButton("Start Game", 30f);
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

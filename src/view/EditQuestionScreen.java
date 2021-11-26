@@ -48,7 +48,8 @@ public class EditQuestionScreen extends JFrame{
         gbc_lblTitle.gridy = 1;
         getContentPane().add(lblTitle, gbc_lblTitle);
 
-        JButton btnBack = new JButton("Back");
+//        JButton btnBack = new JButton("Back");
+        FancyButton btnBack = new FancyButton("Back", 20f);
         GridBagConstraints gbc_btnBack = new GridBagConstraints();
         gbc_btnBack.insets = new Insets(0, 0, 5, 5);
         gbc_btnBack.gridx = 4;
@@ -75,7 +76,8 @@ public class EditQuestionScreen extends JFrame{
         getContentPane().add(quesionBodyTF, gbc_textField);
         quesionBodyTF.setColumns(10);
 
-        JButton btnClean = new JButton("Reset");
+//        JButton btnClean = new JButton("Reset");
+        FancyButton btnClean = new FancyButton("Reset", 20f);
         GridBagConstraints gbc_btnClean = new GridBagConstraints();
         gbc_btnClean.insets = new Insets(0, 0, 5, 5);
         gbc_btnClean.gridx = 9;
@@ -234,7 +236,8 @@ public class EditQuestionScreen extends JFrame{
         gbc_answerChecklbl.gridy = 9;
         getContentPane().add(answerChecklbl, gbc_answerChecklbl);
 
-        JButton btnSave = new JButton("Save");
+//        JButton btnSave = new JButton("Save");
+        FancyButton btnSave = new FancyButton("Save", 20f);
         GridBagConstraints gbc_btnSave = new GridBagConstraints();
         gbc_btnSave.insets = new Insets(0, 0, 0, 5);
         gbc_btnSave.gridx = 7;

@@ -12,11 +12,11 @@ public class FancyButton extends JLabel implements MouseListener {
 
     ActionListener myAL;
 
-    public FancyButton(String str){
+    public FancyButton(String str, float size){
         super(str);
         Font customFont;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/resources/fonts/crackman.ttf")).deriveFont(30f);
+            customFont = Font.createFont(Font.TRUETYPE_FONT, this.getClass().getResourceAsStream("/resources/fonts/crackman.ttf")).deriveFont(size);
             this.setFont(customFont);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
