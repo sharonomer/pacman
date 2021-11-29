@@ -210,7 +210,10 @@ public class Pacman implements KeyListener{
     @Override
     public void keyPressed(KeyEvent ke){
         switch(ke.getKeyCode()){
-            case 32:
+            case 27: //ESC
+                parentBoard.dispatchEvent(new ActionEvent(this, Messages.BACK,null));
+                break;
+            case 32: //SPACE
                 System.out.println("EXPLODE!");
                 break;
             case 37:
@@ -225,7 +228,7 @@ public class Pacman implements KeyListener{
             case 40:
                 todoMove = moveType.DOWN;
                 break;
-            case 82:
+            case 82: // r
                 parentBoard.dispatchEvent(new ActionEvent(this, Messages.RESET,null));
                 break;
         }

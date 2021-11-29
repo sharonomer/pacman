@@ -3,6 +3,7 @@ package controller;
 import misc.*;
 import model.*;
 import view.PacWindow;
+import view.StartWindow;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -511,6 +512,16 @@ public class Game extends JPanel {
         } else if (ae.getID() == Messages.RESET) {
             if (isGameOver)
                 restart();
+        }
+        else if (ae.getID() == Messages.BACK) {
+            pac6.stop();
+            siren.stop();
+            pacman.moveTimer.stop();
+            for (Ghost g : ghosts) {
+                g.moveTimer.stop();
+            }
+            new StartWindow();
+            windowParent.dispose();
         } else {
             super.processEvent(ae);
         }
