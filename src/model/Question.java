@@ -1,6 +1,10 @@
 package model;
 
+import misc.ImageHelper;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 /*
  * defines the question that the user needs to answer after eat the dot.
@@ -8,12 +12,13 @@ import java.util.ArrayList;
  * each question has 4 optional answers: 3 wrong and 1 correct.
  */
 
-public class Question extends Food{
+public class Question extends Food {
 
     public int diff;
     public String qBody;
     public ArrayList<Answer> answers;
     public static int id = 0;
+    public Image qImage;
 
     public Question(int x, int y, int diff, String qBody, ArrayList<Answer> answers) {
         super(x, y);
@@ -21,9 +26,22 @@ public class Question extends Food{
         this.qBody = qBody;
         this.answers = answers;
         id++;
+
+        try {
+            if (diff == 1)
+                qImage = ImageIO.read(this.getClass().getResource("/resources/images/question/qEasy.png"));
+            else if (diff == 2)
+                qImage = ImageIO.read(this.getClass().getResource("/resources/images/question/qMedium.png"));
+            else if (diff == 3)
+                qImage = ImageIO.read(this.getClass().getResource("/resources/images/question/qHard.png"));
+        } catch (IOException e) {
+            System.err.println("Cannot Read Images !");
+        }
     }
 
-
+    public Image getqImage() {
+        return qImage;
+    }
 
     public Point getPosition() {
         return position;
@@ -57,7 +75,7 @@ public class Question extends Food{
         this.answers = answers;
     }
 
-//    @Override
+    //    @Override
 //    public String toString() {
 //        return "Question{" +
 //                "position=" + position +
@@ -66,8 +84,8 @@ public class Question extends Food{
 //                ", answers=" + answers +
 //                '}';
 //    }
-@Override
-public String toString() {
-    return qBody;
-}
+    @Override
+    public String toString() {
+        return qBody;
+    }
 }

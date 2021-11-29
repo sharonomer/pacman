@@ -20,15 +20,16 @@ public class MapData {
     public ArrayList<Bomb> pufoodPositions;
     public ArrayList<TeleportTunnel> teleports;
     public ArrayList<InitGhostData> ghostsData;
+    public ArrayList<Point> availablePointsForQuestion;
 
-    public MapData(){
+    public MapData() {
         foodPositions = new ArrayList<>();
         pufoodPositions = new ArrayList<>();
         teleports = new ArrayList<>();
         ghostsData = new ArrayList<>();
     }
 
-    public MapData(int x, int y){
+    public MapData(int x, int y) {
         this.x = x;
         this.y = y;
 
@@ -36,9 +37,10 @@ public class MapData {
         pufoodPositions = new ArrayList<>();
         teleports = new ArrayList<>();
         ghostsData = new ArrayList<>();
+        availablePointsForQuestion = new ArrayList<>();
     }
 
-    public MapData(int x, int y, int[][] map, Point pacPosition){
+    public MapData(int x, int y, int[][] map, Point pacPosition) {
         this.x = x;
         this.y = y;
         this.map = map;
@@ -108,6 +110,10 @@ public class MapData {
 
     public ArrayList<InitGhostData> getGhostsData() {
         return ghostsData;
+    }
+
+    public ArrayList<Point> getAvailablePointsForQuestion() {
+        return availablePointsForQuestion;
     }
 
     public boolean isCustom() {

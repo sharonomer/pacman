@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game extends JPanel {
 
@@ -29,9 +30,15 @@ public class Game extends JPanel {
     public Pacman pacman;
     public ArrayList<Food> foods;
     public ArrayList<Food> eatenFoods;
+
     public ArrayList<Question> questions;
+    public ArrayList<Question> easyQ;
+    public ArrayList<Question> mediumQ;
+    public ArrayList<Question> hardQ;
+
     public ArrayList<Ghost> ghosts;
     public ArrayList<TeleportTunnel> teleports;
+    public ArrayList<Point> availableQuestionPoints;
 
     public boolean isCustom = false;
     public boolean isGameOver = false;
@@ -56,13 +63,11 @@ public class Game extends JPanel {
     public int m_x;
     public int m_y;
 
-//    public MapData md_backup;
     public PacWindow windowParent;
 
     public Game(JLabel scoreboard, MapData md, PacWindow pw) {
         this.scoreboard = scoreboard;
         this.setDoubleBuffered(true);
-//        md_backup = md;
         windowParent = pw;
 
         m_x = md.getX();
@@ -72,18 +77,33 @@ public class Game extends JPanel {
         this.isCustom = md.isCustom();
         this.ghostBase = md.getGhostBasePosition();
 
-        //loadMap();
-
         pacman = new Pacman(md.getPacmanPosition().x, md.getPacmanPosition().y, this);
         addKeyListener(pacman);
 
+        SysData s = SysData.getInstance();
+        questions = s.getQuestions();
+        easyQ = new ArrayList<>();
+        mediumQ = new ArrayList<>();
+        hardQ = new ArrayList<>();
         foods = new ArrayList<>();
         eatenFoods = new ArrayList<>();
-        questions = new ArrayList<>();
         ghosts = new ArrayList<>();
         teleports = new ArrayList<>();
+        availableQuestionPoints = md.getAvailablePointsForQuestion();
 
-        //TODO : read food from mapData (Map 1)
+        for (Question q : questions) {
+            switch (q.getDiff()) {
+                case 1:
+                    easyQ.add(q);
+                    break;
+                case 2:
+                    mediumQ.add(q);
+                    break;
+                case 3:
+                    hardQ.add(q);
+                    break;
+            }
+        }
 
         if (!isCustom) {
             for (int i = 0; i < m_x; i++) {
@@ -96,11 +116,14 @@ public class Game extends JPanel {
             foods = md.getFoodPositions();
         }
 
-        // TODO: Add questions array initialization from SysData
+        for (int i = 1; i <= 3; i++) {
+            foods.add(getNewQuestion(i));
+        }
 
         /*
-        * Creation of ghosts.
-        * */
+         * Creation of ghosts.
+         * Design Pattern - Shape Factory
+         * */
         ghosts = new ArrayList<>();
         for (InitGhostData gd : md.getGhostsData()) {
             switch (gd.getType()) {
@@ -127,7 +150,7 @@ public class Game extends JPanel {
         for (int ms = 1; ms < 28; ms++) {
             try {
                 mapSegments[ms] = ImageIO.read(this.getClass().getResource("/resources/images/map segments/" + ms + ".png"));
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
 
@@ -135,7 +158,7 @@ public class Game extends JPanel {
         for (int ms = 0; ms < 5; ms++) {
             try {
                 pfoodImage[ms] = ImageIO.read(this.getClass().getResource("/resources/images/food/" + ms + ".png"));
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         try {
@@ -143,7 +166,7 @@ public class Game extends JPanel {
             goImage = ImageIO.read(this.getClass().getResource("/resources/images/gameover.png"));
             vicImage = ImageIO.read(this.getClass().getResource("/resources/images/victory.png"));
             //pfoodImage = ImageIO.read(this.getClass().getResource("/images/pfood.png"));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
 
@@ -156,7 +179,6 @@ public class Game extends JPanel {
         redrawTimer = new Timer(0, redrawAL);
         redrawTimer.start();
 
-        //SoundPlayer.play("pacman_start.wav");
         siren = new LoopPlayer("siren.wav");
         pac6 = new LoopPlayer("pac6.wav");
         siren.start();
@@ -168,15 +190,15 @@ public class Game extends JPanel {
         SoundPlayer.play("pacman_lose.wav");
         pacman.moveTimer.stop();
         pacman.animTimer.stop();
-        for (Ghost g: ghosts)
+        for (Ghost g : ghosts)
             g.moveTimer.stop();
         isGameOver = true;
         scoreboard.setText("    Press R to try again !");
     }
 
     /*
-    * Checks if the pacman's rectangle collides with any of the ghosts' rectangles.
-    * */
+     * Checks if the pacman's rectangle collides with any of the ghosts' rectangles.
+     * */
     public void collisionTest() {
         Rectangle pr = new Rectangle(pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 13, 2, 2);
         Ghost ghostToRemove = null;
@@ -188,10 +210,8 @@ public class Game extends JPanel {
                     if (!g.isWeak()) {
                         if (life == 0) {
                             gameOver();
-                            //scoreboard.setForeground(Color.red);
                             break;
-                        }
-                        else {
+                        } else {
                             long nowMillis2 = System.currentTimeMillis();
                             if ((nowMillis2 - iframesTime) / 1000 >= 3) {
                                 life--;
@@ -209,7 +229,6 @@ public class Game extends JPanel {
                     } else {
                         //Eat Ghost
                         SoundPlayer.play("pacman_eatghost.wav");
-                        //getGraphics().setFont(new Font("Arial",Font.BOLD,20));
                         drawScore = true;
                         scoreToAdd++;
                         if (ghostBase != null)
@@ -228,8 +247,8 @@ public class Game extends JPanel {
     }
 
     /*
-    * Checks the current game's level.
-    * */
+     * Checks the current game's level.
+     * */
     public void levelCheck() {
         switch ((int) (score - 1) / 50) {
             case 0:
@@ -256,61 +275,63 @@ public class Game extends JPanel {
     }
 
     /*
-    * Updates the game screen.
-    * */
+     * Updates the game screen.
+     * */
     public void update() {
-        Food foodToEat = null;
+        ArrayList<Food> foodsToEat = new ArrayList<>();
         //Check food eat
         for (Food f : foods) {
             if (pacman.logicalPosition.x == f.position.x && pacman.logicalPosition.y == f.position.y && !f.isEaten()) {
                 f.setEaten(true);
                 f.setEatenTime(System.currentTimeMillis());
-                foodToEat = f;
+                foodsToEat.add(f);
             }
         }
-        if (foodToEat != null) {
-            if (foodToEat instanceof Bomb) {
-                if (((Bomb) foodToEat).type == 0) {//PACMAN 6
+        if (foodsToEat.size() != 0) {
+            for (Food foodToEat : foodsToEat) {
+                if (foodToEat instanceof Bomb) {
+                    if (((Bomb) foodToEat).type == 0) {//PACMAN 6
+                        eatenFoods.add(foodToEat);
+                        foods.remove(foodToEat);
+                        siren.stop();
+                        mustReactivateSiren = true;
+                        pac6.start();
+                        for (Ghost g : ghosts) {
+                            g.weaken();
+                        }
+                        scoreToAdd = 0;
+                    } else {
+                        SoundPlayer.play("pacman_eatfruit.wav");
+                        foods.remove(foodToEat);
+                        scoreToAdd = 1;
+                        drawScore = true;
+                    }
+                } else if (foodToEat instanceof Question) {
                     eatenFoods.add(foodToEat);
                     foods.remove(foodToEat);
-                    siren.stop();
-                    mustReactivateSiren = true;
-                    pac6.start();
-                    for (Ghost g : ghosts) {
-                        g.weaken();
-                    }
-                    scoreToAdd = 0;
-                } else {
-                    SoundPlayer.play("pacman_eatfruit.wav");
+                    foodToEat.setEaten(false);
+                    System.out.println("EAT QUESTION");
+                } else { //Food
+                    SoundPlayer.play("pacman_eat.wav");
+                    eatenFoods.add(foodToEat);
                     foods.remove(foodToEat);
-                    scoreToAdd = 1;
-                    drawScore = true;
+                    score++;
+                    levelCheck();
+                    scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
                 }
             }
-            else { //Food
-                SoundPlayer.play("pacman_eat.wav");
-                eatenFoods.add(foodToEat);
-                foods.remove(foodToEat);
-                score++;
-                levelCheck();
-                scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
-            }
-
-
         }
+
+//        Respawn eaten food.
         ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
         for (Food f : eatenFoods) {
             long nowMillis = System.currentTimeMillis();
             if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
                 if (f instanceof Bomb && ((Bomb) f).getType() == 0) {
                     foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), 0));
-                    System.out.println("GOT HERE");
-                }
-                else if (f instanceof Question) {
-                    // TODO: Question exception
-//                foods.add(new Question(-1, -1, ));
-                }
-                else //Food
+                } else if (f instanceof Question) {
+                    foods.add(getNewQuestion(((Question) f).getDiff()));
+                } else //Food
                     foods.add(new Food((int) f.getPosition().getX(), (int) f.getPosition().getY()));
             } else {
                 remainingFoodsToRespawn.add(f);
@@ -322,13 +343,12 @@ public class Game extends JPanel {
         //Check Ghost Undie
         for (Ghost g : ghosts) {
             if (g.isDead() && g.logicalPosition.x == ghostBase.x && g.logicalPosition.y == ghostBase.y) {
-//                g.setLogicalPosition(new Point(ghostBase.x, ghostBase.y));
                 g.revive();
             }
         }
 
         long nowMillis = System.currentTimeMillis();
-        for (Ghost g: ghosts) {
+        for (Ghost g : ghosts) {
             if ((int) ((nowMillis - g.getStopTime()) / 1000) >= 3 && g.isStopped()) {
                 g.moveTimer.start();
                 g.setStopped(false);
@@ -338,8 +358,8 @@ public class Game extends JPanel {
         //Check Teleport
         for (TeleportTunnel tp : teleports) {
             if (pacman.logicalPosition.x == tp.getFrom().x && pacman.logicalPosition.y == tp.getFrom().y && pacman.activeMove == tp.getReqMove() && level == 2) {
-                pacman.logicalPosition.x = (int)tp.getTo().getX();
-                pacman.logicalPosition.y = (int)tp.getTo().getY();
+                pacman.logicalPosition.x = (int) tp.getTo().getX();
+                pacman.logicalPosition.y = (int) tp.getTo().getY();
                 pacman.pixelPosition.x = pacman.logicalPosition.x * 28;
                 pacman.pixelPosition.y = pacman.logicalPosition.y * 28;
             }
@@ -375,7 +395,6 @@ public class Game extends JPanel {
         for (int i = 0; i < m_x; i++) {
             for (int j = 0; j < m_y; j++) {
                 if (map[i][j] > 0) {
-                    //g.drawImage(10+i*28,10+j*28,28,28);
                     g.drawImage(mapSegments[map[i][j]], 10 + i * 28, 10 + j * 28, null);
                 }
             }
@@ -387,7 +406,8 @@ public class Game extends JPanel {
             if (f instanceof Bomb) {
                 g.setColor(new Color(204, 174, 168));
                 g.drawImage(pfoodImage[((Bomb) f).type], 10 + f.position.x * 28, 10 + f.position.y * 28, null);
-            }
+            } else if (f instanceof Question)
+                g.drawImage(((Question) f).getqImage(), 10 + f.position.x * 28, 10 + f.position.y * 28, null);
             else
                 g.drawImage(foodImage, 10 + f.position.x * 28, 10 + f.position.y * 28, null);
         }
@@ -433,8 +453,8 @@ public class Game extends JPanel {
         if (drawScore) {
             g.setFont(new Font("Arial", Font.BOLD, 15));
             g.setColor(Color.yellow);
-            Integer s = scoreToAdd * 100; // points for eating a ghost
-            g.drawString(s.toString(), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
+            int s = scoreToAdd * 100; // points for eating a ghost
+            g.drawString(Integer.toString(s), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
             levelCheck();
             scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
@@ -455,8 +475,8 @@ public class Game extends JPanel {
 
 
     /*
-    * Processes collisions, game-overs and win condition.
-    * */
+     * Processes collisions, game-overs and win condition.
+     * */
     @Override
     public void processEvent(AWTEvent ae) {
         if (ae.getID() == Messages.UPDATE) {
@@ -487,8 +507,8 @@ public class Game extends JPanel {
     }
 
     /*
-    * Restarts the game.
-    * */
+     * Restarts the game.
+     * */
     public void restart() {
 
         siren.stop();
@@ -499,5 +519,24 @@ public class Game extends JPanel {
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Question getNewQuestion(int diff) {
+        Question q = null;
+        Point newPos = availableQuestionPoints.get(ThreadLocalRandom.current().nextInt(availableQuestionPoints.size()));
+        switch (diff) {
+            case 1:
+                q = easyQ.get(ThreadLocalRandom.current().nextInt(easyQ.size()));
+                break;
+            case 2:
+                q = mediumQ.get(ThreadLocalRandom.current().nextInt(mediumQ.size()));
+                break;
+            case 3:
+                q = hardQ.get(ThreadLocalRandom.current().nextInt(hardQ.size()));
+                break;
+        }
+        assert q != null;
+        q.setPosition(newPos);
+        return q;
     }
 }
