@@ -25,6 +25,7 @@ public class Game extends JPanel {
     public Image[] mapSegments;
 
     public Image foodImage;
+    public Image fireImage;
     public Image[] pfoodImage;
 
     public Image goImage;
@@ -33,27 +34,30 @@ public class Game extends JPanel {
     public Pacman pacman;
     public ArrayList<Food> foods;
     public ArrayList<Food> eatenFoods;
+    public ArrayList<Bomb> armedBombs;
+    public ArrayList<Ghost> ghosts;
+    public ArrayList<TeleportTunnel> teleports;
 
     public ArrayList<Question> questions;
+    public ArrayList<Point> availableQuestionPoints;
     public ArrayList<Question> easyQ;
     public ArrayList<Question> mediumQ;
     public ArrayList<Question> hardQ;
 
-    public ArrayList<Ghost> ghosts;
-    public ArrayList<TeleportTunnel> teleports;
-    public ArrayList<Point> availableQuestionPoints;
 
     public boolean isCustom = false;
     public boolean isGameOver = false;
     public boolean isWin = false;
     public boolean drawScore = false;
     public boolean clearScore = false;
+    public boolean explosionFire = false;
     public int scoreToAdd = 0;
 
     public int level = 1;
     public int score;
     public int life = 3;
     public long iframesTime = 0;
+    public long explosionTime = 0;
     public boolean ghostsSpeedUp = false;
     public JLabel scoreboard;
 
@@ -93,6 +97,7 @@ public class Game extends JPanel {
         ghosts = new ArrayList<>();
         teleports = new ArrayList<>();
         availableQuestionPoints = md.getAvailablePointsForQuestion();
+        armedBombs = new ArrayList<>();
 
         for (Question q : questions) {
             switch (q.getDiff()) {
@@ -157,8 +162,8 @@ public class Game extends JPanel {
             }
         }
 
-        pfoodImage = new Image[5];
-        for (int ms = 0; ms < 5; ms++) {
+        pfoodImage = new Image[6];
+        for (int ms = 0; ms < 6; ms++) {
             try {
                 pfoodImage[ms] = ImageIO.read(this.getClass().getResource("/resources/images/food/" + ms + ".png"));
             } catch (Exception ignored) {
@@ -168,6 +173,7 @@ public class Game extends JPanel {
             foodImage = ImageIO.read(this.getClass().getResource("/resources/images/food.png"));
             goImage = ImageIO.read(this.getClass().getResource("/resources/images/gameover.png"));
             vicImage = ImageIO.read(this.getClass().getResource("/resources/images/victory.png"));
+            fireImage = ImageIO.read(this.getClass().getResource("/resources/images/flame.png"));
             //pfoodImage = ImageIO.read(this.getClass().getResource("/images/pfood.png"));
         } catch (Exception ignored) {
         }
@@ -293,17 +299,10 @@ public class Game extends JPanel {
         if (foodsToEat.size() != 0) {
             for (Food foodToEat : foodsToEat) {
                 if (foodToEat instanceof Bomb) {
-                    if (((Bomb) foodToEat).type == 0) {//PACMAN 6
-                        eatenFoods.add(foodToEat);
-                        foods.remove(foodToEat);
-                        siren.stop();
-                        mustReactivateSiren = true;
-                        pac6.start();
-                        for (Ghost g : ghosts) {
-                            g.weaken();
-                        }
-                        scoreToAdd = 0;
-                    } else {
+                    if (((Bomb) foodToEat).type == 0) {//Bomb
+                        ((Bomb) foodToEat).setType(1);
+                        armedBombs.add((Bomb) foodToEat);
+                    } else { //Fruit
                         SoundPlayer.play("pacman_eatfruit.wav");
                         foods.remove(foodToEat);
                         scoreToAdd = 1;
@@ -385,13 +384,28 @@ public class Game extends JPanel {
 
         }
 
-
+        long nowMillis2 = System.currentTimeMillis();
+        if (explosionFire && (int) ((nowMillis2 - explosionTime)) >= 333) {
+            armedBombs.clear();
+            explosionFire = false;
+        }
     }
 
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        //Draw explosion
+        if (explosionFire && (int) (System.currentTimeMillis() / 10) % 2 == 0) {
+            for (Bomb b : armedBombs) {
+                for (Point p : availableQuestionPoints) {
+                    if (Math.sqrt(Math.pow(b.getPosition().getX() - p.getX(), 2) +
+                            Math.pow(b.getPosition().getY() - p.getY(), 2)) <= 3)
+                        g.drawImage(fireImage, 10 + (int) p.getX() * 28, 10 + (int) p.getY() * 28, null);
+                }
+            }
+        }
 
         //Draw Walls
         g.setColor(Color.blue);
@@ -512,8 +526,7 @@ public class Game extends JPanel {
         } else if (ae.getID() == Messages.RESET) {
             if (isGameOver)
                 restart();
-        }
-        else if (ae.getID() == Messages.BACK) {
+        } else if (ae.getID() == Messages.BACK) {
             pac6.stop();
             siren.stop();
             pacman.moveTimer.stop();
@@ -522,6 +535,26 @@ public class Game extends JPanel {
             }
             new StartWindow();
             windowParent.dispose();
+        } else if (ae.getID() == Messages.EXPLODE) {
+            System.out.println("EXPLODE!");
+            explosionTime = System.currentTimeMillis();
+            explosionFire = true;
+            for (Bomb b : armedBombs) {
+                b.setType(0);
+                eatenFoods.add(b);
+                foods.remove(b);
+//                siren.stop();
+//                mustReactivateSiren = true;
+//                pac6.start();
+                for (Ghost g : ghosts) {
+                    if (Math.sqrt(Math.pow(b.getPosition().getX() - g.getLogicalPosition().getX(), 2) +
+                            Math.pow(b.getPosition().getY() - g.getLogicalPosition().getY(), 2)) <= 3) {
+//                        g.weaken();
+                        g.die();
+                    }
+                }
+                scoreToAdd = 0;
+            }
         } else {
             super.processEvent(ae);
         }

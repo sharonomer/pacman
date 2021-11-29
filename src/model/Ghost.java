@@ -263,11 +263,11 @@ public abstract class Ghost {
 
         if(logicalPosition.x >= 0 && logicalPosition.x < parentBoard.m_x-1 && logicalPosition.y >= 0 && logicalPosition.y < parentBoard.m_y-1 ) {
             //System.out.println(this.toString());
-            if (!(parentBoard.map[logicalPosition.x + 1][logicalPosition.y] > 0)) {
+            if (logicalPosition.x != 27 && !(parentBoard.map[logicalPosition.x + 1][logicalPosition.y] > 0)) {
                 possibleMoves.add(moveType.RIGHT);
             }
 
-            if (!(parentBoard.map[logicalPosition.x - 1][logicalPosition.y] > 0)) {
+            if (logicalPosition.x != 0 && !(parentBoard.map[logicalPosition.x - 1][logicalPosition.y] > 0)) {
                 possibleMoves.add(moveType.LEFT);
             }
 
@@ -378,5 +378,9 @@ public abstract class Ghost {
 
     public void setStopped(boolean stopped) {
         isStopped = stopped;
+    }
+
+    public Point getLogicalPosition() {
+        return logicalPosition;
     }
 }

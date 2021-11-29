@@ -214,7 +214,7 @@ public class Pacman implements KeyListener{
                 parentBoard.dispatchEvent(new ActionEvent(this, Messages.BACK,null));
                 break;
             case 32: //SPACE
-                System.out.println("EXPLODE!");
+                parentBoard.dispatchEvent(new ActionEvent(this, Messages.EXPLODE,null));
                 break;
             case 37:
                 todoMove = moveType.LEFT;
