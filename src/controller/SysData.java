@@ -13,7 +13,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
-
 /**
  * Singleton class to read and write to our JSON database
  * reads will happen once when the program starts
@@ -21,15 +20,14 @@ import org.json.simple.parser.ParseException;
  */
 public class SysData {
     // parsing file "JSONExample.json"
-	
+
     private static SysData sysData = null;
     private static ArrayList<Question> questions = new ArrayList<>();
     private static ArrayList<Highscore> highscores = new ArrayList<>();
     private static final String qPath = "src\\resources\\QuestionsFormat.json";
     private static final String hsPath = "src\\resources\\Highscores.json";
 
-    public static SysData getInstance()
-    {
+    public static SysData getInstance() {
         if (sysData == null) {
             sysData = new SysData();
             sysData.readJSON();
@@ -48,7 +46,7 @@ public class SysData {
 
             JSONArray questionsAndAnswers = (JSONArray) jsonObject.get("questions");
 
-            questionsAndAnswers.forEach( QAndAs -> parseQuestion( (JSONObject) QAndAs) );
+            questionsAndAnswers.forEach(QAndAs -> parseQuestion((JSONObject) QAndAs));
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -63,7 +61,7 @@ public class SysData {
 
             JSONArray JSONhighscores = (JSONArray) jsonObject.get("highscores");
 
-            JSONhighscores.forEach( highscore -> parseHighscore( (JSONObject) highscore) );
+            JSONhighscores.forEach(highscore -> parseHighscore((JSONObject) highscore));
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -76,15 +74,14 @@ public class SysData {
         //Handle Highscore Data
         String username = (String) highscore.get("username");
         int score = Integer.parseInt((String) highscore.get("score"));
-        java.sql.Date date = Date.valueOf((String) highscore.get("date"));
+        String date = (String) highscore.get("date");
 
         Highscore hs = new Highscore(score, username, date);
         highscores.add(hs);
     }
 
     // Function to parse each question element and add it to questions array
-    private static void parseQuestion(JSONObject qAndAs)
-    {
+    private static void parseQuestion(JSONObject qAndAs) {
         //Handle Answers Data
         //Get correct answer position
         String correct_ans = (String) qAndAs.get("correct_ans");
@@ -92,8 +89,8 @@ public class SysData {
         JSONArray answers = (JSONArray) qAndAs.get("answers");
 
         ArrayList<Answer> a = new ArrayList<Answer>();
-        for (int i = 0; i<answers.size(); i++){
-            a.add(new Answer((String)answers.get(i), i == Integer.parseInt(correct_ans) - 1));
+        for (int i = 0; i < answers.size(); i++) {
+            a.add(new Answer((String) answers.get(i), i == Integer.parseInt(correct_ans) - 1));
         }
 
         //Handle Question Data
@@ -111,11 +108,11 @@ public class SysData {
     }
 
     // Insert Highscores elements to JSON
-    public static void updateHighscoresJSON(){
+    public static void updateHighscoresJSON() {
         JSONObject hsArray = new JSONObject();
         JSONArray hsList = new JSONArray();
 
-        for (Highscore hs: highscores){
+        for (Highscore hs : highscores) {
             JSONObject hsDetails = new JSONObject();
             hsDetails.put("username", hs.getUsername());
             hsDetails.put("score", hs.getScore().toString());
@@ -125,19 +122,19 @@ public class SysData {
         hsArray.put("highscores", hsList);
 
         try {
-            FileWriter file = new FileWriter("test.json");
+            FileWriter file = new FileWriter("src\\resources\\Highscores.json");
             file.append(hsArray.toJSONString());
             file.flush();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void updateQuestionsJSON(){
+    public static void updateQuestionsJSON() {
 
         JSONObject questionArray = new JSONObject();
         JSONArray questionList = new JSONArray();
-        for (Question q: questions) {
+        for (Question q : questions) {
 
             JSONObject questionDetails = new JSONObject();
 
@@ -145,7 +142,7 @@ public class SysData {
             JSONArray answerArray = new JSONArray();
             int correct_ans = 0;
             ArrayList<Answer> ans = q.getAnswers();
-            for (int i = 0; i<ans.size(); i++){
+            for (int i = 0; i < ans.size(); i++) {
                 if (ans.get(i).isCorrect) {
                     correct_ans = i + 1;
                 }
@@ -153,11 +150,11 @@ public class SysData {
             }
 
             questionDetails.put("answers", answerArray);
-            questionDetails.put("correct_ans", ""+correct_ans);
+            questionDetails.put("correct_ans", "" + correct_ans);
             // Handle Question details
 
             questionDetails.put("question", q.getqBody());
-            questionDetails.put("level", ""+q.getDiff());
+            questionDetails.put("level", "" + q.getDiff());
             questionDetails.put("team", "Husky");
 
             questionList.add(questionDetails);
@@ -169,7 +166,7 @@ public class SysData {
             FileWriter file = new FileWriter("src\\resources\\QuestionsFormat.json");
             file.append(questionArray.toJSONString());
             file.flush();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -183,24 +180,24 @@ public class SysData {
         return highscores;
     }
 
-    public static boolean deleteQuestion(String questionString){
-        for (Question q: questions){
-            if(q.getqBody().equals(questionString)){
+    public static boolean deleteQuestion(String questionString) {
+        for (Question q : questions) {
+            if (q.getqBody().equals(questionString)) {
                 return questions.remove(q);
             }
         }
         return false;
     }
 
-    public static boolean deleteQuestion(Question q){
+    public static boolean deleteQuestion(Question q) {
         return questions.remove(q);
     }
 
-    public static boolean addQuestion(Question q){
+    public static boolean addQuestion(Question q) {
         return questions.add(q);
     }
 
-    public static boolean addHighscore(Highscore h){
+    public static boolean addHighscore(Highscore h) {
         return highscores.add(h);
     }
 

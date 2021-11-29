@@ -9,7 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game extends JPanel {
@@ -492,6 +494,14 @@ public class Game extends JPanel {
                     g.moveTimer.stop();
                 }
                 scoreboard.setText("    Press R to try again !");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                Date resultdate = new Date(System.currentTimeMillis());
+                String date = sdf.format(resultdate);
+
+                SysData s = SysData.getInstance();
+                s.addHighscore(new Highscore(score, name, date));
+                s.updateHighscoresJSON();
             }
         } else if (ae.getID() == Messages.COLTEST) {
             if (!isGameOver) {

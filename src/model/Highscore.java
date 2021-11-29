@@ -6,9 +6,9 @@ public class Highscore{
 
     public Integer score;
     public String username;
-    public java.sql.Date date;
+    public String date;
 
-    public Highscore(int score, String username, Date date) {
+    public Highscore(int score, String username, String date) {
         this.score = score;
         this.username = username;
         this.date = date;
@@ -30,11 +30,11 @@ public class Highscore{
         this.username = username;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
