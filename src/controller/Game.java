@@ -51,6 +51,7 @@ public class Game extends JPanel {
     public boolean drawScore = false;
     public boolean clearScore = false;
     public boolean explosionFire = false;
+    public boolean hasIFrames = false;
     public int scoreToAdd = 0;
 
     public int level = 1;
@@ -225,6 +226,7 @@ public class Game extends JPanel {
                             if ((nowMillis2 - iframesTime) / 1000 >= 3) {
                                 life--;
                                 iframesTime = System.currentTimeMillis();
+                                hasIFrames = true;
 
                                 g.moveTimer.stop();
                                 g.setStopped(true);
@@ -389,6 +391,9 @@ public class Game extends JPanel {
             armedBombs.clear();
             explosionFire = false;
         }
+
+        if ((System.currentTimeMillis() - iframesTime) / 1000 >= 3)
+            hasIFrames = false;
     }
 
 
@@ -436,20 +441,12 @@ public class Game extends JPanel {
 //        }
 
         //Draw Pacman
-        switch (pacman.activeMove) {
-            case NONE:
-            case RIGHT:
-                g.drawImage(pacman.getPacmanImage(), 10 + pacman.pixelPosition.x, 10 + pacman.pixelPosition.y, null);
-                break;
-            case LEFT:
-                g.drawImage(ImageHelper.flipHor(pacman.getPacmanImage()), 10 + pacman.pixelPosition.x, 10 + pacman.pixelPosition.y, null);
-                break;
-            case DOWN:
-                g.drawImage(ImageHelper.rotate90(pacman.getPacmanImage()), 10 + pacman.pixelPosition.x, 10 + pacman.pixelPosition.y, null);
-                break;
-            case UP:
-                g.drawImage(ImageHelper.flipVer(ImageHelper.rotate90(pacman.getPacmanImage())), 10 + pacman.pixelPosition.x, 10 + pacman.pixelPosition.y, null);
-                break;
+        if (hasIFrames) {
+            if ((int) (System.currentTimeMillis() / 10) % 2 == 0) {
+                drawPacman(g);
+            }
+        } else {
+            drawPacman(g);
         }
 
         //Draw Ghosts
@@ -490,6 +487,24 @@ public class Game extends JPanel {
 
     }
 
+
+    public void drawPacman(Graphics g) {
+        switch (pacman.activeMove) {
+            case NONE:
+            case RIGHT:
+                g.drawImage(pacman.getPacmanImage(), 10 + pacman.pixelPosition.x, 10 + pacman.pixelPosition.y, null);
+                break;
+            case LEFT:
+                g.drawImage(ImageHelper.flipHor(pacman.getPacmanImage()), 10 + pacman.pixelPosition.x, 10 + pacman.pixelPosition.y, null);
+                break;
+            case DOWN:
+                g.drawImage(ImageHelper.rotate90(pacman.getPacmanImage()), 10 + pacman.pixelPosition.x, 10 + pacman.pixelPosition.y, null);
+                break;
+            case UP:
+                g.drawImage(ImageHelper.flipVer(ImageHelper.rotate90(pacman.getPacmanImage())), 10 + pacman.pixelPosition.x, 10 + pacman.pixelPosition.y, null);
+                break;
+        }
+    }
 
     /*
      * Processes collisions, game-overs and win condition.
