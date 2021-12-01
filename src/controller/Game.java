@@ -211,7 +211,6 @@ public class Game extends JPanel {
      * */
     public void collisionTest() {
         Rectangle pr = new Rectangle(pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 13, 2, 2);
-        Ghost ghostToRemove = null;
         for (Ghost g : ghosts) {
             Rectangle gr = new Rectangle(g.pixelPosition.x, g.pixelPosition.y, 28, 28);
 
