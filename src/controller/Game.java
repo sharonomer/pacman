@@ -211,49 +211,33 @@ public class Game extends JPanel {
      * */
     public void collisionTest() {
         Rectangle pr = new Rectangle(pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 13, 2, 2);
-        Ghost ghostToRemove = null;
         for (Ghost g : ghosts) {
             Rectangle gr = new Rectangle(g.pixelPosition.x, g.pixelPosition.y, 28, 28);
 
             if (pr.intersects(gr)) {
                 if (!g.isDead()) {
-                    if (!g.isWeak()) {
+                    if (life == 0) {
+                        gameOver();
+                        break;
+                    } else {
+                        long nowMillis2 = System.currentTimeMillis();
+                        if ((nowMillis2 - iframesTime) / 1000 >= 3) {
+                            life--;
+                            iframesTime = System.currentTimeMillis();
+                            hasIFrames = true;
+
+                            g.moveTimer.stop();
+                            g.setStopped(true);
+                            g.setStopTime(System.currentTimeMillis());
+                        }
                         if (life == 0) {
                             gameOver();
                             break;
-                        } else {
-                            long nowMillis2 = System.currentTimeMillis();
-                            if ((nowMillis2 - iframesTime) / 1000 >= 3) {
-                                life--;
-                                iframesTime = System.currentTimeMillis();
-                                hasIFrames = true;
-
-                                g.moveTimer.stop();
-                                g.setStopped(true);
-                                g.setStopTime(System.currentTimeMillis());
-                            }
-                            if (life == 0) {
-                                gameOver();
-                                break;
-                            }
                         }
-                    } else {
-                        //Eat Ghost
-                        SoundPlayer.play("pacman_eatghost.wav");
-                        drawScore = true;
-                        scoreToAdd++;
-                        if (ghostBase != null)
-                            g.die();
-                        else
-                            ghostToRemove = g;
                     }
                 }
                 scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
             }
-        }
-
-        if (ghostToRemove != null) {
-            ghosts.remove(ghostToRemove);
         }
     }
 
@@ -368,23 +352,6 @@ public class Game extends JPanel {
                 pacman.pixelPosition.x = pacman.logicalPosition.x * 28;
                 pacman.pixelPosition.y = pacman.logicalPosition.y * 28;
             }
-        }
-
-        //Check isSiren
-        boolean isSiren = true;
-        for (Ghost g : ghosts) {
-            if (g.isWeak()) {
-                isSiren = false;
-                break;
-            }
-        }
-        if (isSiren) {
-            pac6.stop();
-            if (mustReactivateSiren) {
-                mustReactivateSiren = false;
-                siren.start();
-            }
-
         }
 
         long nowMillis2 = System.currentTimeMillis();
@@ -565,7 +532,6 @@ public class Game extends JPanel {
                 for (Ghost g : ghosts) {
                     if (Math.sqrt(Math.pow(b.getPosition().getX() - g.getLogicalPosition().getX(), 2) +
                             Math.pow(b.getPosition().getY() - g.getLogicalPosition().getY(), 2)) <= 3) {
-//                        g.weaken();
                         g.die();
                     }
                 }

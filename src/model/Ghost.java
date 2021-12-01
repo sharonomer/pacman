@@ -34,19 +34,9 @@ public abstract class Ghost {
     protected boolean isStuck = true;
     public boolean isPending = false;
 
-    public Timer unWeakenTimer1;
-    public Timer unWeakenTimer2;
-    public ActionListener unweak1;
-    public ActionListener unweak2;
-    public int unweakBlinks;
     public boolean isWhite = false;
 
-    protected boolean isWeak = false;
     protected boolean isDead = false;
-
-    public boolean isWeak() {
-        return isWeak;
-    }
 
     public boolean isDead() {
         return isDead;
@@ -70,7 +60,6 @@ public abstract class Ghost {
     public Image ghostEye;
 
     public int ghostNormalDelay;
-    public int ghostWeakDelay = 30;
     public int ghostDeadDelay = 5;
     public boolean speedUp = false;
 
@@ -93,23 +82,6 @@ public abstract class Ghost {
         ghostNormalDelay = ghostDelay;
 
         loadImages();
-
-        //load weak Image
-        ghostW = new Image[2];
-        try {
-            ghostW[0] = ImageIO.read(this.getClass().getResource("/resources/images/ghost/blue/1.png"));
-            ghostW[1] = ImageIO.read(this.getClass().getResource("/resources/images/ghost/blue/3.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ghostWW = new Image[2];
-        try {
-            ghostWW[0] = ImageIO.read(this.getClass().getResource("/resources/images/ghost/white/1.png"));
-            ghostWW[1] = ImageIO.read(this.getClass().getResource("/resources/images/ghost/white/3.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         try {
             ghostEye = ImageIO.read(this.getClass().getResource("/resources/images/eye.png"));
@@ -152,12 +124,6 @@ public abstract class Ghost {
                     activeMove = getMoveAI();
                     isStuck = true;
 
-                    //animTimer.stop();
-                    //System.out.println("LOGICAL POS :" + logicalPosition.x + " , " + logicalPosition.y);
-                    //if(todoMove != moveType.NONE) {
-                    //    activeMove = todoMove;
-                    //    todoMove = moveType.NONE;
-                    //}
                 }else{
                     isStuck = false;
                     //animTimer.start();
@@ -208,32 +174,6 @@ public abstract class Ghost {
         };
         moveTimer = new Timer(ghostDelay,moveAL);
         moveTimer.start();
-
-        unweak1 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                unWeakenTimer2.start();
-                unWeakenTimer1.stop();
-            }
-        };
-        unWeakenTimer1 = new Timer(7000,unweak1);
-
-        unweak2 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(unweakBlinks == 10){
-                    unweaken();
-                    unWeakenTimer2.stop();
-                }
-                if(unweakBlinks % 2 == 0){
-                    isWhite = true;
-                }else{
-                    isWhite = false;
-                }
-                unweakBlinks++;
-            }
-        };
-        unWeakenTimer2 = new Timer(250,unweak2);
 
 
         pendingAL = new ActionListener() {
@@ -287,43 +227,22 @@ public abstract class Ghost {
      */
     public Image getGhostImage(){
         if(!isDead) {
-            if (!isWeak) {
-                switch (activeMove) {
-                    case RIGHT:
-                        return ghostR[activeImage];
-                    case LEFT:
-                        return ghostL[activeImage];
-                    case UP:
-                        return ghostU[activeImage];
-                    case DOWN:
-                        return ghostD[activeImage];
-                }
-                return ghostR[activeImage];
-            } else {
-                if (isWhite) {
-                    return ghostWW[activeImage];
-                } else {
-                    return ghostW[activeImage];
-                }
+            switch (activeMove) {
+                case RIGHT:
+                    return ghostR[activeImage];
+                case LEFT:
+                    return ghostL[activeImage];
+                case UP:
+                    return ghostU[activeImage];
+                case DOWN:
+                    return ghostD[activeImage];
             }
+            return ghostR[activeImage];
         }else{
             return ghostEye;
         }
     }
 
-
-    public void weaken(){
-        isWeak = true;
-        moveTimer.setDelay(ghostWeakDelay);
-        unweakBlinks = 0;
-        isWhite = false;
-        unWeakenTimer1.start();
-    }
-
-    public void unweaken(){
-        isWeak = false;
-        moveTimer.setDelay(ghostNormalDelay);
-    }
 
     public void die(){
         isDead = true;
@@ -348,7 +267,6 @@ public abstract class Ghost {
         pendingTimer.start();
 
         isDead = false;
-        isWeak = false;
         moveTimer.setDelay(ghostNormalDelay);
     }
 
