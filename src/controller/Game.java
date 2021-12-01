@@ -63,7 +63,6 @@ public class Game extends JPanel {
     public JLabel gameStats;
 
     public LoopPlayer siren;
-    public boolean mustReactivateSiren = false;
     public LoopPlayer pac6;
 
     public Point ghostBase;
@@ -126,7 +125,9 @@ public class Game extends JPanel {
         }
 
         for (int i = 1; i <= 3; i++) {
-            foods.add(getNewQuestion(i));
+            if (getNewQuestion(i) != null) {
+                foods.add(getNewQuestion(i));
+            }
         }
 
         /*
@@ -573,23 +574,27 @@ public class Game extends JPanel {
     public Question getNewQuestion(int diff) {
         Question q = null;
         Point newPos = availableQuestionPoints.get(ThreadLocalRandom.current().nextInt(availableQuestionPoints.size()));
-        switch (diff) {
-            case 1:
-                q = easyQ.get(ThreadLocalRandom.current().nextInt(easyQ.size()));
-                break;
-            case 2:
-                q = mediumQ.get(ThreadLocalRandom.current().nextInt(mediumQ.size()));
-                break;
-            case 3:
-                q = hardQ.get(ThreadLocalRandom.current().nextInt(hardQ.size()));
-                break;
+        try {
+            switch (diff) {
+                case 1:
+                    q = easyQ.get(ThreadLocalRandom.current().nextInt(easyQ.size()));
+                    break;
+                case 2:
+                    q = mediumQ.get(ThreadLocalRandom.current().nextInt(mediumQ.size()));
+                    break;
+                case 3:
+                    q = hardQ.get(ThreadLocalRandom.current().nextInt(hardQ.size()));
+                    break;
+            }
+        } catch (Exception ignored) {
+            return null;
         }
         assert q != null;
         q.setPosition(newPos);
         return q;
     }
 
-    public Game(){
+    public Game() {
 
     }
 }
