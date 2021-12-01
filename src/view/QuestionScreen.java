@@ -31,6 +31,7 @@ public class QuestionScreen extends JFrame {
 
     public QuestionScreen() {
         setSize(600, 400);
+        setTitle("Edit Questions");
         getContentPane().setBackground(Color.black);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -51,15 +52,6 @@ public class QuestionScreen extends JFrame {
         getContentPane().add(backBTN, gbc_backBTN);
 
 
-        JLabel lblEditQuestion = new JLabel("Edit Questions");
-        lblEditQuestion.setForeground(Color.ORANGE);
-        lblEditQuestion.setSize(200, 200);
-        GridBagConstraints gbc_lblEditQuestion = new GridBagConstraints();
-        gbc_lblEditQuestion.gridwidth = 5;
-        gbc_lblEditQuestion.insets = new Insets(0, 0, 5, 5);
-        gbc_lblEditQuestion.gridx = 17;
-        gbc_lblEditQuestion.gridy = 2;
-        getContentPane().add(lblEditQuestion, gbc_lblEditQuestion);
 
 //				JButton btnNewQuestion = new JButton("Add a New Question");
         FancyButton btnNewQuestion = new FancyButton("Add a New Question", 20f);

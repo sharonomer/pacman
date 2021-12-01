@@ -17,6 +17,7 @@ public class editName extends JFrame {
 
     public editName() {
         setSize(600, 400);
+        setTitle("Your Name");
         getContentPane().setBackground(Color.black);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

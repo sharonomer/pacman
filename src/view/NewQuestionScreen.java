@@ -32,6 +32,7 @@ public class NewQuestionScreen extends JFrame {
     public NewQuestionScreen() {
         SysData s = SysData.getInstance();
         setSize(600, 400);
+        setTitle("Add a New Question");
         getContentPane().setBackground(Color.black);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -43,15 +44,7 @@ public class NewQuestionScreen extends JFrame {
         gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
         getContentPane().setLayout(gridBagLayout);
 
-        JLabel lblTitle = new JLabel("Add a New Question");
-        lblTitle.setForeground(Color.ORANGE);
-        GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-        gbc_lblTitle.insets = new Insets(0, 0, 5, 5);
-        gbc_lblTitle.gridx = 7;
-        gbc_lblTitle.gridy = 1;
-        getContentPane().add(lblTitle, gbc_lblTitle);
 
-//		JButton btnBack = new JButton("Back");
         FancyButton btnBack = new FancyButton("Back", 20f);
         GridBagConstraints gbc_btnBack = new GridBagConstraints();
         gbc_btnBack.insets = new Insets(0, 0, 5, 5);

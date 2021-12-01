@@ -20,6 +20,7 @@ public class MapEditor extends JFrame {
 
     public MapEditor(){
         setSize(650,400);
+        setTitle("Map Editor");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 

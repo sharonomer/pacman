@@ -11,6 +11,7 @@ public class StartWindow extends JFrame {
 
     public StartWindow(){
         setSize(600,400);
+        setTitle("Pacman");
         getContentPane().setBackground(Color.black);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

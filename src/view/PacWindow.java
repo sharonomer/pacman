@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class PacWindow extends JFrame {
 
     public PacWindow(String username) {
-        setTitle("AKP Pacman v1.0");
+        setTitle("Pacman");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         getContentPane().setBackground(Color.black);

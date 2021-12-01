@@ -15,6 +15,7 @@ public class Instructions extends JFrame {
 
     public Instructions(){
         setSize(650,400);
+        setTitle("Instructions");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.black);
