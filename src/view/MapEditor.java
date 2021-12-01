@@ -122,20 +122,24 @@ public class MapEditor extends JFrame {
                 map[i][j] = 0;
                 customMap.getGhostsData().add(new InitGhostData(i,j, ghostType.RED));
                 customMap.getFoodPositions().add(new Food(i,j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
             }
             if(c == '2'){
                 map[i][j] = 0;
                 customMap.getGhostsData().add(new InitGhostData(i,j,ghostType.PINK));
                 customMap.getFoodPositions().add(new Food(i,j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
             }
             if(c == '3'){
                 map[i][j] = 0;
                 customMap.getGhostsData().add(new InitGhostData(i,j,ghostType.CYAN));
                 customMap.getFoodPositions().add(new Food(i,j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
             }
             if(c == 'P'){
                 map[i][j] = 0;
                 customMap.setPacmanPosition(new Point(i,j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
             }
             if(c == 'X'){
                 map[i][j] = 23;
@@ -158,7 +162,8 @@ public class MapEditor extends JFrame {
             }
             if(c == 'F'){
                 map[i][j] = 0;
-                customMap.getPufoodPositions().add(new Bomb(i,j, ThreadLocalRandom.current().nextInt(4)+1));
+                customMap.getFoodPositions().add(new Bomb(i,j,ThreadLocalRandom.current().nextInt(4)+1));
+//                customMap.getPufoodPositions().add(new Bomb(i,j, ThreadLocalRandom.current().nextInt(4)+1));
             }
             if(c == 'B'){
                 map[i][j] = 0;

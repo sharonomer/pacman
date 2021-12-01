@@ -306,6 +306,7 @@ public class Game extends JPanel {
                         armedBombs.add((Bomb) foodToEat);
                     } else { //Fruit
                         SoundPlayer.play("pacman_eatfruit.wav");
+                        eatenFoods.add(foodToEat);
                         foods.remove(foodToEat);
                         scoreToAdd = 1;
                         drawScore = true;
@@ -331,8 +332,8 @@ public class Game extends JPanel {
         for (Food f : eatenFoods) {
             long nowMillis = System.currentTimeMillis();
             if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
-                if (f instanceof Bomb && ((Bomb) f).getType() == 0) {
-                    foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), 0));
+                if (f instanceof Bomb) {
+                    foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), ((Bomb) f).getType()));
                 } else if (f instanceof Question) {
                     foods.add(getNewQuestion(((Question) f).getDiff()));
                 } else //Food
@@ -467,7 +468,7 @@ public class Game extends JPanel {
         if (drawScore) {
             g.setFont(new Font("Arial", Font.BOLD, 15));
             g.setColor(Color.yellow);
-            int s = scoreToAdd * 100; // points for eating a ghost
+            int s = scoreToAdd * 5; // points for eating a fruit/ghost
             g.drawString(Integer.toString(s), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
             levelCheck();
