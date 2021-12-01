@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Game extends JPanel {
+public class Game extends JPanel{
 
     public String name;
     public Timer redrawTimer;
@@ -217,6 +217,7 @@ public class Game extends JPanel {
 
             if (pr.intersects(gr)) {
                 if (!g.isDead()) {
+                    //TODO can ghosts be weak?
                     if (!g.isWeak()) {
                         if (life == 0) {
                             gameOver();
@@ -259,9 +260,10 @@ public class Game extends JPanel {
 
     /*
      * Checks the current game's level.
+     * TODO Sharon changed function parameter: added int currentscore ; returns int
      * */
-    public void levelCheck() {
-        switch ((int) (score - 1) / 50) {
+    public int levelCheck(int currentScore) {
+        switch ((int) (currentScore - 1) / 50) {
             case 0:
                 level = 1;
                 break;
@@ -270,19 +272,32 @@ public class Game extends JPanel {
                 break;
             case 2:
                 level = 3;
-                pacman.setSpeedUp(true);
+                if (!isJUnitTest())
+                    pacman.setSpeedUp(true);
                 break;
             case 3:
                 level = 4;
-                if (!ghostsSpeedUp) {
-                    for (Ghost g : ghosts)
-                        g.setSpeedUp(true);
-                    ghostsSpeedUp = true;
+                if (!isJUnitTest()) {
+                    if (!ghostsSpeedUp) {
+                        for (Ghost g : ghosts)
+                            g.setSpeedUp(true);
+                        ghostsSpeedUp = true;
+                    }
                 }
                 break;
             default:
                 break;
         }
+        return level;
+    }
+
+    public static boolean isJUnitTest() {
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            if (element.getClassName().startsWith("org.junit.")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /*
@@ -320,7 +335,7 @@ public class Game extends JPanel {
                     eatenFoods.add(foodToEat);
                     foods.remove(foodToEat);
                     score++;
-                    levelCheck();
+                    levelCheck(this.score);
                     scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
                 }
             }
@@ -470,7 +485,7 @@ public class Game extends JPanel {
             int s = scoreToAdd * 100; // points for eating a ghost
             g.drawString(Integer.toString(s), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
-            levelCheck();
+            levelCheck(this.score);
             scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
             clearScore = true;
 
@@ -607,5 +622,9 @@ public class Game extends JPanel {
         assert q != null;
         q.setPosition(newPos);
         return q;
+    }
+
+    public Game(){
+
     }
 }

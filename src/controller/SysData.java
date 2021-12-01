@@ -39,7 +39,12 @@ public class SysData {
         JSONParser parser = new JSONParser();
         // Handle JSON files and populate Arraylist<Question> and ArrayList<Highscore>
         try {
-            Reader reader = new FileReader(qPath);
+            Reader reader;
+            if (isJUnitTest()){
+                reader = new FileReader("..\\" + qPath);
+            } else {
+                reader = new FileReader(qPath);
+            }
             //Reader reader = new FileReader("test.json");
 
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
@@ -55,7 +60,12 @@ public class SysData {
         parser.reset();
 
         try {
-            Reader reader = new FileReader(hsPath);
+            Reader reader;
+            if (isJUnitTest()){
+                reader = new FileReader("..\\" + hsPath);
+            } else {
+                reader = new FileReader(hsPath);
+            }
 
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
 
@@ -122,7 +132,7 @@ public class SysData {
         hsArray.put("highscores", hsList);
 
         try {
-            FileWriter file = new FileWriter("src\\resources\\Highscores.json");
+            FileWriter file = new FileWriter(hsPath);
             file.append(hsArray.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -163,7 +173,7 @@ public class SysData {
         questionArray.put("questions", questionList);
 
         try {
-            FileWriter file = new FileWriter("src\\resources\\QuestionsFormat.json");
+            FileWriter file = new FileWriter(qPath);
             file.append(questionArray.toJSONString());
             file.flush();
         } catch (IOException e) {
@@ -201,6 +211,14 @@ public class SysData {
         return highscores.add(h);
     }
 
+    public static boolean isJUnitTest() {
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            if (element.getClassName().startsWith("org.junit.")) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 
