@@ -60,7 +60,7 @@ public class Game extends JPanel {
     public long iframesTime = 0;
     public long explosionTime = 0;
     public boolean ghostsSpeedUp = false;
-    public JLabel scoreboard;
+    public JLabel gameStats;
 
     public LoopPlayer siren;
     public boolean mustReactivateSiren = false;
@@ -73,8 +73,8 @@ public class Game extends JPanel {
 
     public PacWindow windowParent;
 
-    public Game(JLabel scoreboard, MapData md, PacWindow pw) {
-        this.scoreboard = scoreboard;
+    public Game(JLabel gameStats, MapData md, PacWindow pw) {
+        this.gameStats = gameStats;
         this.setDoubleBuffered(true);
         windowParent = pw;
 
@@ -203,7 +203,7 @@ public class Game extends JPanel {
         for (Ghost g : ghosts)
             g.moveTimer.stop();
         isGameOver = true;
-        scoreboard.setText("    Press R to try again !");
+        gameStats.setText("    Press R to try again !");
     }
 
     /*
@@ -237,7 +237,7 @@ public class Game extends JPanel {
                         }
                     }
                 }
-                scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
+                gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
             }
         }
     }
@@ -320,7 +320,7 @@ public class Game extends JPanel {
                     foods.remove(foodToEat);
                     score++;
                     levelCheck(this.score);
-                    scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
+                    gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
                 }
             }
         }
@@ -453,7 +453,7 @@ public class Game extends JPanel {
             g.drawString(Integer.toString(s), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
             levelCheck(this.score);
-            scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
+            gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
             clearScore = true;
 
         }
@@ -505,7 +505,7 @@ public class Game extends JPanel {
                 for (Ghost g : ghosts) {
                     g.moveTimer.stop();
                 }
-                scoreboard.setText("    Press R to try again !");
+                gameStats.setText("    Press R to try again !");
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                 Date resultdate = new Date(System.currentTimeMillis());

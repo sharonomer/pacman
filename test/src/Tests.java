@@ -47,15 +47,9 @@ public class Tests {
     public void levelTest(){
         Game g = new Game();
         assertEquals(1, g.levelCheck(0));
-        assertEquals(1, g.levelCheck(50));
         assertEquals(2, g.levelCheck(51));
-        assertEquals(2, g.levelCheck(100));
         assertEquals(3, g.levelCheck(101));
-        assertEquals(3, g.levelCheck(150));
         assertEquals(4, g.levelCheck(151));
-        assertEquals(4, g.levelCheck(200));
-        assertEquals(4, g.levelCheck(201));
-        assertEquals(4, g.levelCheck(400));
     }
 
     @Test

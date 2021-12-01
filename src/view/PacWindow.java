@@ -21,19 +21,19 @@ public class PacWindow extends JFrame {
         setSize(794, 884);
         setLocationRelativeTo(null);
 
-        JLabel scoreboard = new JLabel("    Player: " + username + "    Score : 0    Level : 1    Life : 3");
-        scoreboard.setForeground(new Color(255, 243, 36));
+        JLabel gameStats = new JLabel("    Player: " + username + "    Score : 0    Level : 1    Life : 3");
+        gameStats.setForeground(new Color(255, 243, 36));
 
         MapData map1 = getMapFromResource("/resources/maps/map1_c.txt");
         adjustMap(map1);
 
-        Game pb = new Game(scoreboard, map1, this);
+        Game pb = new Game(gameStats, map1, this);
         pb.setName(username);
 
         pb.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new LineBorder(Color.BLUE)));
         addKeyListener(pb.pacman);
 
-        this.getContentPane().add(scoreboard, BorderLayout.SOUTH);
+        this.getContentPane().add(gameStats, BorderLayout.SOUTH);
         this.getContentPane().add(pb);
         setVisible(true);
     }
@@ -47,16 +47,16 @@ public class PacWindow extends JFrame {
         setSize(794, 884);
         setLocationRelativeTo(null);
 
-        JLabel scoreboard = new JLabel("    Score : 0");
-        scoreboard.setForeground(new Color(255, 243, 36));
+        JLabel gameStats = new JLabel("    Score : 0");
+        gameStats.setForeground(new Color(255, 243, 36));
 
         //int[][] mapLoaded = loadMap(27,29,"/maps/map1.txt");
         adjustMap(md);
-        Game pb = new Game(scoreboard, md, this);
+        Game pb = new Game(gameStats, md, this);
         pb.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new LineBorder(Color.BLUE)));
         addKeyListener(pb.pacman);
 
-        this.getContentPane().add(scoreboard, BorderLayout.SOUTH);
+        this.getContentPane().add(gameStats, BorderLayout.SOUTH);
         this.getContentPane().add(pb);
         setVisible(true);
     }

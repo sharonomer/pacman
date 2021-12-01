@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Bomb extends Food{
 
-    public int type; //0-4
+    public int type; //0-5
 
 
     public Bomb(int x, int y, int type) {
