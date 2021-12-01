@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Game extends JPanel{
+public class Game extends JPanel {
 
     public String name;
     public Timer redrawTimer;
@@ -217,50 +217,33 @@ public class Game extends JPanel{
 
             if (pr.intersects(gr)) {
                 if (!g.isDead()) {
-                    //TODO can ghosts be weak?
-                    if (!g.isWeak()) {
+                    if (life == 0) {
+                        gameOver();
+                        break;
+                    } else {
+                        long nowMillis2 = System.currentTimeMillis();
+                        if ((nowMillis2 - iframesTime) / 1000 >= 3) {
+                            life--;
+                            iframesTime = System.currentTimeMillis();
+                            hasIFrames = true;
+
+                            g.moveTimer.stop();
+                            g.setStopped(true);
+                            g.setStopTime(System.currentTimeMillis());
+                        }
                         if (life == 0) {
                             gameOver();
                             break;
-                        } else {
-                            long nowMillis2 = System.currentTimeMillis();
-                            if ((nowMillis2 - iframesTime) / 1000 >= 3) {
-                                life--;
-                                iframesTime = System.currentTimeMillis();
-                                hasIFrames = true;
-
-                                g.moveTimer.stop();
-                                g.setStopped(true);
-                                g.setStopTime(System.currentTimeMillis());
-                            }
-                            if (life == 0) {
-                                gameOver();
-                                break;
-                            }
                         }
-                    } else {
-                        //Eat Ghost
-                        SoundPlayer.play("pacman_eatghost.wav");
-                        drawScore = true;
-                        scoreToAdd++;
-                        if (ghostBase != null)
-                            g.die();
-                        else
-                            ghostToRemove = g;
                     }
                 }
                 scoreboard.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
             }
         }
-
-        if (ghostToRemove != null) {
-            ghosts.remove(ghostToRemove);
-        }
     }
 
     /*
      * Checks the current game's level.
-     * TODO Sharon changed function parameter: added int currentscore ; returns int
      * */
     public int levelCheck(int currentScore) {
         switch ((int) (currentScore - 1) / 50) {
@@ -321,6 +304,7 @@ public class Game extends JPanel{
                         armedBombs.add((Bomb) foodToEat);
                     } else { //Fruit
                         SoundPlayer.play("pacman_eatfruit.wav");
+                        eatenFoods.add(foodToEat);
                         foods.remove(foodToEat);
                         scoreToAdd = 1;
                         drawScore = true;
@@ -346,8 +330,8 @@ public class Game extends JPanel{
         for (Food f : eatenFoods) {
             long nowMillis = System.currentTimeMillis();
             if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
-                if (f instanceof Bomb && ((Bomb) f).getType() == 0) {
-                    foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), 0));
+                if (f instanceof Bomb) {
+                    foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), ((Bomb) f).getType()));
                 } else if (f instanceof Question) {
                     foods.add(getNewQuestion(((Question) f).getDiff()));
                 } else //Food
@@ -382,23 +366,6 @@ public class Game extends JPanel{
                 pacman.pixelPosition.x = pacman.logicalPosition.x * 28;
                 pacman.pixelPosition.y = pacman.logicalPosition.y * 28;
             }
-        }
-
-        //Check isSiren
-        boolean isSiren = true;
-        for (Ghost g : ghosts) {
-            if (g.isWeak()) {
-                isSiren = false;
-                break;
-            }
-        }
-        if (isSiren) {
-            pac6.stop();
-            if (mustReactivateSiren) {
-                mustReactivateSiren = false;
-                siren.start();
-            }
-
         }
 
         long nowMillis2 = System.currentTimeMillis();
@@ -482,7 +449,7 @@ public class Game extends JPanel{
         if (drawScore) {
             g.setFont(new Font("Arial", Font.BOLD, 15));
             g.setColor(Color.yellow);
-            int s = scoreToAdd * 100; // points for eating a ghost
+            int s = scoreToAdd * 5; // points for eating a fruit/ghost
             g.drawString(Integer.toString(s), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
             levelCheck(this.score);
@@ -579,7 +546,6 @@ public class Game extends JPanel{
                 for (Ghost g : ghosts) {
                     if (Math.sqrt(Math.pow(b.getPosition().getX() - g.getLogicalPosition().getX(), 2) +
                             Math.pow(b.getPosition().getY() - g.getLogicalPosition().getY(), 2)) <= 3) {
-//                        g.weaken();
                         g.die();
                     }
                 }

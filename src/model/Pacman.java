@@ -177,12 +177,14 @@ public class Pacman implements KeyListener{
     }
     //check if the next step of the pacman is allowed
     public boolean isPossibleMove(moveType move){
-        if(logicalPosition.x >= 0 && logicalPosition.x < parentBoard.m_x-1 && logicalPosition.y >= 0 && logicalPosition.y < parentBoard.m_y-1 ) {
+        if(logicalPosition.x >= 0 && logicalPosition.x <= parentBoard.m_x-1 && logicalPosition.y >= 0 && logicalPosition.y < parentBoard.m_y-1 ) {
             switch(move){
                 case RIGHT:
-                    return !(parentBoard.map[logicalPosition.x + 1][logicalPosition.y] > 0);
+                    if (logicalPosition.x < parentBoard.m_x-1)
+                        return !(parentBoard.map[logicalPosition.x + 1][logicalPosition.y] > 0);
                 case LEFT:
-                    return !(parentBoard.map[logicalPosition.x - 1][logicalPosition.y] > 0);
+                    if (logicalPosition.x > 0)
+                        return !(parentBoard.map[logicalPosition.x - 1][logicalPosition.y] > 0);
                 case UP:
                     return !(parentBoard.map[logicalPosition.x][logicalPosition.y - 1] > 0);
                 case DOWN:
