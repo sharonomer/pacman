@@ -77,25 +77,25 @@ public class Tests {
         assertTrue(SysData.deleteQuestion(toRemove));
     }
 
-    @Test
-    public void ghostDiesTest(){
-        Game game = new Game();
-        Ghost g = new Ghost(10, 10, game, 16) {
-            @Override
-            public void loadImages() {
-
-            }
-
-            @Override
-            public moveType getMoveAI() {
-                return null;
-            }
-        };
-
-        g.die();
-
-        assertTrue(g.isDead());
-    }
+//    @Test
+//    public void ghostDiesTest(){
+//        Game game = new Game();
+//        Ghost g = new Ghost(10, 10, game, 16) {
+//            @Override
+//            public void loadImages() {
+//
+//            }
+//
+//            @Override
+//            public moveType getMoveAI() {
+//                return null;
+//            }
+//        };
+//
+//        g.die();
+//
+//        assertTrue(g.isDead());
+//    }
 
     @Test
     public void sysDataAddHighscoreTest(){
