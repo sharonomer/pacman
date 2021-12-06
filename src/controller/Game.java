@@ -3,6 +3,7 @@ package controller;
 import misc.*;
 import model.*;
 import view.PacWindow;
+import view.PopUp;
 import view.StartWindow;
 
 import javax.imageio.ImageIO;
@@ -211,6 +212,7 @@ public class Game extends JPanel {
      * Checks if the pacman's rectangle collides with any of the ghosts' rectangles.
      * */
     public void collisionTest() {
+
         Rectangle pr = new Rectangle(pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 13, 2, 2);
         for (Ghost g : ghosts) {
             Rectangle gr = new Rectangle(g.pixelPosition.x, g.pixelPosition.y, 28, 28);
@@ -221,8 +223,10 @@ public class Game extends JPanel {
                         gameOver();
                         break;
                     } else {
+
                         long nowMillis2 = System.currentTimeMillis();
                         if ((nowMillis2 - iframesTime) / 1000 >= 3) {
+                            System.out.println("colision!");
                             life--;
                             iframesTime = System.currentTimeMillis();
                             hasIFrames = true;
@@ -314,6 +318,15 @@ public class Game extends JPanel {
                     foods.remove(foodToEat);
                     foodToEat.setEaten(false);
                     System.out.println("EAT QUESTION");
+
+                    for (Ghost g : ghosts) {
+                        g.moveTimer.stop();
+                        g.setStopped(true);
+                        g.setStopTime(System.currentTimeMillis());
+
+                    }
+                    PopUp pu = new PopUp((Question) foodToEat);
+
                 } else { //Food
                     SoundPlayer.play("pacman_eat.wav");
                     eatenFoods.add(foodToEat);
@@ -533,6 +546,7 @@ public class Game extends JPanel {
             new StartWindow();
             windowParent.dispose();
         } else if (ae.getID() == Messages.EXPLODE) {
+            SoundPlayer.play("explosion.wav");
             System.out.println("EXPLODE!");
             explosionTime = System.currentTimeMillis();
             explosionFire = true;
