@@ -135,21 +135,12 @@ public class Game extends JPanel {
 
         /*
          * Creation of ghosts.
-         * Design Pattern - Shape Factory
+         * Design Pattern - Factory
          * */
         ghosts = new ArrayList<>();
+        GhostFactory gf = new GhostFactory();
         for (InitGhostData gd : md.getGhostsData()) {
-            switch (gd.getType()) {
-                case RED:
-                    ghosts.add(new RedGhost(gd.getX(), gd.getY(), this));
-                    break;
-                case PINK:
-                    ghosts.add(new PinkGhost(gd.getX(), gd.getY(), this));
-                    break;
-                case CYAN:
-                    ghosts.add(new CyanGhost(gd.getX(), gd.getY(), this));
-                    break;
-            }
+            ghosts.add(gf.getGhost(gd.getType(), gd.getX(), gd.getY(), this));
         }
 
         teleports = md.getTeleports();
