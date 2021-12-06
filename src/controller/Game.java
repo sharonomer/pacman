@@ -63,7 +63,7 @@ public class Game extends JPanel {
     public boolean ghostsSpeedUp = false;
     public JLabel gameStats;
 
-    PopUp pu;
+    PopUp pu = new PopUp();
 
     public static LoopPlayer siren;
     public static LoopPlayer pac6;
@@ -378,10 +378,14 @@ public class Game extends JPanel {
         if ((System.currentTimeMillis() - iframesTime) / 1000 >= 3)
             hasIFrames = false;
 
-        if (pu != null && pu.getReturnPoints() != null) {
+        /*
+        * Design Pattern - Null Object Pattern
+        * */
+        if (/*pu != null*/ !pu.isNull() && pu.getReturnPoints() != null) {
             System.out.println(pu.getReturnPoints() + " points!");
             score += pu.getReturnPoints();
-            pu = null;
+//            pu = null;
+            pu.setNull(true);
             gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
         }
     }

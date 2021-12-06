@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 
 public class PopUp extends JFrame {
     Integer returnPoints;
+    boolean isNull = false;
 
     public PopUp(Question q) {
         int pointsForCorrectAnswer = 0;
@@ -152,11 +153,22 @@ public class PopUp extends JFrame {
         jd.setVisible(true);
     }
 
+    public PopUp() {
+    }
+
     public Integer getReturnPoints() {
         return returnPoints;
     }
 
     public void setReturnPoints(int returnPoints) {
         this.returnPoints = returnPoints;
+    }
+
+    public boolean isNull() {
+        return isNull;
+    }
+
+    public void setNull(boolean aNull) {
+        isNull = aNull;
     }
 }
