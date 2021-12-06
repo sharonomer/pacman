@@ -32,11 +32,11 @@ public class Game extends JPanel {
     public Image goImage;
     public Image vicImage;
 
-    public Pacman pacman;
+    public static Pacman pacman;
     public ArrayList<Food> foods;
     public ArrayList<Food> eatenFoods;
     public ArrayList<Bomb> armedBombs;
-    public ArrayList<Ghost> ghosts;
+    public static ArrayList<Ghost> ghosts;
     public ArrayList<TeleportTunnel> teleports;
 
     public ArrayList<Question> questions;
@@ -63,8 +63,10 @@ public class Game extends JPanel {
     public boolean ghostsSpeedUp = false;
     public JLabel gameStats;
 
-    public LoopPlayer siren;
-    public LoopPlayer pac6;
+    PopUp pu;
+
+    public static LoopPlayer siren;
+    public static LoopPlayer pac6;
 
     public Point ghostBase;
 
@@ -226,7 +228,6 @@ public class Game extends JPanel {
 
                         long nowMillis2 = System.currentTimeMillis();
                         if ((nowMillis2 - iframesTime) / 1000 >= 3) {
-                            System.out.println("colision!");
                             life--;
                             iframesTime = System.currentTimeMillis();
                             hasIFrames = true;
@@ -319,13 +320,9 @@ public class Game extends JPanel {
                     foodToEat.setEaten(false);
                     System.out.println("EAT QUESTION");
 
-                    for (Ghost g : ghosts) {
-                        g.moveTimer.stop();
-                        g.setStopped(true);
-                        g.setStopTime(System.currentTimeMillis());
+                    isPaused(true);
 
-                    }
-                    PopUp pu = new PopUp((Question) foodToEat);
+                    pu = new PopUp((Question) foodToEat);
 
                 } else { //Food
                     SoundPlayer.play("pacman_eat.wav");
@@ -389,6 +386,12 @@ public class Game extends JPanel {
 
         if ((System.currentTimeMillis() - iframesTime) / 1000 >= 3)
             hasIFrames = false;
+
+        if (pu != null && pu.getReturnPoints() != null) {
+            System.out.println(pu.getReturnPoints() + " points!");
+            score += pu.getReturnPoints();
+            pu = null;
+        }
     }
 
 
@@ -606,6 +609,24 @@ public class Game extends JPanel {
         assert q != null;
         q.setPosition(newPos);
         return q;
+    }
+
+    public static void isPaused(boolean paused) {
+        if (paused) {
+//            pac6.stop();
+            siren.stop();
+            pacman.moveTimer.stop();
+            for (Ghost g : ghosts) {
+                g.moveTimer.stop();
+            }
+        } else {
+//            pac6.start();
+            siren.start();
+            pacman.moveTimer.start();
+            for (Ghost g : ghosts) {
+                g.moveTimer.start();
+            }
+        }
     }
 
     public Game() {

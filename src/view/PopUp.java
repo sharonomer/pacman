@@ -12,7 +12,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PopUp extends JFrame{
+public class PopUp extends JFrame {
+    Integer returnPoints;
+
     public PopUp(Question q) {
         int pointsForCorrectAnswer = 0;
         int pointsForWrongAnswer = 0;
@@ -20,7 +22,7 @@ public class PopUp extends JFrame{
         JDialog jd = new JDialog();
         switch (q.getDiff()) {
             case 1:
-               jd.getContentPane().setBackground(Color.white);
+                jd.getContentPane().setBackground(Color.white);
                 pointsForCorrectAnswer = 1;
                 pointsForWrongAnswer = 10;
                 title = "Easy Question";
@@ -58,7 +60,7 @@ public class PopUp extends JFrame{
         gbc_question.gridy = 1;
         jd.getContentPane().add(question, gbc_question);
         JRadioButton answer1 = new JRadioButton(q.getAnswers().get(0).aBody);
-        answer1.setActionCommand(q.answers.get(0).isCorrect() ? "true": "false");
+        answer1.setActionCommand(q.answers.get(0).isCorrect() ? "true" : "false");
         GridBagConstraints gbc_answer1 = new GridBagConstraints();
         gbc_answer1.anchor = GridBagConstraints.NORTHWEST;
         gbc_answer1.insets = new Insets(0, 0, 5, 5);
@@ -66,7 +68,7 @@ public class PopUp extends JFrame{
         gbc_answer1.gridy = 2;
         jd.getContentPane().add(answer1, gbc_answer1);
         JRadioButton answer2 = new JRadioButton(q.getAnswers().get(1).aBody);
-        answer2.setActionCommand(q.answers.get(1).isCorrect() ? "true": "false");
+        answer2.setActionCommand(q.answers.get(1).isCorrect() ? "true" : "false");
         GridBagConstraints gbc_answer2 = new GridBagConstraints();
         gbc_answer2.anchor = GridBagConstraints.NORTHWEST;
         gbc_answer2.insets = new Insets(0, 0, 5, 5);
@@ -76,14 +78,14 @@ public class PopUp extends JFrame{
         jd.getContentPane().add(answer2, gbc_answer2);
         JRadioButton answer3 = new JRadioButton(q.getAnswers().get(2).aBody);
         GridBagConstraints gbc_answer3 = new GridBagConstraints();
-        answer3.setActionCommand(q.answers.get(2).isCorrect() ? "true": "false");
+        answer3.setActionCommand(q.answers.get(2).isCorrect() ? "true" : "false");
         gbc_answer3.anchor = GridBagConstraints.NORTHWEST;
         gbc_answer3.insets = new Insets(0, 0, 5, 5);
         gbc_answer3.gridx = 2;
         gbc_answer3.gridy = 4;
         jd.getContentPane().add(answer3, gbc_answer3);
         JRadioButton answer4 = new JRadioButton(q.getAnswers().get(3).aBody);
-        answer4.setActionCommand(q.answers.get(3).isCorrect() ? "true": "false");
+        answer4.setActionCommand(q.answers.get(3).isCorrect() ? "true" : "false");
         GridBagConstraints gbc_answer4 = new GridBagConstraints();
         gbc_answer4.anchor = GridBagConstraints.NORTHEAST;
         gbc_answer4.insets = new Insets(0, 0, 5, 5);
@@ -124,36 +126,37 @@ public class PopUp extends JFrame{
         jd.getContentPane().add(btnContinue, gbc_btnContinue);
 
 
-
-        btnSave.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(answers.getSelection().getActionCommand().equals("true")){
-                    SoundPlayer.play("correct_answer.wav");
-                    lblNewLabel.setText("Correct Answer! You got "+ pointsForCorrectAnswerString + " points!");
-                    lblNewLabel.setForeground(Color.green);
-
-                }
-                else{
-                    SoundPlayer.play("wrong_answer.wav");
-                    lblNewLabel.setText("Wrong Answer :( You lost "+ pointsForWrongAnswerString + " points");
-                    lblNewLabel.setForeground(Color.black);
-
-                }
-                btnSave.setVisible(false);
-                btnContinue.setVisible(true);
+        int finalPointsForCorrectAnswer = pointsForCorrectAnswer;
+        int finalPointsForWrongAnswer = pointsForWrongAnswer;
+        btnSave.addActionListener(e -> {
+            if (answers.getSelection().getActionCommand().equals("true")) {
+                SoundPlayer.play("correct_answer.wav");
+                lblNewLabel.setText("Correct Answer! You got " + pointsForCorrectAnswerString + " points!");
+                lblNewLabel.setForeground(Color.green);
+                setReturnPoints(finalPointsForCorrectAnswer);
+            } else {
+                SoundPlayer.play("wrong_answer.wav");
+                lblNewLabel.setText("Wrong Answer :( You lost " + pointsForWrongAnswerString + " points");
+                lblNewLabel.setForeground(Color.black);
+                setReturnPoints(-finalPointsForWrongAnswer);
             }
+            btnSave.setVisible(false);
+            btnContinue.setVisible(true);
         });
 
-        btnContinue.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jd.setVisible(false);
-            }
+        btnContinue.addActionListener(e -> {
+            jd.setVisible(false);
+            Game.isPaused(false);
         });
 
         jd.setVisible(true);
+    }
+
+    public Integer getReturnPoints() {
+        return returnPoints;
+    }
+
+    public void setReturnPoints(int returnPoints) {
+        this.returnPoints = returnPoints;
     }
 }
