@@ -339,13 +339,14 @@ public class Game extends JPanel {
         ArrayList<Food> remainingFoodsToRespawn = new ArrayList<Food>();
         for (Food f : eatenFoods) {
             long nowMillis = System.currentTimeMillis();
-            if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
-                if (f instanceof Bomb) {
-                    foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), ((Bomb) f).getType()));
-                } else if (f instanceof Question) {
-                    foods.add(getNewQuestion(((Question) f).getDiff()));
-                } else //Food
+            if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 5 && f instanceof Bomb)
+                foods.add(new Bomb((int) f.getPosition().getX(), (int) f.getPosition().getY(), ((Bomb) f).getType()));
+            else if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 5 && f instanceof Question)
+                foods.add(getNewQuestion(((Question) f).getDiff()));
+            else if ((int) ((nowMillis - f.getEatenTime()) / 1000) >= 30) {
+                if (!(f instanceof Question) && !(f instanceof Bomb)) { //Food
                     foods.add(new Food((int) f.getPosition().getX(), (int) f.getPosition().getY()));
+                }
             } else {
                 remainingFoodsToRespawn.add(f);
             }
