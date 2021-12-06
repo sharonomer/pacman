@@ -242,7 +242,7 @@ public class Game extends JPanel {
      * Checks the current game's level.
      * */
     public int levelCheck(int currentScore) {
-        switch ((int) (currentScore - 1) / 50) {
+        switch ((int) ((currentScore - 1) / 50)) {
             case 0:
                 level = 1;
                 break;
