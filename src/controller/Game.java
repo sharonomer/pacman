@@ -391,6 +391,7 @@ public class Game extends JPanel {
             System.out.println(pu.getReturnPoints() + " points!");
             score += pu.getReturnPoints();
             pu = null;
+            gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
         }
     }
 
