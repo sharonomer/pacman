@@ -78,6 +78,14 @@ public class StartWindow extends JFrame {
             }
         });
 
+        highButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                HighScoresScreen hs = new HighScoresScreen();
+                dispose();
+            }
+        });
+
 
         buttonsC.add(startButton);
         buttonsC.add(customButton);
