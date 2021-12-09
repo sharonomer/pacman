@@ -24,8 +24,8 @@ public class HighScoresScreen extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ArrayList<Highscore> hs = s.getHighscores();
-        System.out.println((hs));
-        System.out.println((hs.get(0).getUsername()));
+//        System.out.println((hs));
+//        System.out.println((hs.get(0).getUsername()));
         setForeground(Color.yellow);
 
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -83,12 +83,9 @@ public class HighScoresScreen extends JFrame {
         getContentPane().add(usersScores,gbc_usersScores);
         getContentPane().add(datesList,gbc_datesList);
 
-        backBTN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StartWindow sw = new StartWindow();
-                dispose();
-            }
+        backBTN.addActionListener(e -> {
+            new StartWindow();
+            dispose();
         });
 
 
