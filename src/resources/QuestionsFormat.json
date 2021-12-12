@@ -1,1 +1,88 @@
-{"questions":[{"question":"q2","level":"2","answers":["answer11","answer22","answer33","answer44"],"team":"Husky","correct_ans":"1"},{"question":"q3","level":"3","answers":["111","222","333","444"],"team":"Husky","correct_ans":"2"},{"question":"q1","level":"1","answers":["11","22","33","44"],"team":"Husky","correct_ans":"3"}]}
+{
+  "questions": [
+    {
+      "question": "Finish the sentence: A product is correct if...",
+      "level": "1",
+      "answers": ["It satisfies its specification", "You get an A+ on it", "It is delivered on time", "It is robust"],
+      "team": "Husky",
+      "correct_ans": "1"
+    },
+    {
+      "question": "What can't we achieve with software testing",
+      "level": "2",
+      "answers": ["Reveal as many errors as possible", "Identify bugs", "Behavioral tests", "Determine that there are no bugs in the software"],
+      "team": "Husky",
+      "correct_ans": "4"
+    },
+    {
+      "question": "What isn't a consideration when we design",
+      "level": "2",
+      "answers": ["Where is the interaction taking place", "How did the user hear about our product", "What activities are being carried out", "Who the users are"],
+      "team": "Husky",
+      "correct_ans": "2"
+    },
+    {
+      "question": "What is the first rule in interface design",
+      "level": "2",
+      "answers": ["Know your user", "Make unique designs", "Use contrasting colours", "Try to do your best"],
+      "team": "Husky",
+      "correct_ans": "1"
+    },
+    {
+      "question": "What is the visibility consideration in interface design",
+      "level": "2",
+      "answers": ["The code should be written in small letters so people can't copy it", "Secure the users data and encrypt them so they are not visible", "How clearly does the user see the user interface, its state and the possible options", "Can the user be seen while using our app"],
+      "team": "Husky",
+      "correct_ans": "3"
+    },
+    {
+      "question": "What is a software system’s architecture",
+      "level": "3",
+      "answers": ["Is the set of principal design decisions", "The material that is used to construct it", "How many developers do we have in each team", "The coding language we use in a product"],
+      "team": "Husky",
+      "correct_ans": "1"
+    },
+    {
+      "question": "q2",
+      "level": "2",
+      "answers": ["answer11", "answer22", "answer33", "answer44"],
+      "team": "Husky",
+      "correct_ans": "1"
+    },
+    {
+      "question": "q2",
+      "level": "2",
+      "answers": ["answer11", "answer22", "answer33", "answer44"],
+      "team": "Husky",
+      "correct_ans": "1"
+    },
+    {
+      "question": "q2",
+      "level": "2",
+      "answers": ["answer11", "answer22", "answer33", "answer44"],
+      "team": "Husky",
+      "correct_ans": "1"
+    },
+    {
+      "question": "q2",
+      "level": "2",
+      "answers": ["answer11", "answer22", "answer33", "answer44"],
+      "team": "Husky",
+      "correct_ans": "1"
+    },
+    {
+      "question": "q2",
+      "level": "2",
+      "answers": ["answer11", "answer22", "answer33", "answer44"],
+      "team": "Husky",
+      "correct_ans": "1"
+    },
+    {
+      "question": "q2",
+      "level": "2",
+      "answers": ["answer11", "answer22", "answer33", "answer44"],
+      "team": "Husky",
+      "correct_ans": "1"
+    }
+  ]
+}
