@@ -122,6 +122,7 @@ public class SysData {
         JSONObject hsArray = new JSONObject();
         JSONArray hsList = new JSONArray();
 
+        highscores.sort((hs2, hs1) -> hs1.getScore().compareTo(hs2.getScore())); // descending order
         for (Highscore hs : highscores) {
             JSONObject hsDetails = new JSONObject();
             hsDetails.put("username", hs.getUsername());

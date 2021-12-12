@@ -199,6 +199,7 @@ public class Game extends JPanel {
             g.moveTimer.stop();
         isGameOver = true;
         gameStats.setText("    Press R to try again !");
+        saveHighscore();
     }
 
     /*
@@ -518,23 +519,17 @@ public class Game extends JPanel {
                     g.moveTimer.stop();
                 }
                 gameStats.setText("    Press R to try again !");
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-                Date resultdate = new Date(System.currentTimeMillis());
-                String date = sdf.format(resultdate);
-
-                SysData s = SysData.getInstance();
-                s.addHighscore(new Highscore(score, name, date));
-                s.updateHighscoresJSON();
+                saveHighscore();
             }
         } else if (ae.getID() == Messages.COLTEST) {
             if (!isGameOver) {
                 collisionTest();
-
             }
         } else if (ae.getID() == Messages.RESET) {
-            if (isGameOver)
+            if (isGameOver) {
+                saveHighscore();
                 restart();
+            }
         } else if (ae.getID() == Messages.BACK) {
             pac6.stop();
             siren.stop();
@@ -542,6 +537,7 @@ public class Game extends JPanel {
             for (Ghost g : ghosts) {
                 g.moveTimer.stop();
             }
+//            saveHighscore();
             new StartWindow();
             windowParent.dispose();
         } else if (ae.getID() == Messages.EXPLODE) {
@@ -567,6 +563,16 @@ public class Game extends JPanel {
         } else {
             super.processEvent(ae);
         }
+    }
+
+    public void saveHighscore() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Date resultdate = new Date(System.currentTimeMillis());
+        String date = sdf.format(resultdate);
+
+        SysData s = SysData.getInstance();
+        s.addHighscore(new Highscore(this.score, this.name, date));
+        s.updateHighscoresJSON();
     }
 
     /*

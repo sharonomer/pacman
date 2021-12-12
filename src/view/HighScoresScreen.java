@@ -15,10 +15,9 @@ public class HighScoresScreen extends JFrame {
 
 
     // Constructor
-    HighScoresScreen()
-    {
+    HighScoresScreen() {
         SysData s = SysData.getInstance();
-        setSize(600,400);
+        setSize(600, 400);
         setTitle("High Scores");
         getContentPane().setBackground(Color.black);
         setLocationRelativeTo(null);
@@ -32,7 +31,7 @@ public class HighScoresScreen extends JFrame {
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0,  Double.MIN_VALUE};
+        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 
         getContentPane().setLayout(gridBagLayout);
 
@@ -47,10 +46,10 @@ public class HighScoresScreen extends JFrame {
         ArrayList<String> usersScore = new ArrayList<>();
         ArrayList<String> dates = new ArrayList<>();
 
-        for (int i=0; i<10;i++){
-           usersArray.add(hs.get(i).getUsername());
-           usersScore.add(hs.get(i).getScore().toString());
-           dates.add(hs.get(i).getDate().toString());
+        for (int i = 0; i < Math.min(10, hs.size()); i++) {
+            usersArray.add(hs.get(i).getUsername());
+            usersScore.add(hs.get(i).getScore().toString());
+            dates.add(hs.get(i).getDate().toString());
         }
         JList usersList = new JList(usersArray.toArray());
         usersList.setBackground(Color.black);
@@ -79,15 +78,14 @@ public class HighScoresScreen extends JFrame {
         gbc_datesList.gridy = 2;
 
 
-        getContentPane().add(usersList,gbc_usersList);
-        getContentPane().add(usersScores,gbc_usersScores);
-        getContentPane().add(datesList,gbc_datesList);
+        getContentPane().add(usersList, gbc_usersList);
+        getContentPane().add(usersScores, gbc_usersScores);
+        getContentPane().add(datesList, gbc_datesList);
 
         backBTN.addActionListener(e -> {
             new StartWindow();
             dispose();
         });
-
 
 
         setVisible(true);
