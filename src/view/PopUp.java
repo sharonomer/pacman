@@ -143,14 +143,15 @@ public class PopUp extends JFrame {
             }
             btnSave.setVisible(false);
             btnContinue.setVisible(true);
+            jd.pack();
         });
 
         btnContinue.addActionListener(e -> {
             jd.setVisible(false);
             Game.isPaused(false);
         });
-
         jd.setVisible(true);
+        jd.pack();
     }
 
     public PopUp() {

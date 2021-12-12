@@ -158,6 +158,7 @@ public class QuestionScreen extends JFrame {
                     lblAnswer3.setText(" ");
                     lblAnswer4.setText(" ");
                 }
+                pack();
             }
         });
 
@@ -205,6 +206,7 @@ public class QuestionScreen extends JFrame {
                     lblAnswer3.setText(" ");
                     lblAnswer4.setText(" ");
                 }
+                pack();
             }
         });
 
@@ -253,6 +255,7 @@ public class QuestionScreen extends JFrame {
                     lblAnswer3.setText(" ");
                     lblAnswer4.setText(" ");
                 }
+                pack();
             }
         });
 
@@ -290,6 +293,7 @@ public class QuestionScreen extends JFrame {
                     lblAnswer3.setText(" ");
                     lblAnswer4.setText(" ");
                 }
+                pack();
             }
         });
 
@@ -366,6 +370,7 @@ public class QuestionScreen extends JFrame {
             }
         });
 
+        pack();
     }
 
 }
