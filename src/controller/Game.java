@@ -541,10 +541,12 @@ public class Game extends JPanel {
             new StartWindow();
             windowParent.dispose();
         } else if (ae.getID() == Messages.EXPLODE) {
-            SoundPlayer.play("explosion.wav");
-            System.out.println("EXPLODE!");
             explosionTime = System.currentTimeMillis();
             explosionFire = true;
+            if (!armedBombs.isEmpty()) {
+                SoundPlayer.play("explosion.wav");
+                System.out.println("EXPLODE!");
+            }
             for (Bomb b : armedBombs) {
                 b.setType(0);
                 eatenFoods.add(b);
