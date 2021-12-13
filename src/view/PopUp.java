@@ -1,41 +1,43 @@
+/*
+ * Created by JFormDesigner on Mon Dec 13 11:03:47 IST 2021
+ */
+
 package view;
 
-
 import controller.Game;
-import controller.SysData;
 import misc.SoundPlayer;
-import model.Answer;
 import model.Question;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 
+/**
+ * @author unknown
+ */
 public class PopUp extends JFrame {
-    Integer returnPoints;
-    boolean isNull = false;
-
     public PopUp(Question q) {
+        initComponents(q);
+    }
+
+    private void initComponents(Question q) {
         int pointsForCorrectAnswer = 0;
         int pointsForWrongAnswer = 0;
         String title = "";
-        JDialog jd = new JDialog();
         switch (q.getDiff()) {
             case 1:
-                jd.getContentPane().setBackground(Color.white);
+                getContentPane().setBackground(Color.white);
                 pointsForCorrectAnswer = 1;
                 pointsForWrongAnswer = 10;
                 title = "Easy Question";
                 break;
             case 2:
-                jd.getContentPane().setBackground(Color.yellow);
+                getContentPane().setBackground(Color.yellow);
                 pointsForCorrectAnswer = 2;
                 pointsForWrongAnswer = 20;
                 title = "Medium Question";
                 break;
             case 3:
-                jd.getContentPane().setBackground(Color.red);
+                getContentPane().setBackground(Color.red);
                 pointsForCorrectAnswer = 3;
                 pointsForWrongAnswer = 30;
                 title = "Hard Question";
@@ -43,125 +45,121 @@ public class PopUp extends JFrame {
         }
         String pointsForCorrectAnswerString = String.valueOf(pointsForCorrectAnswer);
         String pointsForWrongAnswerString = String.valueOf(pointsForWrongAnswer);
-        jd.setTitle(title);
+        setTitle(title);
+        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        // Generated using JFormDesigner Evaluation license - Omer Sharon
+        question = new JLabel(q.getqBody());
+        question.setFont(new Font(question.getFont().getName(), Font.PLAIN, 20));
+        radioButton1 = new JRadioButton(q.getAnswers().get(0).aBody);
+        radioButton2 = new JRadioButton(q.getAnswers().get(1).aBody);
+        radioButton3 = new JRadioButton(q.getAnswers().get(2).aBody);
+        radioButton4 = new JRadioButton(q.getAnswers().get(3).aBody);
+        btnSave = new JButton();
+        btnContinue = new JButton();
+        outputLabel = new JLabel();
 
-        jd.setBounds(500, 300, 400, 300);
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]{35, 55, 81, 19, 59, 81, 0};
-        gridBagLayout.rowHeights = new int[]{23, 23, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-        jd.getContentPane().setLayout(gridBagLayout);
-        JLabel question = new JLabel(q.getqBody());
+        //======== this ========
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new GridBagLayout());
+        ((GridBagLayout)contentPane.getLayout()).columnWidths = new int[] {0, 0, 0};
+        ((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
+        ((GridBagLayout)contentPane.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
+        ((GridBagLayout)contentPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
-        GridBagConstraints gbc_question = new GridBagConstraints();
-        gbc_question.anchor = GridBagConstraints.WEST;
-        gbc_question.insets = new Insets(0, 0, 5, 5);
-        gbc_question.gridx = 2;
-        gbc_question.gridy = 1;
-        jd.getContentPane().add(question, gbc_question);
-        JRadioButton answer1 = new JRadioButton(q.getAnswers().get(0).aBody);
-        answer1.setActionCommand(q.answers.get(0).isCorrect() ? "true" : "false");
-        GridBagConstraints gbc_answer1 = new GridBagConstraints();
-        gbc_answer1.anchor = GridBagConstraints.NORTHWEST;
-        gbc_answer1.insets = new Insets(0, 0, 5, 5);
-        gbc_answer1.gridx = 2;
-        gbc_answer1.gridy = 2;
-        jd.getContentPane().add(answer1, gbc_answer1);
-        JRadioButton answer2 = new JRadioButton(q.getAnswers().get(1).aBody);
-        answer2.setActionCommand(q.answers.get(1).isCorrect() ? "true" : "false");
-        GridBagConstraints gbc_answer2 = new GridBagConstraints();
-        gbc_answer2.anchor = GridBagConstraints.NORTHWEST;
-        gbc_answer2.insets = new Insets(0, 0, 5, 5);
-        gbc_answer2.gridwidth = 2;
-        gbc_answer2.gridx = 2;
-        gbc_answer2.gridy = 3;
-        jd.getContentPane().add(answer2, gbc_answer2);
-        JRadioButton answer3 = new JRadioButton(q.getAnswers().get(2).aBody);
-        GridBagConstraints gbc_answer3 = new GridBagConstraints();
-        answer3.setActionCommand(q.answers.get(2).isCorrect() ? "true" : "false");
-        gbc_answer3.anchor = GridBagConstraints.NORTHWEST;
-        gbc_answer3.insets = new Insets(0, 0, 5, 5);
-        gbc_answer3.gridx = 2;
-        gbc_answer3.gridy = 4;
-        jd.getContentPane().add(answer3, gbc_answer3);
-        JRadioButton answer4 = new JRadioButton(q.getAnswers().get(3).aBody);
-        answer4.setActionCommand(q.answers.get(3).isCorrect() ? "true" : "false");
-        GridBagConstraints gbc_answer4 = new GridBagConstraints();
-        gbc_answer4.anchor = GridBagConstraints.NORTHEAST;
-        gbc_answer4.insets = new Insets(0, 0, 5, 5);
-        gbc_answer4.gridx = 2;
-        gbc_answer4.gridy = 5;
-        jd.getContentPane().add(answer4, gbc_answer4);
+        //---- question ----
+//        question.setText("question");
+        contentPane.add(question, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 5), 0, 0));
+
+        //---- radioButton1 ----
+//        radioButton1.setText("answer1");
+        radioButton1.setActionCommand(q.answers.get(0).isCorrect() ? "true" : "false");
+        contentPane.add(radioButton1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 5), 0, 0));
+
+        //---- radioButton2 ----
+//        radioButton2.setText("answer2");
+        radioButton2.setActionCommand(q.answers.get(1).isCorrect() ? "true" : "false");
+        contentPane.add(radioButton2, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 5), 0, 0));
+
+        //---- radioButton3 ----
+//        radioButton3.setText("answer3");
+        radioButton3.setActionCommand(q.answers.get(2).isCorrect() ? "true" : "false");
+        contentPane.add(radioButton3, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 5), 0, 0));
+
+        //---- radioButton4 ----
+//        radioButton4.setText("answer4");
+        radioButton4.setActionCommand(q.answers.get(3).isCorrect() ? "true" : "false");
+        contentPane.add(radioButton4, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 5), 0, 0));
 
         ButtonGroup answers = new ButtonGroup();
-        answers.add(answer1);
-        answers.add(answer2);
-        answers.add(answer3);
-        answers.add(answer4);
-
-        JLabel lblNewLabel = new JLabel();
-        GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-        gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-        gbc_lblNewLabel.gridx = 2;
-        gbc_lblNewLabel.gridy = 7;
-        jd.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
-
-
-        FancyButton btnSave = new FancyButton("Save", 20f);
-        btnSave.setForeground(Color.BLACK);
-        GridBagConstraints gbc_btnSave = new GridBagConstraints();
-        gbc_btnSave.anchor = GridBagConstraints.NORTHWEST;
-        gbc_btnSave.insets = new Insets(0, 0, 5, 5);
-        gbc_btnSave.gridx = 2;
-        gbc_btnSave.gridy = 6;
-        jd.getContentPane().add(btnSave, gbc_btnSave);
-
-        FancyButton btnContinue = new FancyButton("Continue", 20f);
-        btnContinue.setForeground(Color.BLACK);
-        GridBagConstraints gbc_btnContinue = new GridBagConstraints();
-        gbc_btnContinue.insets = new Insets(0, 0, 5, 5);
-        gbc_btnContinue.gridx = 3;
-        gbc_btnContinue.gridy = 6;
-        btnContinue.setVisible(false);
-        jd.getContentPane().add(btnContinue, gbc_btnContinue);
-
+        answers.add(radioButton1);
+        answers.add(radioButton2);
+        answers.add(radioButton3);
+        answers.add(radioButton4);
 
         int finalPointsForCorrectAnswer = pointsForCorrectAnswer;
         int finalPointsForWrongAnswer = pointsForWrongAnswer;
+        //---- button5 ----
+        btnSave.setText("save");
+        contentPane.add(btnSave, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 5), 0, 0));
         btnSave.addActionListener(e -> {
-            if (answers.getSelection().getActionCommand().equals("true")) {
-                SoundPlayer.play("correct_answer.wav");
-                lblNewLabel.setText("Correct Answer! You got " + pointsForCorrectAnswerString + " points!");
-                lblNewLabel.setForeground(Color.green);
-                setReturnPoints(finalPointsForCorrectAnswer);
-            } else {
-                SoundPlayer.play("wrong_answer.wav");
-                lblNewLabel.setText("Wrong Answer :( You lost " + pointsForWrongAnswerString + " points");
-                lblNewLabel.setForeground(Color.black);
-                setReturnPoints(-finalPointsForWrongAnswer);
+            if (answers.getSelection() != null) {
+                if (answers.getSelection().getActionCommand().equals("true")) {
+                    SoundPlayer.play("correct_answer.wav");
+                    outputLabel.setText("Correct Answer! You got " + pointsForCorrectAnswerString + " points!");
+                    outputLabel.setForeground(Color.green);
+                    setReturnPoints(finalPointsForCorrectAnswer);
+                } else {
+                    SoundPlayer.play("wrong_answer.wav");
+                    outputLabel.setText("Wrong Answer :( You lost " + pointsForWrongAnswerString + " points");
+                    outputLabel.setForeground(Color.black);
+                    setReturnPoints(-finalPointsForWrongAnswer);
+                }
+                btnSave.setVisible(false);
+                btnContinue.setVisible(true);
+                pack();
             }
-            btnSave.setVisible(false);
-            btnContinue.setVisible(true);
-            jd.pack();
         });
 
+        //---- button6 ----
+        btnContinue.setText("continue");
+        contentPane.add(btnContinue, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 0), 0, 0));
+        btnContinue.setVisible(false);
         btnContinue.addActionListener(e -> {
-            jd.setVisible(false);
+            setVisible(false);
             Game.isPaused(false);
         });
-        jd.setVisible(true);
-        jd.pack();
-    }
+        setVisible(true);
+        pack();
 
-    public PopUp() {
+        //---- label1 ----
+//        outputLabel.setText("output message");
+        contentPane.add(outputLabel, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 0, 5), 0, 0));
+        pack();
+        setLocationRelativeTo(getOwner());
+        // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     public Integer getReturnPoints() {
         return returnPoints;
     }
 
-    public void setReturnPoints(int returnPoints) {
+    public void setReturnPoints(Integer returnPoints) {
         this.returnPoints = returnPoints;
     }
 
@@ -172,4 +170,23 @@ public class PopUp extends JFrame {
     public void setNull(boolean aNull) {
         isNull = aNull;
     }
+
+    public PopUp() {
+
+    }
+
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - Omer Sharon
+    private JLabel question;
+    private JRadioButton radioButton1;
+    private JRadioButton radioButton2;
+    private JRadioButton radioButton3;
+    private JRadioButton radioButton4;
+    private JButton btnSave;
+    private JButton btnContinue;
+    private JLabel outputLabel;
+
+    private Integer returnPoints;
+    private boolean isNull = false;
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
