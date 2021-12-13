@@ -47,7 +47,10 @@ public class HighScoresScreen extends JFrame {
         ArrayList<String> dates = new ArrayList<>();
 
         for (int i = 0; i < Math.min(10, hs.size()); i++) {
-            usersArray.add(i + 1 + ") " + hs.get(i).getUsername());
+            if (hs.get(i).getScore() >= 200)
+                usersArray.add(i + 1 + ") " + hs.get(i).getUsername() + " 🏆");
+            else
+                usersArray.add(i + 1 + ") " + hs.get(i).getUsername());
             usersScore.add(hs.get(i).getScore().toString() + "               ");
             dates.add(hs.get(i).getDate().toString());
         }
