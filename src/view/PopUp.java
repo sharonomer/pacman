@@ -155,7 +155,7 @@ public class PopUp extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
-        
+
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
