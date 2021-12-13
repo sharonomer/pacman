@@ -47,8 +47,8 @@ public class HighScoresScreen extends JFrame {
         ArrayList<String> dates = new ArrayList<>();
 
         for (int i = 0; i < Math.min(10, hs.size()); i++) {
-            usersArray.add(hs.get(i).getUsername());
-            usersScore.add(hs.get(i).getScore().toString());
+            usersArray.add(i + 1 + ") " + hs.get(i).getUsername());
+            usersScore.add(hs.get(i).getScore().toString() + "               ");
             dates.add(hs.get(i).getDate().toString());
         }
         JList usersList = new JList(usersArray.toArray());
@@ -88,6 +88,7 @@ public class HighScoresScreen extends JFrame {
         });
 
 
+        pack();
         setVisible(true);
     }
 

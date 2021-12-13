@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Objects;
 
 public class editName extends JFrame {
           private JLabel title;
@@ -59,8 +60,12 @@ public class editName extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO add check to see if input is valid
-                new PacWindow(tname.getText());
-                dispose();
+                if (!Objects.equals(tname.getText(), "")) {
+                    new PacWindow(tname.getText());
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Name can't be empty.");
+                }
             }
         });
 

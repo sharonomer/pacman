@@ -92,13 +92,6 @@
       "correct_ans": "3"
     },
     {
-      "question": "q2",
-      "level": "2",
-      "answers": ["answer11", "answer22", "answer33", "answer44"],
-      "team": "Husky",
-      "correct_ans": "1"
-    },
-    {
       "question": "Which of the following is an essential concept related to Cloud?",
       "level": "3",
       "answers": ["Reliability", "Abstraction", "Productivity", "All of the above"],
