@@ -125,41 +125,38 @@ public class QuestionScreen extends JFrame {
         gbc_EasyQuestionsBTN.gridy = 10;
         getContentPane().add(easyQuestionsBTN, gbc_EasyQuestionsBTN);
         //display only easy question
-        easyQuestionsBTN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                easyQuestionsBTN.setForeground(Color.ORANGE);
-                mediumQuestionBTN.setForeground(Color.black);
-                hardQuestionBTN.setForeground(Color.black);
-                allQuestionsBTN.setForeground(Color.black);
-                eq.clear();
-                //create array of only easy questions
-                for (Question q : al) {
-                    if (q.diff == 1 && !eq.contains(q)) {
-                        eq.add(q);
-
-                    }
+        easyQuestionsBTN.addActionListener(e -> {
+            easyQuestionsBTN.setForeground(Color.ORANGE);
+            mediumQuestionBTN.setForeground(Color.black);
+            hardQuestionBTN.setForeground(Color.black);
+            allQuestionsBTN.setForeground(Color.black);
+            eq.clear();
+            //create array of only easy questions
+            for (Question q : al) {
+                if (q.diff == 1 && !eq.contains(q)) {
+                    eq.add(q);
 
                 }
-                comboBox.setModel(new DefaultComboBoxModel<Question>(eq.toArray(new Question[0])));
-                //display the answers for each question
-                if (eq.size() > 0) {
-                    Question selectedItem = (Question) comboBox.getSelectedItem();
-                    comboBox.setSelectedItem(eq.get(0));
-                    lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                    lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                    lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                    lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
-                } else {
-                    //if there is no question display empty labels
-                    comboBox.setSelectedItem(null);
-                    lblAnswer1.setText(" ");
-                    lblAnswer2.setText(" ");
-                    lblAnswer3.setText(" ");
-                    lblAnswer4.setText(" ");
-                }
-                pack();
+
             }
+            comboBox.setModel(new DefaultComboBoxModel<Question>(eq.toArray(new Question[0])));
+            //display the answers for each question
+            if (eq.size() > 0) {
+                Question selectedItem = (Question) comboBox.getSelectedItem();
+                comboBox.setSelectedItem(eq.get(0));
+                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
+            } else {
+                //if there is no question display empty labels
+                comboBox.setSelectedItem(null);
+                lblAnswer1.setText(" ");
+                lblAnswer2.setText(" ");
+                lblAnswer3.setText(" ");
+                lblAnswer4.setText(" ");
+            }
+            pack();
         });
 
 
@@ -172,42 +169,39 @@ public class QuestionScreen extends JFrame {
         getContentPane().add(mediumQuestionBTN, gbc_MediumQuestionBTN);
 
         //display only medium question
-        mediumQuestionBTN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                easyQuestionsBTN.setForeground(Color.black);
-                mediumQuestionBTN.setForeground(Color.ORANGE);
-                hardQuestionBTN.setForeground(Color.black);
-                allQuestionsBTN.setForeground(Color.black);
-                mq.clear();
-                //create array of only medium questions
-                for (Question q : al) {
-                    if (q.diff == 2 && !mq.contains(q)) {
-                        mq.add(q);
-
-                    }
+        mediumQuestionBTN.addActionListener(e -> {
+            easyQuestionsBTN.setForeground(Color.black);
+            mediumQuestionBTN.setForeground(Color.ORANGE);
+            hardQuestionBTN.setForeground(Color.black);
+            allQuestionsBTN.setForeground(Color.black);
+            mq.clear();
+            //create array of only medium questions
+            for (Question q : al) {
+                if (q.diff == 2 && !mq.contains(q)) {
+                    mq.add(q);
 
                 }
-                comboBox.setModel(new DefaultComboBoxModel<Question>(mq.toArray(new Question[0])));
-                //display the answers for each question
-                if (mq.size() > 0) {
-                    Question selectedItem = (Question) comboBox.getSelectedItem();
-                    comboBox.setSelectedItem(mq.get(0));
-                    lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                    lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                    lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                    lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
-                }
-                //if there is no question display empty labels
-                else {
-                    comboBox.setSelectedItem(null);
-                    lblAnswer1.setText(" ");
-                    lblAnswer2.setText(" ");
-                    lblAnswer3.setText(" ");
-                    lblAnswer4.setText(" ");
-                }
-                pack();
+
             }
+            comboBox.setModel(new DefaultComboBoxModel<Question>(mq.toArray(new Question[0])));
+            //display the answers for each question
+            if (mq.size() > 0) {
+                Question selectedItem = (Question) comboBox.getSelectedItem();
+                comboBox.setSelectedItem(mq.get(0));
+                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
+            }
+            //if there is no question display empty labels
+            else {
+                comboBox.setSelectedItem(null);
+                lblAnswer1.setText(" ");
+                lblAnswer2.setText(" ");
+                lblAnswer3.setText(" ");
+                lblAnswer4.setText(" ");
+            }
+            pack();
         });
 
         //display only hard question
@@ -218,45 +212,41 @@ public class QuestionScreen extends JFrame {
         gbc_HardQuestionBTN.gridy = 10;
         getContentPane().add(hardQuestionBTN, gbc_HardQuestionBTN);
 
-        hardQuestionBTN.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                easyQuestionsBTN.setForeground(Color.black);
-                mediumQuestionBTN.setForeground(Color.black);
-                hardQuestionBTN.setForeground(Color.ORANGE);
-                allQuestionsBTN.setForeground(Color.black);
-                hq.clear();
-                //create array of only hard questions
-                for (Question q : al) {
-                    if (q.diff == 3 && !hq.contains(q)) {
-                        hq.add(q);
-
-                    }
+        hardQuestionBTN.addActionListener(e -> {
+            easyQuestionsBTN.setForeground(Color.black);
+            mediumQuestionBTN.setForeground(Color.black);
+            hardQuestionBTN.setForeground(Color.ORANGE);
+            allQuestionsBTN.setForeground(Color.black);
+            hq.clear();
+            //create array of only hard questions
+            for (Question q : al) {
+                if (q.diff == 3 && !hq.contains(q)) {
+                    hq.add(q);
 
                 }
 
-
-                comboBox.setModel(new DefaultComboBoxModel<Question>(hq.toArray(new Question[0])));
-                //display the answers for each question
-                if (hq.size() > 0) {
-                    Question selectedItem = (Question) comboBox.getSelectedItem();
-                    comboBox.setSelectedItem(hq.get(0));
-                    lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                    lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                    lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                    lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
-                }
-                //if there is no question display empty labels
-                else {
-                    comboBox.setSelectedItem(null);
-                    lblAnswer1.setText(" ");
-                    lblAnswer2.setText(" ");
-                    lblAnswer3.setText(" ");
-                    lblAnswer4.setText(" ");
-                }
-                pack();
             }
+
+
+            comboBox.setModel(new DefaultComboBoxModel<Question>(hq.toArray(new Question[0])));
+            //display the answers for each question
+            if (hq.size() > 0) {
+                Question selectedItem = (Question) comboBox.getSelectedItem();
+                comboBox.setSelectedItem(hq.get(0));
+                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
+            }
+            //if there is no question display empty labels
+            else {
+                comboBox.setSelectedItem(null);
+                lblAnswer1.setText(" ");
+                lblAnswer2.setText(" ");
+                lblAnswer3.setText(" ");
+                lblAnswer4.setText(" ");
+            }
+            pack();
         });
 
 
@@ -268,33 +258,30 @@ public class QuestionScreen extends JFrame {
         gbc_allQuestionsBTN.gridy = 10;
         getContentPane().add(allQuestionsBTN, gbc_allQuestionsBTN);
         //display all questions from all levels
-        allQuestionsBTN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                easyQuestionsBTN.setForeground(Color.black);
-                mediumQuestionBTN.setForeground(Color.black);
-                hardQuestionBTN.setForeground(Color.black);
-                allQuestionsBTN.setForeground(Color.ORANGE);
-                comboBox.setModel(new DefaultComboBoxModel<Question>(al.toArray(new Question[0])));
-                //display the answers of the question
-                if (al.size() > 0) {
-                    comboBox.setSelectedItem(al.get(0));
-                    Question selectedItem = (Question) comboBox.getSelectedItem();
-                    lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                    lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                    lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                    lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
-                }
-                //if there is no question display empty labels
-                else {
-                    comboBox.setSelectedItem(null);
-                    lblAnswer1.setText(" ");
-                    lblAnswer2.setText(" ");
-                    lblAnswer3.setText(" ");
-                    lblAnswer4.setText(" ");
-                }
-                pack();
+        allQuestionsBTN.addActionListener(e -> {
+            easyQuestionsBTN.setForeground(Color.black);
+            mediumQuestionBTN.setForeground(Color.black);
+            hardQuestionBTN.setForeground(Color.black);
+            allQuestionsBTN.setForeground(Color.ORANGE);
+            comboBox.setModel(new DefaultComboBoxModel<Question>(al.toArray(new Question[0])));
+            //display the answers of the question
+            if (al.size() > 0) {
+                comboBox.setSelectedItem(al.get(0));
+                Question selectedItem = (Question) comboBox.getSelectedItem();
+                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
             }
+            //if there is no question display empty labels
+            else {
+                comboBox.setSelectedItem(null);
+                lblAnswer1.setText(" ");
+                lblAnswer2.setText(" ");
+                lblAnswer3.setText(" ");
+                lblAnswer4.setText(" ");
+            }
+            pack();
         });
 
 
@@ -307,20 +294,17 @@ public class QuestionScreen extends JFrame {
         getContentPane().add(DeleteBTN, gbc_DeleteBTN);
 
         //delete selected question
-        DeleteBTN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Question selectedItem = (Question) comboBox.getSelectedItem();
-                if (selectedItem == null) {
-                    JOptionPane.showMessageDialog(null, "No question selected", "Deletion Failed", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    s.deleteQuestion(selectedItem);
-                    s.updateQuestionsJSON();
-                    System.out.println(al);
-                    comboBox.setModel(new DefaultComboBoxModel<Question>(al.toArray(new Question[0])));
-                    JOptionPane.showMessageDialog(null, "Question deleted successfully", "", JOptionPane.INFORMATION_MESSAGE);
-                    allQuestionsBTN.doClick();
-                }
+        DeleteBTN.addActionListener(e -> {
+            Question selectedItem = (Question) comboBox.getSelectedItem();
+            if (selectedItem == null) {
+                JOptionPane.showMessageDialog(null, "No question selected", "Deletion Failed", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                s.deleteQuestion(selectedItem);
+                s.updateQuestionsJSON();
+                System.out.println(al);
+                comboBox.setModel(new DefaultComboBoxModel<Question>(al.toArray(new Question[0])));
+                JOptionPane.showMessageDialog(null, "Question deleted successfully", "", JOptionPane.INFORMATION_MESSAGE);
+                allQuestionsBTN.doClick();
             }
         });
 
@@ -328,15 +312,13 @@ public class QuestionScreen extends JFrame {
         // go to EditQuestionScreen in order to edit selected question
 //				JButton editBTN = new JButton("Edit");
         FancyButton editBTN = new FancyButton("Edit", 20f);
-        editBTN.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Question selectedQuestion = (Question) comboBox.getSelectedItem();
-                if (selectedQuestion == null) {
-                    JOptionPane.showMessageDialog(null, "No question selected", "", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    EditQuestionScreen eqs = new EditQuestionScreen(selectedQuestion);
-                    dispose();
-                }
+        editBTN.addActionListener(e -> {
+            Question selectedQuestion = (Question) comboBox.getSelectedItem();
+            if (selectedQuestion == null) {
+                JOptionPane.showMessageDialog(null, "No question selected", "", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                EditQuestionScreen eqs = new EditQuestionScreen(selectedQuestion);
+                dispose();
             }
         });
         GridBagConstraints gbc_editBTN = new GridBagConstraints();
@@ -346,28 +328,22 @@ public class QuestionScreen extends JFrame {
         getContentPane().add(editBTN, gbc_editBTN);
 
         //show the answers for the selected question that the user chose
-        comboBox.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                System.out.println("item changed in combobox");
-                Question selectedItem = (Question) comboBox.getSelectedItem();
+        comboBox.addItemListener(e -> {
+            System.out.println("item changed in combobox");
+            Question selectedItem = (Question) comboBox.getSelectedItem();
 
-                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
-
-            }
+            lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+            lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+            lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+            lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
 
         });
         allQuestionsBTN.doClick();
         setVisible(true);
         //back to previous page
-        backBTN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StartWindow sw = new StartWindow();
-                dispose();
-            }
+        backBTN.addActionListener(e -> {
+            StartWindow sw = new StartWindow();
+            dispose();
         });
 
         pack();

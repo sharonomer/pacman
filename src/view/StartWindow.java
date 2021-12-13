@@ -46,44 +46,29 @@ public class StartWindow extends JFrame {
         FancyButton highButton = new FancyButton("Highscores", 30f);
         FancyButton instButton = new FancyButton("Instructions", 30f);
 
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editName en = new editName();
-                // TODO: delete this comment PacWindow pw = new PacWindow();
-                dispose();
-            }
+        startButton.addActionListener(e -> {
+            editName en = new editName();
+            // TODO: delete this comment PacWindow pw = new PacWindow();
+            dispose();
         });
-        customButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MapEditor me = new MapEditor();
-                dispose();
-            }
+        customButton.addActionListener(e -> {
+            MapEditor me = new MapEditor();
+            dispose();
         });
 
-        instButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Instructions me = new Instructions();
-                dispose();
-            }
+        instButton.addActionListener(e -> {
+            Instructions me = new Instructions();
+            dispose();
         });
         
-        editButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                QuestionScreen qs = new QuestionScreen();
-                dispose();
-            }
+        editButton.addActionListener(e -> {
+            QuestionScreen qs = new QuestionScreen();
+            dispose();
         });
 
-        highButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                HighScoresScreen hs = new HighScoresScreen();
-                dispose();
-            }
+        highButton.addActionListener(e -> {
+            HighScoresScreen hs = new HighScoresScreen();
+            dispose();
         });
 
 

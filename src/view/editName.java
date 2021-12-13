@@ -56,25 +56,19 @@ public class editName extends JFrame {
         FancyButton startButton = new FancyButton("Start Game", 20f);
         FancyButton mainMenu = new FancyButton("Main Menu", 20f);
 
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO add check to see if input is valid
-                if (!Objects.equals(tname.getText(), "")) {
-                    new PacWindow(tname.getText());
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Name can't be empty.");
-                }
+        startButton.addActionListener(e -> {
+            //TODO add check to see if input is valid
+            if (!Objects.equals(tname.getText(), "")) {
+                new PacWindow(tname.getText());
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Name can't be empty.");
             }
         });
 
-        mainMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                    new StartWindow();
-                    dispose();
-            }
+        mainMenu.addActionListener(e -> {
+                new StartWindow();
+                dispose();
         });
 
         buttonsC.add(mainMenu);

@@ -216,12 +216,9 @@ public class NewQuestionScreen extends JFrame {
         getContentPane().add(btnSave, gbc_btnSave);
 
         //back to previous scrren
-        btnBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                QuestionScreen qs = new QuestionScreen();
-                dispose();
-            }
+        btnBack.addActionListener(e -> {
+            QuestionScreen qs = new QuestionScreen();
+            dispose();
         });
         // create Focus Listener for all textfileds in order to clear from the error message after press it
         quesionBodyTF.addFocusListener(new FocusListener() {
@@ -310,45 +307,37 @@ public class NewQuestionScreen extends JFrame {
         answers.add(rdbtnAnswer4);
 
         //let the user clean all the fields to start typing the question again
-        btnClean.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                answer1.setText("");
-                answer2.setText("");
-                answer3.setText("");
-                answer4.setText("");
-                quesionBodyTF.setText("");
-            }
+        btnClean.addActionListener(e -> {
+            answer1.setText("");
+            answer2.setText("");
+            answer3.setText("");
+            answer4.setText("");
+            quesionBodyTF.setText("");
         });
 
         //save the question, make an object of question and add it to the list
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (validation()) {
-                    String levelChoice = level.getSelection().getActionCommand();
-                    String questionBody = quesionBodyTF.getText();
-                    System.out.println("ACTION Candidate Selected: " + levelChoice);
-                    String correctAnswer = answers.getSelection().getActionCommand();
-                    System.out.println("Correct Answer is: " + correctAnswer);
-                    Answer a1 = new Answer(answer1.getText(), rdbtnAnswer1.isSelected());
-                    Answer a2 = new Answer(answer2.getText(), rdbtnAnswer2.isSelected());
-                    Answer a3 = new Answer(answer3.getText(), rdbtnAnswer3.isSelected());
-                    Answer a4 = new Answer(answer4.getText(), rdbtnAnswer4.isSelected());
-                    ArrayList<Answer> answers = new ArrayList<>();
-                    answers.add(a1);
-                    answers.add(a2);
-                    answers.add(a3);
-                    answers.add(a4);
-                    System.out.println(answers);
-                    Question q = new Question(5, 5, Integer.parseInt(levelChoice), questionBody, answers);
-                    s.addQuestion(q);
-                    s.updateQuestionsJSON();
-                    JOptionPane.showMessageDialog(null, "Question added successfully", "", JOptionPane.INFORMATION_MESSAGE);
-                }
+        btnSave.addActionListener(e -> {
+            if (validation()) {
+                String levelChoice = level.getSelection().getActionCommand();
+                String questionBody = quesionBodyTF.getText();
+                System.out.println("ACTION Candidate Selected: " + levelChoice);
+                String correctAnswer = answers.getSelection().getActionCommand();
+                System.out.println("Correct Answer is: " + correctAnswer);
+                Answer a1 = new Answer(answer1.getText(), rdbtnAnswer1.isSelected());
+                Answer a2 = new Answer(answer2.getText(), rdbtnAnswer2.isSelected());
+                Answer a3 = new Answer(answer3.getText(), rdbtnAnswer3.isSelected());
+                Answer a4 = new Answer(answer4.getText(), rdbtnAnswer4.isSelected());
+                ArrayList<Answer> answers = new ArrayList<>();
+                answers.add(a1);
+                answers.add(a2);
+                answers.add(a3);
+                answers.add(a4);
+                System.out.println(answers);
+                Question q = new Question(5, 5, Integer.parseInt(levelChoice), questionBody, answers);
+                s.addQuestion(q);
+                s.updateQuestionsJSON();
+                JOptionPane.showMessageDialog(null, "Question added successfully", "", JOptionPane.INFORMATION_MESSAGE);
             }
-
-
         });
 
 

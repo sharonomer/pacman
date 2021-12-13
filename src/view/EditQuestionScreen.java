@@ -333,67 +333,59 @@ public class EditQuestionScreen extends JFrame{
         answers.add(rdbtnAnswer4);
 
         //let the user reset all the changes
-        btnClean.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                answer1.setText(question.answers.get(0).aBody);
-                answer2.setText(question.answers.get(1).aBody);
-                answer3.setText(question.answers.get(2).aBody);
-                answer4.setText(question.answers.get(3).aBody);
-                quesionBodyTF.setText(question.qBody);
-                if(question.diff==1){
-                    rdbtnEasy.setSelected(true);
-                }
-                if(question.diff==2){
-                    rdbtnMedium.setSelected(true);
-                }
-                if(question.diff==3){
-                    rdbtnHard.setSelected(true);
-                }
-                if(question.answers.get(0).isCorrect){
-                    rdbtnAnswer1.setSelected(true);
-                }
-                if(question.answers.get(1).isCorrect){
-                    rdbtnAnswer2.setSelected(true);
-                }
-                if(question.answers.get(2).isCorrect){
-                    rdbtnAnswer3.setSelected(true);
-                }
-                if(question.answers.get(3).isCorrect){
-                    rdbtnAnswer4.setSelected(true);
-                }
+        btnClean.addActionListener(e -> {
+            answer1.setText(question.answers.get(0).aBody);
+            answer2.setText(question.answers.get(1).aBody);
+            answer3.setText(question.answers.get(2).aBody);
+            answer4.setText(question.answers.get(3).aBody);
+            quesionBodyTF.setText(question.qBody);
+            if(question.diff==1){
+                rdbtnEasy.setSelected(true);
+            }
+            if(question.diff==2){
+                rdbtnMedium.setSelected(true);
+            }
+            if(question.diff==3){
+                rdbtnHard.setSelected(true);
+            }
+            if(question.answers.get(0).isCorrect){
+                rdbtnAnswer1.setSelected(true);
+            }
+            if(question.answers.get(1).isCorrect){
+                rdbtnAnswer2.setSelected(true);
+            }
+            if(question.answers.get(2).isCorrect){
+                rdbtnAnswer3.setSelected(true);
+            }
+            if(question.answers.get(3).isCorrect){
+                rdbtnAnswer4.setSelected(true);
             }
         });
 
         //save the changes and update the question
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(validation()){
-                    String levelChoice = level.getSelection().getActionCommand();
-                    String questionBody = quesionBodyTF.getText();
-                    System.out.println("ACTION Candidate Selected: " + levelChoice);
-                    String correctAnswer= answers.getSelection().getActionCommand();
-                    System.out.println("Correct Answer is: " + correctAnswer);
-                    Answer a1 = new Answer(answer1.getText(), rdbtnAnswer1.isSelected());
-                    Answer a2 = new Answer(answer2.getText(), rdbtnAnswer2.isSelected());
-                    Answer a3 = new Answer(answer3.getText(), rdbtnAnswer3.isSelected());
-                    Answer a4 = new Answer(answer4.getText(), rdbtnAnswer4.isSelected());
-                    ArrayList answers = new ArrayList();
-                    answers.add(a1);
-                    answers.add(a2);
-                    answers.add(a3);
-                    answers.add(a4);
-                    System.out.println(answers);
-                    Question q= new Question(5,5, Integer.valueOf(levelChoice), questionBody, answers);
-                    s.deleteQuestion(question);
-                    s.addQuestion(q);
-                    s.updateQuestionsJSON();
-                    JOptionPane.showMessageDialog(null, "Question updated successfully", "", JOptionPane.INFORMATION_MESSAGE);
-                }
+        btnSave.addActionListener(e -> {
+            if(validation()){
+                String levelChoice = level.getSelection().getActionCommand();
+                String questionBody = quesionBodyTF.getText();
+                System.out.println("ACTION Candidate Selected: " + levelChoice);
+                String correctAnswer= answers.getSelection().getActionCommand();
+                System.out.println("Correct Answer is: " + correctAnswer);
+                Answer a1 = new Answer(answer1.getText(), rdbtnAnswer1.isSelected());
+                Answer a2 = new Answer(answer2.getText(), rdbtnAnswer2.isSelected());
+                Answer a3 = new Answer(answer3.getText(), rdbtnAnswer3.isSelected());
+                Answer a4 = new Answer(answer4.getText(), rdbtnAnswer4.isSelected());
+                ArrayList answers = new ArrayList();
+                answers.add(a1);
+                answers.add(a2);
+                answers.add(a3);
+                answers.add(a4);
+                System.out.println(answers);
+                Question q= new Question(5,5, Integer.valueOf(levelChoice), questionBody, answers);
+                s.deleteQuestion(question);
+                s.addQuestion(q);
+                s.updateQuestionsJSON();
+                JOptionPane.showMessageDialog(null, "Question updated successfully", "", JOptionPane.INFORMATION_MESSAGE);
             }
-
-
         });
 
 

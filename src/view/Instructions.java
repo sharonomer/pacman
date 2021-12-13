@@ -43,12 +43,9 @@ public class Instructions extends JFrame {
         getContentPane().add(ta);
 
         FancyButton backButton = new FancyButton("Back", 20f);
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new StartWindow();
-                dispose();
-            }
+        backButton.addActionListener(e -> {
+            new StartWindow();
+            dispose();
         });
         sideBar.add(backButton,BorderLayout.SOUTH);
 
