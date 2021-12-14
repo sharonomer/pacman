@@ -53,6 +53,7 @@ public class Game extends JPanel {
     public boolean clearScore = false;
     public boolean explosionFire = false;
     public boolean hasIFrames = false;
+    public boolean resetBoard = false;
     public int scoreToAdd = 0;
 
     public int level = 1;
@@ -74,8 +75,11 @@ public class Game extends JPanel {
     public int m_y;
 
     public PacWindow windowParent;
+    public MapData mapData;
+    public boolean isGameKilled = false;
 
     public Game(JLabel gameStats, MapData md, PacWindow pw) {
+        this.mapData = md;
         this.gameStats = gameStats;
         this.setDoubleBuffered(true);
         windowParent = pw;
@@ -175,11 +179,9 @@ public class Game extends JPanel {
         }
 
 
-        redrawAL = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                //Draw Board
-                repaint();
-            }
+        redrawAL = evt -> {
+            //Draw Board
+            repaint();
         };
         redrawTimer = new Timer(0, redrawAL);
         redrawTimer.start();
@@ -224,9 +226,10 @@ public class Game extends JPanel {
                             iframesTime = System.currentTimeMillis();
                             hasIFrames = true;
 
-                            g.moveTimer.stop();
-                            g.setStopped(true);
-                            g.setStopTime(System.currentTimeMillis());
+//                            g.moveTimer.stop();
+//                            g.setStopped(true);
+//                            g.setStopTime(System.currentTimeMillis());
+                            resetBoard = true;
                         }
                         if (life == 0) {
                             gameOver();
@@ -236,6 +239,27 @@ public class Game extends JPanel {
                 }
                 gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
             }
+        }
+
+//        Return the board entities (pacman and ghosts) to their initial position.
+        if (resetBoard && !isGameOver) {
+            ghosts.clear();
+            GhostFactory gf = new GhostFactory();
+            for (InitGhostData gd : mapData.getGhostsData()) {
+                ghosts.add(gf.getGhost(gd.getType(), gd.getX(), gd.getY(), this));
+            }
+            for (Ghost g : ghosts) {
+                g.moveTimer.stop();
+                g.setStopped(true);
+                g.setStopTime(System.currentTimeMillis());
+            }
+            pacman.logicalPosition.x = 1;
+            pacman.logicalPosition.y = 5;
+            pacman.pixelPosition.x = pacman.logicalPosition.x * 28;
+            pacman.pixelPosition.y = pacman.logicalPosition.y * 28;
+            pacman.activeMove = moveType.NONE;
+            pacman.todoMove = moveType.NONE;
+            resetBoard = false;
         }
     }
 
@@ -354,7 +378,7 @@ public class Game extends JPanel {
 
         long nowMillis = System.currentTimeMillis();
         for (Ghost g : ghosts) {
-            if ((int) ((nowMillis - g.getStopTime()) / 1000) >= 3 && g.isStopped()) {
+            if ((int) ((nowMillis - g.getStopTime()) / 1000) >= 3 && g.isStopped() || pacman.activeMove != moveType.NONE) {
                 g.moveTimer.start();
                 g.setStopped(false);
             }
@@ -506,7 +530,7 @@ public class Game extends JPanel {
      * */
     @Override
     public void processEvent(AWTEvent ae) {
-        if (ae.getID() == Messages.UPDATE) {
+        if (ae.getID() == Messages.UPDATE && !isGameKilled) {
             update();
             if (score >= 200) {
                 siren.stop();
@@ -521,7 +545,7 @@ public class Game extends JPanel {
                 gameStats.setText("    Press R to try again !");
                 saveHighscore();
             }
-        } else if (ae.getID() == Messages.COLTEST) {
+        } else if (ae.getID() == Messages.COLTEST && !isGameKilled) {
             if (!isGameOver) {
                 collisionTest();
             }
@@ -531,16 +555,19 @@ public class Game extends JPanel {
                 restart();
             }
         } else if (ae.getID() == Messages.BACK) {
+            System.out.println("GOT HERE");
+            isGameKilled = true;
             pac6.stop();
             siren.stop();
             pacman.moveTimer.stop();
             for (Ghost g : ghosts) {
                 g.moveTimer.stop();
             }
+            this.removeAll();
 //            saveHighscore();
             new StartWindow();
             windowParent.dispose();
-        } else if (ae.getID() == Messages.EXPLODE) {
+        } else if (ae.getID() == Messages.EXPLODE && !isGameKilled) {
             explosionTime = System.currentTimeMillis();
             explosionFire = true;
             if (!armedBombs.isEmpty()) {
