@@ -1,6 +1,6 @@
 package view;
 
-import model.Question;
+import model.*;
 
 import javax.swing.*;
 
@@ -132,13 +132,14 @@ public class QuestionScreen extends JFrame {
             allQuestionsBTN.setForeground(Color.black);
             eq.clear();
             //create array of only easy questions
-            for (Question q : al) {
-                if (q.diff == 1 && !eq.contains(q)) {
-                    eq.add(q);
-
-                }
-
-            }
+//            for (Question q : al) {
+//                if (q.diff == 1 && !eq.contains(q)) {
+//                    eq.add(q);
+//
+//                }
+//            }
+            Criteria easyQ = new CriteriaEasy();
+            eq = easyQ.meetCriteria(al);
             comboBox.setModel(new DefaultComboBoxModel<Question>(eq.toArray(new Question[0])));
             //display the answers for each question
             if (eq.size() > 0) {
@@ -176,13 +177,14 @@ public class QuestionScreen extends JFrame {
             allQuestionsBTN.setForeground(Color.black);
             mq.clear();
             //create array of only medium questions
-            for (Question q : al) {
-                if (q.diff == 2 && !mq.contains(q)) {
-                    mq.add(q);
-
-                }
-
-            }
+//            for (Question q : al) {
+//                if (q.diff == 2 && !mq.contains(q)) {
+//                    mq.add(q);
+//
+//                }
+//            }
+            Criteria mediumQ = new CriteriaMedium();
+            mq = mediumQ.meetCriteria(al);
             comboBox.setModel(new DefaultComboBoxModel<Question>(mq.toArray(new Question[0])));
             //display the answers for each question
             if (mq.size() > 0) {
@@ -219,14 +221,14 @@ public class QuestionScreen extends JFrame {
             allQuestionsBTN.setForeground(Color.black);
             hq.clear();
             //create array of only hard questions
-            for (Question q : al) {
-                if (q.diff == 3 && !hq.contains(q)) {
-                    hq.add(q);
-
-                }
-
-            }
-
+//            for (Question q : al) {
+//                if (q.diff == 3 && !hq.contains(q)) {
+//                    hq.add(q);
+//
+//                }
+//            }
+            Criteria hardQ = new CriteriaHard();
+            hq = hardQ.meetCriteria(al);
 
             comboBox.setModel(new DefaultComboBoxModel<Question>(hq.toArray(new Question[0])));
             //display the answers for each question
