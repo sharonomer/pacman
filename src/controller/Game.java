@@ -54,6 +54,7 @@ public class Game extends JPanel {
     public boolean explosionFire = false;
     public boolean hasIFrames = false;
     public boolean resetBoard = false;
+    public static boolean isPausedBoolean = false;
     public int scoreToAdd = 0;
 
     public int level = 1;
@@ -378,7 +379,8 @@ public class Game extends JPanel {
 
         long nowMillis = System.currentTimeMillis();
         for (Ghost g : ghosts) {
-            if ((int) ((nowMillis - g.getStopTime()) / 1000) >= 3 && g.isStopped() || pacman.activeMove != moveType.NONE) {
+            if (((int) ((nowMillis - g.getStopTime()) / 1000) >= 3 && g.isStopped() || pacman.activeMove != moveType.NONE)
+                && !isPausedBoolean) {
                 g.moveTimer.start();
                 g.setStopped(false);
             }
@@ -658,6 +660,7 @@ public class Game extends JPanel {
                 g.moveTimer.start();
             }
         }
+        isPausedBoolean = paused;
     }
 
     public Game() {
