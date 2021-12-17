@@ -388,7 +388,7 @@ public class EditQuestionScreen extends JFrame{
             }
         });
 
-
+        pack();
         setVisible(true);
     }
     //check whether the user filled the fields correctly or not. if not - show the user exactly where and what is the problem
