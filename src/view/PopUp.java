@@ -14,7 +14,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 /**
- * @author unknown
+ * This page is a popup that will display a question and will appear after
+ * the user eat a question
  */
 public class PopUp extends JFrame {
     public PopUp(Question q) {
@@ -25,6 +26,7 @@ public class PopUp extends JFrame {
         int pointsForCorrectAnswer = 0;
         int pointsForWrongAnswer = 0;
         String title = "";
+        //get the level of the question and set the points and the title
         switch (q.getDiff()) {
             case 1:
                 getContentPane().setBackground(Color.white);
