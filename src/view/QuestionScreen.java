@@ -198,6 +198,7 @@ public class QuestionScreen extends JFrame {
         hardQuestionBTN.setBackground(Color.RED);
         GridBagConstraints gbc_HardQuestionBTN = new GridBagConstraints();
         gbc_HardQuestionBTN.insets = new Insets(0, 0, 5, 5);
+        gbc_HardQuestionBTN.anchor = GridBagConstraints.WEST;
         gbc_HardQuestionBTN.gridx = 19;
         gbc_HardQuestionBTN.gridy = 10;
         getContentPane().add(hardQuestionBTN, gbc_HardQuestionBTN);
@@ -233,11 +234,11 @@ public class QuestionScreen extends JFrame {
             pack();
         });
 
-
         allQuestionsBTN.setForeground(Color.ORANGE);
         allQuestionsBTN.setBackground(Color.CYAN);
         GridBagConstraints gbc_allQuestionsBTN = new GridBagConstraints();
         gbc_allQuestionsBTN.insets = new Insets(0, 0, 5, 5);
+        gbc_allQuestionsBTN.anchor = GridBagConstraints.WEST;
         gbc_allQuestionsBTN.gridx = 20;
         gbc_allQuestionsBTN.gridy = 10;
         getContentPane().add(allQuestionsBTN, gbc_allQuestionsBTN);
@@ -319,7 +320,6 @@ public class QuestionScreen extends JFrame {
             lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
             lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
             lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
-
         });
         allQuestionsBTN.doClick();
         setVisible(true);
