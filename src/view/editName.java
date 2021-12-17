@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Objects;
-
+/**
+ * In this screen the user will provide a nickname before starting the game
+ */
 public class editName extends JFrame {
           private JLabel title;
           public JTextField tname;

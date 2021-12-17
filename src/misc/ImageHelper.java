@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-
+/**
+ * a class that gives us helper functions for rotating and flipping images
+ */
 public class ImageHelper {
 
     public static Image rotate90(Image i) {

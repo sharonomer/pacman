@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-
+/**
+ * class that implements the criteria interface for medium questions
+ */
 public class CriteriaMedium implements Criteria {
     @Override
     public ArrayList<Question> meetCriteria(ArrayList<Question> questions) {

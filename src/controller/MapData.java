@@ -7,7 +7,9 @@ import model.TeleportTunnel;
 
 import java.awt.*;
 import java.util.ArrayList;
-
+/**
+ * class that saves the map elements as objects
+ */
 public class MapData {
 
     public int x;

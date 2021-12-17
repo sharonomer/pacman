@@ -44,7 +44,7 @@ public class QuestionScreen extends JFrame {
         getContentPane().setLayout(gridBagLayout);
 
 
-//		JButton backBTN = new JButton("Back");
+
         FancyButton backBTN = new FancyButton("Back", 20f);
         GridBagConstraints gbc_backBTN = new GridBagConstraints();
         gbc_backBTN.insets = new Insets(0, 0, 5, 5);
@@ -54,7 +54,7 @@ public class QuestionScreen extends JFrame {
 
 
 
-//				JButton btnNewQuestion = new JButton("Add a New Question");
+
         FancyButton btnNewQuestion = new FancyButton("Add a New Question", 20f);
         btnNewQuestion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -131,13 +131,7 @@ public class QuestionScreen extends JFrame {
             hardQuestionBTN.setForeground(Color.black);
             allQuestionsBTN.setForeground(Color.black);
             eq.clear();
-            //create array of only easy questions
-//            for (Question q : al) {
-//                if (q.diff == 1 && !eq.contains(q)) {
-//                    eq.add(q);
-//
-//                }
-//            }
+
             Criteria easyQ = new CriteriaEasy();
             eq = easyQ.meetCriteria(al);
             comboBox.setModel(new DefaultComboBoxModel<Question>(eq.toArray(new Question[0])));
@@ -176,13 +170,7 @@ public class QuestionScreen extends JFrame {
             hardQuestionBTN.setForeground(Color.black);
             allQuestionsBTN.setForeground(Color.black);
             mq.clear();
-            //create array of only medium questions
-//            for (Question q : al) {
-//                if (q.diff == 2 && !mq.contains(q)) {
-//                    mq.add(q);
-//
-//                }
-//            }
+
             Criteria mediumQ = new CriteriaMedium();
             mq = mediumQ.meetCriteria(al);
             comboBox.setModel(new DefaultComboBoxModel<Question>(mq.toArray(new Question[0])));
@@ -220,13 +208,7 @@ public class QuestionScreen extends JFrame {
             hardQuestionBTN.setForeground(Color.ORANGE);
             allQuestionsBTN.setForeground(Color.black);
             hq.clear();
-            //create array of only hard questions
-//            for (Question q : al) {
-//                if (q.diff == 3 && !hq.contains(q)) {
-//                    hq.add(q);
-//
-//                }
-//            }
+
             Criteria hardQ = new CriteriaHard();
             hq = hardQ.meetCriteria(al);
 
@@ -287,7 +269,7 @@ public class QuestionScreen extends JFrame {
         });
 
 
-//				JButton DeleteBTN = new JButton("Delete");
+
         FancyButton DeleteBTN = new FancyButton("Delete", 20f);
         GridBagConstraints gbc_DeleteBTN = new GridBagConstraints();
         gbc_DeleteBTN.insets = new Insets(0, 0, 5, 5);
@@ -312,7 +294,6 @@ public class QuestionScreen extends JFrame {
 
 
         // go to EditQuestionScreen in order to edit selected question
-//				JButton editBTN = new JButton("Edit");
         FancyButton editBTN = new FancyButton("Edit", 20f);
         editBTN.addActionListener(e -> {
             Question selectedQuestion = (Question) comboBox.getSelectedItem();

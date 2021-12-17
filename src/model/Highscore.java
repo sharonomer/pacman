@@ -1,7 +1,9 @@
 package model;
 
 import java.sql.Date;
-
+/**
+ * save the new scores
+ */
 public class Highscore{
 
     public Integer score;

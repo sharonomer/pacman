@@ -17,7 +17,10 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MapEditor extends JFrame {
-
+    /**
+     * This page allow the user to edit the map of the game
+     * and then play with the new map
+     */
     public MapEditor(){
         setSize(650,400);
         setTitle("Map Editor");
@@ -42,7 +45,7 @@ public class MapEditor extends JFrame {
         JLabel l7 = new JLabel("3 : Cyan Ghost (Patrol)");
         JLabel l8 = new JLabel("F : Fruit");
         JLabel l9 = new JLabel("B : Ghost Base");
-        //JLabel l4 = new JLabel("1 : Red Ghost (Chaser)");
+
 
         l0.setForeground(Color.yellow);
         l1.setForeground(Color.yellow);
@@ -100,7 +103,7 @@ public class MapEditor extends JFrame {
             }
         });
         sideBar.add(startButton,BorderLayout.SOUTH);
-        //setLayout(new Grid);
+
 
         setVisible(true);
     }
@@ -158,13 +161,13 @@ public class MapEditor extends JFrame {
             }
             if(c == 'O'){
                 map[i][j] = 0;
-//                customMap.getPufoodPositions().add(new Bomb(i,j,0));
+
                 customMap.getFoodPositions().add(new Bomb(i,j,0));
             }
             if(c == 'F'){
                 map[i][j] = 0;
                 customMap.getFoodPositions().add(new Bomb(i,j,ThreadLocalRandom.current().nextInt(4)+2));
-//                customMap.getPufoodPositions().add(new Bomb(i,j, ThreadLocalRandom.current().nextInt(4)+1));
+
             }
             if(c == 'B'){
                 map[i][j] = 0;
@@ -189,19 +192,13 @@ public class MapEditor extends JFrame {
             }
         }
 
-        //Print map array
-        /*for(int ii=0;ii<my;ii++){
-            for(int jj=0;jj<mx;jj++){
-                System.out.print(map[jj][ii] + " ");
-            }
-            System.out.print('\n');
-        }*/
+
 
         customMap.setMap(map);
         customMap.setCustom(true);
         System.out.println("Map Read OK !");
         return customMap;
-        //new PacWindow(customMap);
+
     }
 
 }

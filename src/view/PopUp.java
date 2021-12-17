@@ -71,34 +71,29 @@ public class PopUp extends JFrame {
         ((GridBagLayout)contentPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
         //---- question ----
-//        question.setText("question");
         contentPane.add(question, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 5), 0, 0));
 
         //---- radioButton1 ----
-//        radioButton1.setText("answer1");
         radioButton1.setActionCommand(q.answers.get(0).isCorrect() ? "true" : "false");
         contentPane.add(radioButton1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 5), 0, 0));
 
         //---- radioButton2 ----
-//        radioButton2.setText("answer2");
         radioButton2.setActionCommand(q.answers.get(1).isCorrect() ? "true" : "false");
         contentPane.add(radioButton2, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 5), 0, 0));
 
         //---- radioButton3 ----
-//        radioButton3.setText("answer3");
         radioButton3.setActionCommand(q.answers.get(2).isCorrect() ? "true" : "false");
         contentPane.add(radioButton3, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 5), 0, 0));
 
         //---- radioButton4 ----
-//        radioButton4.setText("answer4");
         radioButton4.setActionCommand(q.answers.get(3).isCorrect() ? "true" : "false");
         contentPane.add(radioButton4, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,

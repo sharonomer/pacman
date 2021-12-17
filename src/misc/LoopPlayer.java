@@ -6,7 +6,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.BufferedInputStream;
-
+/**
+ * a class that lets us loop sound files
+ */
 public class LoopPlayer {
 
     Clip clip;

@@ -1,7 +1,9 @@
 package model;
 
 import java.awt.*;
-
+/**
+ * enum that defines specific events
+ */
 public class Messages {
 
     public static final int UPDATE = AWTEvent.RESERVED_ID_MAX + 1;

@@ -1,7 +1,9 @@
 package model;
 
 import controller.Game;
-
+/**
+ * Use in the factory design pattern to initialize new ghosts based on the given types
+ */
 public class GhostFactory {
     public Ghost getGhost(ghostType type, int x, int y, Game g) {
         Ghost gh = null;

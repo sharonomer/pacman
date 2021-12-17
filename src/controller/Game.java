@@ -15,7 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
-
+/**
+ * The main logic behind the pacman game
+ */
 public class Game extends JPanel {
 
     public String name;
@@ -107,6 +109,7 @@ public class Game extends JPanel {
         availableQuestionPoints = md.getAvailablePointsForQuestion();
         armedBombs = new ArrayList<>();
 
+        //get the level of the question
         for (Question q : questions) {
             switch (q.getDiff()) {
                 case 1:
@@ -227,9 +230,7 @@ public class Game extends JPanel {
                             iframesTime = System.currentTimeMillis();
                             hasIFrames = true;
 
-//                            g.moveTimer.stop();
-//                            g.setStopped(true);
-//                            g.setStopTime(System.currentTimeMillis());
+
                             resetBoard = true;
                         }
                         if (life == 0) {

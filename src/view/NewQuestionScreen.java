@@ -71,7 +71,7 @@ public class NewQuestionScreen extends JFrame {
         getContentPane().add(quesionBodyTF, gbc_textField);
         quesionBodyTF.setColumns(10);
 
-//		JButton btnClean = new JButton("Clean All");
+
         FancyButton btnClean = new FancyButton("Clean All", 20f);
         GridBagConstraints gbc_btnClean = new GridBagConstraints();
         gbc_btnClean.insets = new Insets(0, 0, 5, 5);
@@ -201,13 +201,11 @@ public class NewQuestionScreen extends JFrame {
         answerChecklbl.setForeground(Color.RED);
         GridBagConstraints gbc_answerChecklbl = new GridBagConstraints();
         gbc_answerChecklbl.insets = new Insets(0, 0, 5, 5);
-//        gbc_answerChecklbl.gridx = 6;
         gbc_answerChecklbl.gridx = 9;
         gbc_answerChecklbl.gridy = 9;
         getContentPane().add(answerChecklbl, gbc_answerChecklbl);
 
 
-//		JButton btnSave = new JButton("Save");
         FancyButton btnSave = new FancyButton("Save", 20f);
         GridBagConstraints gbc_btnSave = new GridBagConstraints();
         gbc_btnSave.insets = new Insets(0, 0, 0, 5);

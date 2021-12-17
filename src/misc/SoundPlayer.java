@@ -6,7 +6,9 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.BufferedInputStream;
-
+/**
+ * a class that gives us helper functions for playing the sound files in the game
+ */
 public class SoundPlayer {
     public static synchronized void playAsync(final String name) {
         new Thread(new Runnable() {

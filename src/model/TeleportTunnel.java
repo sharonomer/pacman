@@ -1,7 +1,10 @@
 package model;
 
 import java.awt.*;
-
+/**
+ * This page defines the teleport.In level 2 the user can get into the teleport and
+ * transfer to the second teleport in the map.
+ */
 public class TeleportTunnel {
 
     public Point from;

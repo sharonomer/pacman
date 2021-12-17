@@ -6,7 +6,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
+/**
+The main page of the game. the user can start the game, read the instructions, customize the map, edit
+ the questions and view the highscores
+ */
 public class StartWindow extends JFrame {
 
     public StartWindow(){
@@ -48,7 +51,6 @@ public class StartWindow extends JFrame {
 
         startButton.addActionListener(e -> {
             editName en = new editName();
-            // TODO: delete this comment PacWindow pw = new PacWindow();
             dispose();
         });
         customButton.addActionListener(e -> {

@@ -9,7 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.Scanner;
-
+/**
+ * This page is the screen of the game include the map' the pacman and the ghosts
+ */
 public class PacWindow extends JFrame {
 
     public PacWindow(String username) {
@@ -50,7 +52,7 @@ public class PacWindow extends JFrame {
         JLabel gameStats = new JLabel("    Score : 0");
         gameStats.setForeground(new Color(255, 243, 36));
 
-        //int[][] mapLoaded = loadMap(27,29,"/maps/map1.txt");
+
         adjustMap(md);
         Game pb = new Game(gameStats, md, this);
         pb.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new LineBorder(Color.BLUE)));
