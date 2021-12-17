@@ -84,7 +84,7 @@ public class QuestionScreen extends JFrame {
         JLabel lblAnswer1 = new JLabel(al.get(0).answers.get(0).aBody.toString());
         lblAnswer1.setForeground(Color.ORANGE);
         GridBagConstraints gbc_lblAnswer1 = new GridBagConstraints();
-        gbc_lblAnswer1.gridwidth = 2;
+        gbc_lblAnswer1.gridwidth = 3;
         gbc_lblAnswer1.insets = new Insets(0, 0, 5, 5);
         gbc_lblAnswer1.gridx = 18;
         gbc_lblAnswer1.gridy = 5;
@@ -93,7 +93,7 @@ public class QuestionScreen extends JFrame {
         JLabel lblAnswer2 = new JLabel(al.get(0).answers.get(1).aBody.toString());
         lblAnswer2.setForeground(Color.ORANGE);
         GridBagConstraints gbc_lblAnswer2 = new GridBagConstraints();
-        gbc_lblAnswer2.gridwidth = 2;
+        gbc_lblAnswer2.gridwidth = 3;
         gbc_lblAnswer2.insets = new Insets(0, 0, 5, 5);
         gbc_lblAnswer2.gridx = 18;
         gbc_lblAnswer2.gridy = 6;
@@ -102,7 +102,7 @@ public class QuestionScreen extends JFrame {
         JLabel lblAnswer3 = new JLabel(al.get(0).answers.get(2).aBody.toString());
         lblAnswer3.setForeground(Color.ORANGE);
         GridBagConstraints gbc_lblAnswer3 = new GridBagConstraints();
-        gbc_lblAnswer3.gridwidth = 2;
+        gbc_lblAnswer3.gridwidth = 3;
         gbc_lblAnswer3.insets = new Insets(0, 0, 5, 5);
         gbc_lblAnswer3.gridx = 18;
         gbc_lblAnswer3.gridy = 7;
@@ -111,7 +111,7 @@ public class QuestionScreen extends JFrame {
         JLabel lblAnswer4 = new JLabel(al.get(0).answers.get(3).aBody.toString());
         lblAnswer4.setForeground(Color.ORANGE);
         GridBagConstraints gbc_lblAnswer4 = new GridBagConstraints();
-        gbc_lblAnswer4.gridwidth = 2;
+        gbc_lblAnswer4.gridwidth = 3;
         gbc_lblAnswer4.insets = new Insets(0, 0, 5, 5);
         gbc_lblAnswer4.gridx = 18;
         gbc_lblAnswer4.gridy = 8;
