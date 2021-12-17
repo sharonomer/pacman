@@ -30,14 +30,20 @@ public class Instructions extends JFrame {
         JTextArea ta = new JTextArea();
         ta.setBackground(Color.black);
         ta.setForeground(Color.yellow);
-        ta.setText("Pac-Man is an action maze chase video game; the player controls the eponymous character \n" +
-                "through an enclosed maze. The objective of the game is to eat all of the dots placed in the \n" +
-                "maze while avoiding four colored ghosts — Blinky (red), Pinky (pink), Inky (cyan), and Clyde (orange)\n" +
-                " — that pursue him. When Pac-Man eats all of the dots, the player advances to the next level. \n" +
-                "If Pac-Man makes contact with a ghost, he will lose a life; the game ends when all lives are lost. \n" +
-                "Each of the four ghosts have their own unique, distinct artificial intelligence; Blinky gives direct chase\n" +
-                " to Pac-Man, Pinky and Inky try to position themselves in front of Pac-Man, usually by cornering him,\n" +
-                " and Clyde will switch between chasing Pac-Man and fleeing from him.");
+        ta.setText("Playing Pacman is easy to learn and hard to master. Simply score as many \n" +
+                "points as you can eating the small dots all around the maze. 1 point per dot, \n" +
+                "Big points come when you eat a Question Mark worth 1-3 points depending on the \n" +
+                "difficulty of the question located randomly around the maze. \n" +
+                "Warning!! incorrect answers will lower the score depending on the level of difficulty. \n" +
+                "5 points reward for eating a fruit. \n" +
+                "You can gather a possible 50 points for each level (4 levels in total of 200 points).\n" +
+                "Big flashing dots called Bombs located in each corner of the maze, once eaten,\n" +
+                "it turns red and you can explode it by clicking space to kill a ghost.\n" +
+                "Make sure to avoid ghosts at all times, once you make contact with a ghost\n" +
+                "it will cost you a life, you have a total of 3 lives.\n\n" +
+                "Key bindings:\nMovement:             Back:             Explode bomb(s):\n" +
+                "       [↑]\n" +
+                "[←] [↓] [→]               [Esc]               [Space-bar]");
 
         ta.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(20,10,20,10),new LineBorder(Color.yellow)),new EmptyBorder(10,10,10,10)));
         getContentPane().add(ta);
