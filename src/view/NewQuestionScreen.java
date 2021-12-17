@@ -338,7 +338,7 @@ public class NewQuestionScreen extends JFrame {
             }
         });
 
-
+        pack();
         setVisible(true);
     }
 
