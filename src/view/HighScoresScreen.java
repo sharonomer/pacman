@@ -10,7 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * This page will display the best scores include the name of the user and the
+ * date of the game.
+ */
 public class HighScoresScreen extends JFrame {
 
 
@@ -23,8 +26,6 @@ public class HighScoresScreen extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ArrayList<Highscore> hs = s.getHighscores();
-//        System.out.println((hs));
-//        System.out.println((hs.get(0).getUsername()));
         setForeground(Color.yellow);
 
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -46,6 +47,7 @@ public class HighScoresScreen extends JFrame {
         ArrayList<String> usersScore = new ArrayList<>();
         ArrayList<String> dates = new ArrayList<>();
 
+        //if the user got 200 points - add an icon of a cup to the name
         for (int i = 0; i < Math.min(10, hs.size()); i++) {
             if (hs.get(i).getScore() >= 200)
                 usersArray.add(i + 1 + ") " + hs.get(i).getUsername() + " 🏆");
