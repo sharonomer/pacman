@@ -81,7 +81,9 @@ public class QuestionScreen extends JFrame {
         getContentPane().add(comboBox, gbc_comboBox);
 
 
-        JLabel lblAnswer1 = new JLabel(al.get(0).answers.get(0).aBody.toString());
+        JLabel lblAnswer1 = new JLabel("");
+        if (al.size() != 0)
+            lblAnswer1 = new JLabel(al.get(0).answers.get(0).aBody.toString());
         lblAnswer1.setForeground(Color.ORANGE);
         GridBagConstraints gbc_lblAnswer1 = new GridBagConstraints();
         gbc_lblAnswer1.gridwidth = 3;
@@ -90,7 +92,9 @@ public class QuestionScreen extends JFrame {
         gbc_lblAnswer1.gridy = 5;
         getContentPane().add(lblAnswer1, gbc_lblAnswer1);
 
-        JLabel lblAnswer2 = new JLabel(al.get(0).answers.get(1).aBody.toString());
+        JLabel lblAnswer2 = new JLabel("");
+        if (al.size() != 0)
+            lblAnswer2 = new JLabel(al.get(0).answers.get(1).aBody.toString());
         lblAnswer2.setForeground(Color.ORANGE);
         GridBagConstraints gbc_lblAnswer2 = new GridBagConstraints();
         gbc_lblAnswer2.gridwidth = 3;
@@ -99,7 +103,9 @@ public class QuestionScreen extends JFrame {
         gbc_lblAnswer2.gridy = 6;
         getContentPane().add(lblAnswer2, gbc_lblAnswer2);
 
-        JLabel lblAnswer3 = new JLabel(al.get(0).answers.get(2).aBody.toString());
+        JLabel lblAnswer3 = new JLabel("");
+        if (al.size() != 0)
+            lblAnswer3 = new JLabel(al.get(0).answers.get(2).aBody.toString());
         lblAnswer3.setForeground(Color.ORANGE);
         GridBagConstraints gbc_lblAnswer3 = new GridBagConstraints();
         gbc_lblAnswer3.gridwidth = 3;
@@ -108,7 +114,9 @@ public class QuestionScreen extends JFrame {
         gbc_lblAnswer3.gridy = 7;
         getContentPane().add(lblAnswer3, gbc_lblAnswer3);
 
-        JLabel lblAnswer4 = new JLabel(al.get(0).answers.get(3).aBody.toString());
+        JLabel lblAnswer4 = new JLabel("");
+        if (al.size() != 0)
+            lblAnswer4 = new JLabel(al.get(0).answers.get(3).aBody.toString());
         lblAnswer4.setForeground(Color.ORANGE);
         GridBagConstraints gbc_lblAnswer4 = new GridBagConstraints();
         gbc_lblAnswer4.gridwidth = 3;
@@ -125,6 +133,10 @@ public class QuestionScreen extends JFrame {
         gbc_EasyQuestionsBTN.gridy = 10;
         getContentPane().add(easyQuestionsBTN, gbc_EasyQuestionsBTN);
         //display only easy question
+        JLabel finalLblAnswer = lblAnswer1;
+        JLabel finalLblAnswer1 = lblAnswer2;
+        JLabel finalLblAnswer2 = lblAnswer3;
+        JLabel finalLblAnswer3 = lblAnswer4;
         easyQuestionsBTN.addActionListener(e -> {
             easyQuestionsBTN.setForeground(Color.ORANGE);
             mediumQuestionBTN.setForeground(Color.black);
@@ -139,17 +151,17 @@ public class QuestionScreen extends JFrame {
             if (eq.size() > 0) {
                 Question selectedItem = (Question) comboBox.getSelectedItem();
                 comboBox.setSelectedItem(eq.get(0));
-                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
+                finalLblAnswer.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+                finalLblAnswer1.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+                finalLblAnswer2.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+                finalLblAnswer3.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
             } else {
                 //if there is no question display empty labels
                 comboBox.setSelectedItem(null);
-                lblAnswer1.setText(" ");
-                lblAnswer2.setText(" ");
-                lblAnswer3.setText(" ");
-                lblAnswer4.setText(" ");
+                finalLblAnswer.setText(" ");
+                finalLblAnswer1.setText(" ");
+                finalLblAnswer2.setText(" ");
+                finalLblAnswer3.setText(" ");
             }
             pack();
         });
@@ -164,6 +176,10 @@ public class QuestionScreen extends JFrame {
         getContentPane().add(mediumQuestionBTN, gbc_MediumQuestionBTN);
 
         //display only medium question
+        JLabel finalLblAnswer4 = lblAnswer1;
+        JLabel finalLblAnswer5 = lblAnswer2;
+        JLabel finalLblAnswer6 = lblAnswer3;
+        JLabel finalLblAnswer7 = lblAnswer4;
         mediumQuestionBTN.addActionListener(e -> {
             easyQuestionsBTN.setForeground(Color.black);
             mediumQuestionBTN.setForeground(Color.ORANGE);
@@ -178,18 +194,18 @@ public class QuestionScreen extends JFrame {
             if (mq.size() > 0) {
                 Question selectedItem = (Question) comboBox.getSelectedItem();
                 comboBox.setSelectedItem(mq.get(0));
-                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
+                finalLblAnswer4.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+                finalLblAnswer5.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+                finalLblAnswer6.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+                finalLblAnswer7.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
             }
             //if there is no question display empty labels
             else {
                 comboBox.setSelectedItem(null);
-                lblAnswer1.setText(" ");
-                lblAnswer2.setText(" ");
-                lblAnswer3.setText(" ");
-                lblAnswer4.setText(" ");
+                finalLblAnswer4.setText(" ");
+                finalLblAnswer5.setText(" ");
+                finalLblAnswer6.setText(" ");
+                finalLblAnswer7.setText(" ");
             }
             pack();
         });
@@ -203,6 +219,10 @@ public class QuestionScreen extends JFrame {
         gbc_HardQuestionBTN.gridy = 10;
         getContentPane().add(hardQuestionBTN, gbc_HardQuestionBTN);
 
+        JLabel finalLblAnswer8 = lblAnswer1;
+        JLabel finalLblAnswer9 = lblAnswer2;
+        JLabel finalLblAnswer10 = lblAnswer3;
+        JLabel finalLblAnswer11 = lblAnswer4;
         hardQuestionBTN.addActionListener(e -> {
             easyQuestionsBTN.setForeground(Color.black);
             mediumQuestionBTN.setForeground(Color.black);
@@ -218,18 +238,18 @@ public class QuestionScreen extends JFrame {
             if (hq.size() > 0) {
                 Question selectedItem = (Question) comboBox.getSelectedItem();
                 comboBox.setSelectedItem(hq.get(0));
-                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
+                finalLblAnswer8.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+                finalLblAnswer9.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+                finalLblAnswer10.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+                finalLblAnswer11.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
             }
             //if there is no question display empty labels
             else {
                 comboBox.setSelectedItem(null);
-                lblAnswer1.setText(" ");
-                lblAnswer2.setText(" ");
-                lblAnswer3.setText(" ");
-                lblAnswer4.setText(" ");
+                finalLblAnswer8.setText(" ");
+                finalLblAnswer9.setText(" ");
+                finalLblAnswer10.setText(" ");
+                finalLblAnswer11.setText(" ");
             }
             pack();
         });
@@ -243,6 +263,10 @@ public class QuestionScreen extends JFrame {
         gbc_allQuestionsBTN.gridy = 10;
         getContentPane().add(allQuestionsBTN, gbc_allQuestionsBTN);
         //display all questions from all levels
+        JLabel finalLblAnswer12 = lblAnswer1;
+        JLabel finalLblAnswer13 = lblAnswer2;
+        JLabel finalLblAnswer14 = lblAnswer3;
+        JLabel finalLblAnswer15 = lblAnswer4;
         allQuestionsBTN.addActionListener(e -> {
             easyQuestionsBTN.setForeground(Color.black);
             mediumQuestionBTN.setForeground(Color.black);
@@ -253,18 +277,18 @@ public class QuestionScreen extends JFrame {
             if (al.size() > 0) {
                 comboBox.setSelectedItem(al.get(0));
                 Question selectedItem = (Question) comboBox.getSelectedItem();
-                lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-                lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-                lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-                lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
+                finalLblAnswer12.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+                finalLblAnswer13.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+                finalLblAnswer14.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+                finalLblAnswer15.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
             }
             //if there is no question display empty labels
             else {
                 comboBox.setSelectedItem(null);
-                lblAnswer1.setText(" ");
-                lblAnswer2.setText(" ");
-                lblAnswer3.setText(" ");
-                lblAnswer4.setText(" ");
+                finalLblAnswer12.setText(" ");
+                finalLblAnswer13.setText(" ");
+                finalLblAnswer14.setText(" ");
+                finalLblAnswer15.setText(" ");
             }
             pack();
         });
@@ -312,14 +336,18 @@ public class QuestionScreen extends JFrame {
         getContentPane().add(editBTN, gbc_editBTN);
 
         //show the answers for the selected question that the user chose
+        JLabel finalLblAnswer16 = lblAnswer1;
+        JLabel finalLblAnswer17 = lblAnswer2;
+        JLabel finalLblAnswer18 = lblAnswer3;
+        JLabel finalLblAnswer19 = lblAnswer4;
         comboBox.addItemListener(e -> {
             System.out.println("item changed in combobox");
             Question selectedItem = (Question) comboBox.getSelectedItem();
 
-            lblAnswer1.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
-            lblAnswer2.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
-            lblAnswer3.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
-            lblAnswer4.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
+            finalLblAnswer16.setText(selectedItem.answers.get(0).aBody.toString() + (selectedItem.answers.get(0).isCorrect ? " (True)" : ""));
+            finalLblAnswer17.setText(selectedItem.answers.get(1).aBody.toString() + (selectedItem.answers.get(1).isCorrect ? " (True)" : ""));
+            finalLblAnswer18.setText(selectedItem.answers.get(2).aBody.toString() + (selectedItem.answers.get(2).isCorrect ? " (True)" : ""));
+            finalLblAnswer19.setText(selectedItem.answers.get(3).aBody.toString() + (selectedItem.answers.get(3).isCorrect ? " (True)" : ""));
         });
         allQuestionsBTN.doClick();
         setVisible(true);

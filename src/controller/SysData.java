@@ -54,7 +54,15 @@ public class SysData {
             questionsAndAnswers.forEach(QAndAs -> parseQuestion((JSONObject) QAndAs));
 
         } catch (IOException | ParseException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException) {
+                File file = new File(qPath);
+                try {
+                    file.createNewFile();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } else
+                e.printStackTrace();
         }
 
         parser.reset();
@@ -74,7 +82,15 @@ public class SysData {
             JSONhighscores.forEach(highscore -> parseHighscore((JSONObject) highscore));
 
         } catch (IOException | ParseException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException) {
+                File file = new File(hsPath);
+                try {
+                    file.createNewFile();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } else
+                e.printStackTrace();
         }
         highscores.sort((hs2, hs1) -> hs1.getScore().compareTo(hs2.getScore())); // descending order
     }
