@@ -40,7 +40,6 @@ public class Game extends JPanel {
     public ArrayList<Bomb> armedBombs;
     public static ArrayList<Ghost> ghosts;
     public ArrayList<TeleportTunnel> teleports;
-    public Trap trap;
     public ArrayList<Question> questions;
     public ArrayList<Point> availableQuestionPoints;
     public ArrayList<Question> easyQ;
@@ -84,6 +83,8 @@ public class Game extends JPanel {
 
     public String tradeLifeString = "";
 
+    public Trap trap;
+    public Food fruit;
     public Boolean drawTrap = true;
     final Timer timerOne = new Timer(5000, this::timerOneMethod);
 
@@ -282,6 +283,7 @@ public class Game extends JPanel {
         switch ((int) ((currentScore - 1) / 50)) {
             case 0:
                 level = 1;
+                makeTrap();
                 tradeLifeString = "";
                 break;
             case 1:
@@ -345,14 +347,12 @@ public class Game extends JPanel {
                         armedBombs.add((Bomb) foodToEat);
                     } else { //Fruit
                         SoundPlayer.play("pacman_eatfruit.wav");
-                        eatenFoods.add(foodToEat);
+//                        eatenFoods.add(foodToEat);
                         foods.remove(foodToEat);
                         scoreToAdd = 1;
                         drawScore = true;
                     }
-
                 }
-
                 //trap
                 else if (foodToEat instanceof Trap) {
                     SoundPlayer.play("pacman_eatghost.wav");
@@ -367,6 +367,10 @@ public class Game extends JPanel {
                     resetBoard = true;
                     levelCheck(this.score);
                     gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life + tradeLifeString);
+                    if (life == 0) {
+                        gameOver();
+                        break;
+                    }
                 }
                    // isPaused(true);
 
@@ -607,10 +611,10 @@ public class Game extends JPanel {
                 restart();
             }
         } else if (ae.getID() == Messages.BACK) {
-            System.out.println("GOT HERE");
             isGameKilled = true;
             pac6.stop();
             siren.stop();
+            timerOne.stop();
             pacman.moveTimer.stop();
             for (Ghost g : ghosts) {
                 g.moveTimer.stop();
@@ -671,6 +675,7 @@ public class Game extends JPanel {
     public void restart() {
 
         siren.stop();
+        timerOne.stop();
         new PacWindow(this.name);
         windowParent.dispose();
     }
@@ -724,15 +729,18 @@ public class Game extends JPanel {
 
     //make a trap close to the pacman
     public void makeTrap() {
-
         if (drawTrap){
                 for (Point p : availableQuestionPoints) {
                     if (Math.sqrt(Math.pow(pacman.logicalPosition.x - p.getX(), 2) +
                             Math.pow(pacman.logicalPosition.y - p.getY(), 2)) <= 3) {
-                        trap = new Trap(((int) (p.getX())), ((int) p.getY()));
-                        foods.add(trap);
+                        if (ThreadLocalRandom.current().nextInt(3) > 0) {
+                            trap = new Trap(((int) (p.getX())), ((int) p.getY()));
+                            foods.add(trap);
+                        } else {
+                            fruit = new Bomb(((int) (p.getX())), ((int) p.getY()), ThreadLocalRandom.current().nextInt(4) + 2);
+                            foods.add(fruit);
+                        }
                         timerOne.start();
-
                         drawTrap = false;
                         break;
                     }
@@ -742,10 +750,10 @@ public class Game extends JPanel {
     //every 5 seconds make a new trap in another position
     private void timerOneMethod(ActionEvent e)
     {
-        System.out.println("5 seconds past");
+//        System.out.println("5 seconds past");
         foods.remove(trap);
+        foods.remove(fruit);
         drawTrap =true;
-
     }
 
     public Game() {
