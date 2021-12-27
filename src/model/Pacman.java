@@ -233,6 +233,9 @@ public class Pacman implements KeyListener{
             case 82: // r
                 parentBoard.dispatchEvent(new ActionEvent(this, Messages.RESET,null));
                 break;
+            case 17: // Ctrl
+                parentBoard.dispatchEvent(new ActionEvent(this, Messages.TRADE_SCORE_FOR_LIFE,null));
+                break;
         }
         //System.out.println(ke.getKeyCode());
     }

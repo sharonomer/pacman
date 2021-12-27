@@ -11,6 +11,5 @@ public class Messages {
     public static final int EXPLODE = AWTEvent.RESERVED_ID_MAX + 3;
     public static final int RESET = AWTEvent.RESERVED_ID_MAX + 4;
     public static final int BACK = AWTEvent.RESERVED_ID_MAX + 5;
-
-
+    public static final int TRADE_SCORE_FOR_LIFE = AWTEvent.RESERVED_ID_MAX + 6;
 }

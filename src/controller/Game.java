@@ -81,6 +81,8 @@ public class Game extends JPanel {
     public MapData mapData;
     public boolean isGameKilled = false;
 
+    public String tradeLife = "";
+
     public Game(JLabel gameStats, MapData md, PacWindow pw) {
         this.mapData = md;
         this.gameStats = gameStats;
@@ -232,6 +234,7 @@ public class Game extends JPanel {
 
 
                             resetBoard = true;
+                            levelCheck(this.score);
                         }
                         if (life == 0) {
                             gameOver();
@@ -239,7 +242,7 @@ public class Game extends JPanel {
                         }
                     }
                 }
-                gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
+                gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life + tradeLife);
             }
         }
 
@@ -272,17 +275,24 @@ public class Game extends JPanel {
         switch ((int) ((currentScore - 1) / 50)) {
             case 0:
                 level = 1;
+                tradeLife = "";
                 break;
             case 1:
                 level = 2;
+                tradeLife = "";
                 break;
             case 2:
                 level = 3;
+                tradeLife = "";
                 if (!isJUnitTest())
                     pacman.setSpeedUp(true);
                 break;
             case 3:
                 level = 4;
+                if (life == 1)
+                    tradeLife = "       PRESS CTRL TO GET ANOTHER LIFE (costs 50)";
+                else
+                    tradeLife = "";
                 if (!isJUnitTest()) {
                     if (!ghostsSpeedUp) {
                         for (Ghost g : ghosts)
@@ -348,7 +358,7 @@ public class Game extends JPanel {
                     foods.remove(foodToEat);
                     score++;
                     levelCheck(this.score);
-                    gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
+                    gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life + tradeLife);
                 }
             }
         }
@@ -414,7 +424,7 @@ public class Game extends JPanel {
             score += pu.getReturnPoints();
 //            pu = null;
             pu.setNull(true);
-            gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
+            gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life + tradeLife);
         }
     }
 
@@ -493,7 +503,7 @@ public class Game extends JPanel {
             g.drawString(Integer.toString(s), pacman.pixelPosition.x + 13, pacman.pixelPosition.y + 50);
             score += s;
             levelCheck(this.score);
-            gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life);
+            gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life + tradeLife);
             clearScore = true;
 
         }
@@ -592,7 +602,15 @@ public class Game extends JPanel {
                 }
                 scoreToAdd = 0;
             }
-        } else {
+        } else if (ae.getID() == Messages.TRADE_SCORE_FOR_LIFE) {
+            if (!isGameOver && level >= 4 && life == 1) {
+                life++;
+                score-=50;
+                tradeLife = "";
+                gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life + tradeLife);
+            }
+        }
+        else {
             super.processEvent(ae);
         }
     }
