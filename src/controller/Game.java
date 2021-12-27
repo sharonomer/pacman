@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 /**
@@ -283,7 +284,7 @@ public class Game extends JPanel {
         switch ((int) ((currentScore - 1) / 50)) {
             case 0:
                 level = 1;
-                makeTrap();
+//                makeTrap();
                 tradeLifeString = "";
                 break;
             case 1:
@@ -730,9 +731,11 @@ public class Game extends JPanel {
     //make a trap close to the pacman
     public void makeTrap() {
         if (drawTrap){
+            Collections.shuffle(availableQuestionPoints);
                 for (Point p : availableQuestionPoints) {
-                    if (Math.sqrt(Math.pow(pacman.logicalPosition.x - p.getX(), 2) +
-                            Math.pow(pacman.logicalPosition.y - p.getY(), 2)) <= 3) {
+                    double pointDist = Math.sqrt(Math.pow(pacman.logicalPosition.x - p.getX(), 2) +
+                            Math.pow(pacman.logicalPosition.y - p.getY(), 2));
+                    if (pointDist >= 3 && pointDist <= 4) {
                         if (ThreadLocalRandom.current().nextInt(3) > 0) {
                             trap = new Trap(((int) (p.getX())), ((int) p.getY()));
                             foods.add(trap);
