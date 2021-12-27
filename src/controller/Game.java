@@ -5,7 +5,7 @@ import model.*;
 import view.PacWindow;
 import view.PopUp;
 import view.StartWindow;
-
+//import java.util.Timer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ public class Game extends JPanel {
     public ArrayList<Bomb> armedBombs;
     public static ArrayList<Ghost> ghosts;
     public ArrayList<TeleportTunnel> teleports;
-
+    public Trap trap;
     public ArrayList<Question> questions;
     public ArrayList<Point> availableQuestionPoints;
     public ArrayList<Question> easyQ;
@@ -83,7 +83,11 @@ public class Game extends JPanel {
 
     public String tradeLife = "";
 
+    public Boolean drawTrap = true;
+    final Timer timerOne = new Timer(5000, this::timerOneMethod);
+
     public Game(JLabel gameStats, MapData md, PacWindow pw) {
+        new Timer(5, evt -> System.out.println("5 seconds past"));
         this.mapData = md;
         this.gameStats = gameStats;
         this.setDoubleBuffered(true);
@@ -110,6 +114,8 @@ public class Game extends JPanel {
         teleports = new ArrayList<>();
         availableQuestionPoints = md.getAvailablePointsForQuestion();
         armedBombs = new ArrayList<>();
+
+
 
         //get the level of the question
         for (Question q : questions) {
@@ -289,6 +295,7 @@ public class Game extends JPanel {
                 break;
             case 3:
                 level = 4;
+                makeTrap();
                 if (life == 1)
                     tradeLife = "       PRESS CTRL TO GET ANOTHER LIFE (costs 50)";
                 else
@@ -342,7 +349,29 @@ public class Game extends JPanel {
                         scoreToAdd = 1;
                         drawScore = true;
                     }
-                } else if (foodToEat instanceof Question) {
+
+                }
+
+                //trap
+                else if (foodToEat instanceof Trap) {
+                    SoundPlayer.play("pacman_eatghost.wav");
+                    eatenFoods.add(foodToEat);
+                    foods.remove(foodToEat);
+                    foodToEat.setEaten(false);
+                    System.out.println("EAT TRAP");
+
+                    life--;
+                    iframesTime = System.currentTimeMillis();
+                    hasIFrames = true;
+                    resetBoard = true;
+                    levelCheck(this.score);
+                    gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life + tradeLife);
+                }
+                   // isPaused(true);
+
+                  //  pu = new PopUp((Question) foodToEat);}
+
+                else if (foodToEat instanceof Question) {
                     eatenFoods.add(foodToEat);
                     foods.remove(foodToEat);
                     foodToEat.setEaten(false);
@@ -462,6 +491,8 @@ public class Game extends JPanel {
                 g.drawImage(pfoodImage[((Bomb) f).type], 10 + f.position.x * 28, 10 + f.position.y * 28, null);
             } else if (f instanceof Question)
                 g.drawImage(((Question) f).getqImage(), 10 + f.position.x * 28, 10 + f.position.y * 28, null);
+            else if (f instanceof Trap)
+                g.drawImage(((Trap) f).gettImage(), 10 + f.position.x * 28, 10 + f.position.y * 28, null);
             else
                 g.drawImage(foodImage, 10 + f.position.x * 28, 10 + f.position.y * 28, null);
         }
@@ -680,6 +711,32 @@ public class Game extends JPanel {
             }
         }
         isPausedBoolean = paused;
+    }
+
+    //make a trap close to the pacman
+    public void makeTrap() {
+
+        if (drawTrap){
+                for (Point p : availableQuestionPoints) {
+                    if (Math.sqrt(Math.pow(pacman.logicalPosition.x - p.getX(), 2) +
+                            Math.pow(pacman.logicalPosition.y - p.getY(), 2)) <= 3) {
+                        trap = new Trap(((int) (p.getX())), ((int) p.getY()));
+                        foods.add(trap);
+                        timerOne.start();
+
+                        drawTrap = false;
+                        break;
+                    }
+            }
+        }
+    }
+    //every 5 seconds make a new trap in another position
+    private void timerOneMethod(ActionEvent e)
+    {
+        System.out.println("5 seconds past");
+        foods.remove(trap);
+        drawTrap =true;
+
     }
 
     public Game() {
