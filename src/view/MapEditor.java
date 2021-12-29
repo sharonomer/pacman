@@ -21,8 +21,8 @@ public class MapEditor extends JFrame {
      * This page allow the user to edit the map of the game
      * and then play with the new map
      */
-    public MapEditor(){
-        setSize(650,400);
+    public MapEditor() {
+        setSize(650, 400);
         setTitle("Map Editor");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -33,7 +33,7 @@ public class MapEditor extends JFrame {
         sideBar.setLayout(new BorderLayout());
         sideBar.setBackground(Color.black);
         JPanel ghostSelection = new JPanel();
-        ghostSelection.setLayout(new BoxLayout(ghostSelection,BoxLayout.Y_AXIS));
+        ghostSelection.setLayout(new BoxLayout(ghostSelection, BoxLayout.Y_AXIS));
         ghostSelection.setBackground(Color.black);
         JLabel l0 = new JLabel("= : Blank Space (without Food)");
         JLabel l1 = new JLabel("_ : Blank Space (with Food)");
@@ -70,18 +70,18 @@ public class MapEditor extends JFrame {
         ghostSelection.add(l9);
 
         setLayout(new BorderLayout());
-        sideBar.add(ghostSelection,BorderLayout.NORTH);
-        getContentPane().add(sideBar,BorderLayout.EAST);
+        sideBar.add(ghostSelection, BorderLayout.NORTH);
+        getContentPane().add(sideBar, BorderLayout.EAST);
 
         JTextArea ta = new JTextArea();
         ta.setBackground(Color.black);
         ta.setForeground(Color.yellow);
         ta.setText("XXXXXXXXXX\n"
-                +  "XP_______X\n"
-                +  "X________X\n"
-                +  "X________X\n"
-                +  "XXXXXXXXXX");
-        ta.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(20,10,20,10),new LineBorder(Color.yellow)),new EmptyBorder(10,10,10,10)));
+                + "XP_______X\n"
+                + "X________X\n"
+                + "X________X\n"
+                + "XXXXXXXXXX");
+        ta.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(20, 10, 20, 10), new LineBorder(Color.yellow)), new EmptyBorder(10, 10, 10, 10)));
         getContentPane().add(ta);
 
 
@@ -93,102 +93,106 @@ public class MapEditor extends JFrame {
                 dispose();
             }
         });
-        sideBar.add(backButton,BorderLayout.CENTER);
+        sideBar.add(backButton, BorderLayout.CENTER);
 
         FancyButton startButton = new FancyButton("Start Game", 30f);
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PacWindow(compileMap(ta.getText()));
+                try {
+                    new PacWindow(compileMap(ta.getText()));
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    JOptionPane.showMessageDialog(null, "Map must be rectangular!");
+                }
             }
         });
-        sideBar.add(startButton,BorderLayout.SOUTH);
+        sideBar.add(startButton, BorderLayout.SOUTH);
 
 
         setVisible(true);
     }
 
     //Resolve Map
-    public static MapData compileMap(String input){
+    public static MapData compileMap(String input) throws ArrayIndexOutOfBoundsException {
         int mx = input.indexOf('\n');
         int my = StringHelper.countLines(input);
-        System.out.println("Making Map "+mx+"x"+my);
+        System.out.println("Making Map " + mx + "x" + my);
 
-        MapData customMap = new MapData(mx,my);
+        MapData customMap = new MapData(mx, my);
         customMap.setCustom(true);
         int[][] map = new int[mx][my];
 
         //Pass Map As Argument
-        int i=0;
-        int j=0;
-        for(char c : input.toCharArray()){
-            if(c == '1'){
+        int i = 0;
+        int j = 0;
+        for (char c : input.toCharArray()) {
+            if (c == '1') {
                 map[i][j] = 0;
-                customMap.getGhostsData().add(new InitGhostData(i,j, ghostType.RED));
-                customMap.getFoodPositions().add(new Food(i,j));
-                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
+                customMap.getGhostsData().add(new InitGhostData(i, j, ghostType.RED));
+                customMap.getFoodPositions().add(new Food(i, j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i, j));
             }
-            if(c == '2'){
+            if (c == '2') {
                 map[i][j] = 0;
-                customMap.getGhostsData().add(new InitGhostData(i,j,ghostType.PINK));
-                customMap.getFoodPositions().add(new Food(i,j));
-                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
+                customMap.getGhostsData().add(new InitGhostData(i, j, ghostType.PINK));
+                customMap.getFoodPositions().add(new Food(i, j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i, j));
             }
-            if(c == '3'){
+            if (c == '3') {
                 map[i][j] = 0;
-                customMap.getGhostsData().add(new InitGhostData(i,j,ghostType.CYAN));
-                customMap.getFoodPositions().add(new Food(i,j));
-                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
+                customMap.getGhostsData().add(new InitGhostData(i, j, ghostType.CYAN));
+                customMap.getFoodPositions().add(new Food(i, j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i, j));
             }
-            if(c == 'P'){
+            if (c == 'P') {
                 map[i][j] = 0;
-                customMap.setPacmanPosition(new Point(i,j));
-                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
+                customMap.setPacmanPosition(new Point(i, j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i, j));
             }
-            if(c == 'X'){
+            if (c == 'X') {
                 map[i][j] = 23;
             }
-            if(c == 'Y'){
+            if (c == 'Y') {
                 map[i][j] = 26;
             }
-            if(c == '_'){
+            if (c == '_') {
                 map[i][j] = 0;
-                customMap.getFoodPositions().add(new Food(i,j));
-                customMap.getAvailablePointsForQuestion().add(new Point(i,j));
+                customMap.getFoodPositions().add(new Food(i, j));
+                customMap.getAvailablePointsForQuestion().add(new Point(i, j));
             }
-            if(c == '='){
+            if (c == '=') {
                 map[i][j] = 0;
             }
-            if(c == 'O'){
+            if (c == 'O') {
                 map[i][j] = 0;
 
-                customMap.getFoodPositions().add(new Bomb(i,j,0));
+                customMap.getFoodPositions().add(new Bomb(i, j, 0));
             }
-            if(c == 'F'){
+            if (c == 'F') {
                 map[i][j] = 0;
-                customMap.getFoodPositions().add(new Bomb(i,j,ThreadLocalRandom.current().nextInt(4)+2));
+                customMap.getFoodPositions().add(new Bomb(i, j, ThreadLocalRandom.current().nextInt(4) + 2));
 
             }
-            if(c == 'B'){
+            if (c == 'B') {
                 map[i][j] = 0;
-                customMap.setGhostBasePosition(new Point(i,j));
+                customMap.setGhostBasePosition(new Point(i, j));
             }
-            if(c == 'L'){
+            if (c == 'L') {
                 map[i][j] = 0;
                 ArrayList<TeleportTunnel> teleports = customMap.getTeleports();
                 teleports.add(new TeleportTunnel(i, j, 26, 14, moveType.LEFT));
                 customMap.setTeleports(teleports);
             }
-            if(c == 'R'){
+            if (c == 'R') {
                 map[i][j] = 0;
                 ArrayList<TeleportTunnel> teleports = customMap.getTeleports();
                 teleports.add(new TeleportTunnel(i, j, 0, 14, moveType.RIGHT));
                 customMap.setTeleports(teleports);
             }
             i++;
-            if(c == '\n'){
+            if (c == '\n') {
                 j++;
-                i=0;
+                i = 0;
             }
         }
 
@@ -199,6 +203,6 @@ public class MapEditor extends JFrame {
         System.out.println("Map Read OK !");
         return customMap;
 
-    }
+}
 
 }

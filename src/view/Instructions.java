@@ -41,9 +41,9 @@ public class Instructions extends JFrame {
                 "it turns red and you can explode it by clicking space to kill a ghost.\n" +
                 "Make sure to avoid ghosts at all times, once you make contact with a ghost\n" +
                 "it will cost you a life, you have a total of 3 lives.\n\n" +
-                "Key bindings:\nMovement:             Back:             Explode bomb(s):\n" +
+                "Key bindings:\nMovement:             Back:             Explode bomb(s):             Trade score for life:\n" +
                 "       [↑]\n" +
-                "[←] [↓] [→]               [Esc]               [Space-bar]");
+                "[←] [↓] [→]               [Esc]               [Space-bar]                        [Ctrl]");
 
         ta.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(20,10,20,10),new LineBorder(Color.yellow)),new EmptyBorder(10,10,10,10)));
         getContentPane().add(ta);
