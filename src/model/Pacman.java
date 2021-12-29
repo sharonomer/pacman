@@ -248,5 +248,7 @@ public class Pacman implements KeyListener{
         this.speedUp = speedUp;
         if (isSpeedUp())
             moveTimer.setDelay(8);
+        else
+            moveTimer.setDelay(16);
     }
 }

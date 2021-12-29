@@ -216,7 +216,6 @@ public class Game extends JPanel {
             g.moveTimer.stop();
         isGameOver = true;
         gameStats.setText("    Press R to try again !");
-        saveHighscore();
     }
 
     /*
@@ -232,6 +231,7 @@ public class Game extends JPanel {
                 if (!g.isDead()) {
                     if (life == 0) {
                         gameOver();
+                        saveHighscore();
                         break;
                     } else {
 
@@ -247,6 +247,7 @@ public class Game extends JPanel {
                         }
                         if (life == 0) {
                             gameOver();
+                            saveHighscore();
                             break;
                         }
                     }
@@ -286,16 +287,24 @@ public class Game extends JPanel {
                 level = 1;
 //                makeTrap();
                 tradeLifeString = "";
+                for (Ghost g : ghosts)
+                    g.setSpeedUp(false);
                 break;
             case 1:
                 level = 2;
                 tradeLifeString = "";
+                for (Ghost g : ghosts)
+                    g.setSpeedUp(false);
+                pacman.setSpeedUp(false);
                 break;
             case 2:
                 level = 3;
                 tradeLifeString = "";
-                if (!isJUnitTest())
+                if (!isJUnitTest()) {
                     pacman.setSpeedUp(true);
+                    for (Ghost g : ghosts)
+                        g.setSpeedUp(false);
+                }
                 break;
             case 3:
                 level = 4;
@@ -305,11 +314,8 @@ public class Game extends JPanel {
                 else
                     tradeLifeString = "";
                 if (!isJUnitTest()) {
-                    if (!ghostsSpeedUp) {
-                        for (Ghost g : ghosts)
-                            g.setSpeedUp(true);
-                        ghostsSpeedUp = true;
-                    }
+                    for (Ghost g : ghosts)
+                        g.setSpeedUp(true);
                 }
                 break;
             default:
@@ -370,6 +376,7 @@ public class Game extends JPanel {
                     gameStats.setText("    Player: " + name + "    Score : " + score + "    Level : " + level + "    Life : " + life + tradeLifeString);
                     if (life == 0) {
                         gameOver();
+                        saveHighscore();
                         break;
                     }
                 }
@@ -589,7 +596,7 @@ public class Game extends JPanel {
     public void processEvent(AWTEvent ae) {
         if (ae.getID() == Messages.UPDATE && !isGameKilled) {
             update();
-            if (score >= 200) {
+            if (score >= 200 && !isGameOver) {
                 siren.stop();
                 pac6.stop();
                 SoundPlayer.play("pacman_intermission.wav");
@@ -599,6 +606,7 @@ public class Game extends JPanel {
                 for (Ghost g : ghosts) {
                     g.moveTimer.stop();
                 }
+                ghosts.clear();
                 gameStats.setText("    Press R to try again !");
                 saveHighscore();
             }
@@ -608,7 +616,7 @@ public class Game extends JPanel {
             }
         } else if (ae.getID() == Messages.RESET) {
             if (isGameOver) {
-                saveHighscore();
+//                saveHighscore();
                 restart();
             }
         } else if (ae.getID() == Messages.BACK) {
@@ -677,6 +685,9 @@ public class Game extends JPanel {
 
         siren.stop();
         timerOne.stop();
+        foods.clear();
+        ghosts.clear();
+        pacman = null;
         new PacWindow(this.name);
         windowParent.dispose();
     }

@@ -279,6 +279,9 @@ public abstract class Ghost {
         if (isSpeedUp()) {
             ghostNormalDelay = 9;
             moveTimer.setDelay(ghostNormalDelay);
+        } else {
+            ghostNormalDelay = 16;
+            moveTimer.setDelay(ghostNormalDelay);
         }
     }
 
